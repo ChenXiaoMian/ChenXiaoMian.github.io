@@ -1,4 +1,5 @@
 ---
-title: about
-date: 2016-12-23 23:05:05
+title: 关于
+layout: about
+comments: false
 ---

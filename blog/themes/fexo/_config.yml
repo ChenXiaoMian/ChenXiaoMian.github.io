@@ -196,6 +196,10 @@ project:
     name: KMInfoCollect
     url: https://github.com/ChenXiaoMian/ownProject/tree/master/KMInfoCollect
     intro: 康美中药材数据采集系统
+  - type: personal
+    name: react-o2o-app
+    url: https://github.com/ChenXiaoMian/react-o2o-app
+    intro: React仿大众点评网App+
   # - type: company
   #   name: Fexo
   #   url: https://github.com/forsigner/fexo

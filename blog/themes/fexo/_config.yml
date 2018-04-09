@@ -192,14 +192,14 @@ link:
 
 
 project:
-  - type: personal
-    name: KMInfoCollect
-    url: https://github.com/ChenXiaoMian/ownProject/tree/master/KMInfoCollect
+  - type: company
+    name: km-data-collection
+    url: https://github.com/ChenXiaoMian/km-data-collection
     intro: 康美中药材数据采集系统
   - type: personal
-    name: react-o2o-app
-    url: https://github.com/ChenXiaoMian/react-o2o-app
-    intro: React仿大众点评网App+
+    name: webpack-multiplepage
+    url: https://github.com/ChenXiaoMian/webpack-multiplepage
+    intro: webpack前端工程化多页面配置
   # - type: company
   #   name: Fexo
   #   url: https://github.com/forsigner/fexo

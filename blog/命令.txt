@@ -1,0 +1,11 @@
+开启服务
+$ hexo server
+
+清理目录
+$ hexo clean
+
+生成页面
+$ hexo generate
+
+发布
+$ hexo deploy

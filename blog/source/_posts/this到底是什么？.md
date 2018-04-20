@@ -3,6 +3,7 @@ title: this到底是什么？
 date: 2018-04-16
 categories: javascript
 tags: [javascript, this]
+line_number: false
 ---
 
 # 为什么要使用this

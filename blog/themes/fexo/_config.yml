@@ -192,6 +192,18 @@ link:
 
 
 project:
+  - type: personal
+    name: wx-extend
+    url: https://github.com/ChenXiaoMian/wx-extend
+    intro: 微信小程序 - 扩展插件
+  - type: company
+    name: vue-kmbi-front
+    url: http://bi.kmzyw.com.cn
+    intro: 中药材决策支持系统
+  - type: company
+    name: vue-poverty-map
+    url: http://fupin.kmzyw.com.cn
+    intro: 全国中药材种植扶贫大数据仪表盘
   - type: company
     name: km-data-collection
     url: https://github.com/ChenXiaoMian/km-data-collection

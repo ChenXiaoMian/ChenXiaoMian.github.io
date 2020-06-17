@@ -182,3 +182,9 @@ app.listen(3000,() => {
 最后，我们成功利用 `Redis` 解决 NodeJS 中 `Session` 存储问题，同时做到了安全，健壮，快速的三个要性。
 
 其实 Redis 还可以实现很多功能，作为一个缓存中间层，在某些场景下，可以大大优化我们的应用的性能，比如在数据更新不频繁，但用户读取频繁的场景下，可以将数据保存在 Redis 中，通过 Node 返回。
+
+## 参考
+
+* [Session 和 Cookie，可别光说不练！](https://juejin.im/post/5ce667d8f265da1b7f29572e)
+* [利用 Redis 解决 NodeJS 中 Session 存储问题](https://juejin.im/post/5d5def966fb9a06b2d77d8ec#comment)
+* [Node & 单页应用 来做一个完整用户系统吧！](https://segmentfault.com/a/1190000007315867#item-2-1)

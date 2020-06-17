@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>html5表单验证笔记 | BestMian&#39;s blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="html5,表单验证," />
+  
+
+  <meta name="description" content="html5中valid、invalid、required的定义:required必须，那input不能为空的意思。 :valid有效，即当填写的内容符合要求的时候触发。 :invalid无效，即当填写的内容不符合要求的时候触发。 input:required:invalid, input:focus:invalid, textarea:required:invalid, textarea:focu">
+<meta name="keywords" content="html5,表单验证">
+<meta property="og:type" content="article">
+<meta property="og:title" content="html5表单验证笔记">
+<meta property="og:url" content="http://www.bestmian.com/2018/05/30/html5表单验证笔记/index.html">
+<meta property="og:site_name" content="BestMian&#39;s blog">
+<meta property="og:description" content="html5中valid、invalid、required的定义:required必须，那input不能为空的意思。 :valid有效，即当填写的内容符合要求的时候触发。 :invalid无效，即当填写的内容不符合要求的时候触发。 input:required:invalid, input:focus:invalid, textarea:required:invalid, textarea:focu">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-16T03:31:49.249Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="html5表单验证笔记">
+<meta name="twitter:description" content="html5中valid、invalid、required的定义:required必须，那input不能为空的意思。 :valid有效，即当填写的内容符合要求的时候触发。 :invalid无效，即当填写的内容不符合要求的时候触发。 input:required:invalid, input:focus:invalid, textarea:required:invalid, textarea:focu">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?e725065614a17e5024342c65ce59cd39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">M</span>
+  
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">M</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#html5中valid、invalid、required的定义"><span class="toc-text">html5中valid、invalid、required的定义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#required"><span class="toc-text">:required</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#valid"><span class="toc-text">:valid</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#invalid"><span class="toc-text">:invalid</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#autocomplete属性和novalidate属性"><span class="toc-text">autocomplete属性和novalidate属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新增input属性"><span class="toc-text">新增input属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#checkValidity方法"><span class="toc-text">checkValidity方法</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-html5表单验证笔记" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">html5表单验证笔记</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.05.30</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>陈晓勉</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/html5/">html5</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="html5中valid、invalid、required的定义"><a href="#html5中valid、invalid、required的定义" class="headerlink" title="html5中valid、invalid、required的定义"></a>html5中valid、invalid、required的定义</h2><h3 id="required"><a href="#required" class="headerlink" title=":required"></a><code>:required</code></h3><p>必须，那input不能为空的意思。</p>
+<h3 id="valid"><a href="#valid" class="headerlink" title=":valid"></a><code>:valid</code></h3><p>有效，即当填写的内容符合要求的时候触发。</p>
+<h3 id="invalid"><a href="#invalid" class="headerlink" title=":invalid"></a><code>:invalid</code></h3><p>无效，即当填写的内容不符合要求的时候触发。</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:required</span><span class="selector-pseudo">:invalid</span>, <span class="selector-tag">input</span><span class="selector-pseudo">:focus</span><span class="selector-pseudo">:invalid</span>, <span class="selector-tag">textarea</span><span class="selector-pseudo">:required</span><span class="selector-pseudo">:invalid</span>, <span class="selector-tag">textarea</span><span class="selector-pseudo">:focus</span><span class="selector-pseudo">:invalid</span>&#123;<span class="attribute">box-shadow</span>: none;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="autocomplete属性和novalidate属性"><a href="#autocomplete属性和novalidate属性" class="headerlink" title="autocomplete属性和novalidate属性"></a>autocomplete属性和novalidate属性</h2><p><code>autocomplete属性</code>控制自动完成功能的开启和关闭。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"#"</span> <span class="attr">method</span>=<span class="string">"get"</span> <span class="attr">autocomplete</span>=<span class="string">"on"</span>&gt;</span></span><br><span class="line">  请输入：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span>  <span class="attr">name</span>=<span class="string">"txt"</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>novalidate属性</code>用于在提交表单时不对form或input进行验证。（默认浏览器行为）</p>
+<h2 id="新增input属性"><a href="#新增input属性" class="headerlink" title="新增input属性"></a>新增input属性</h2><p>1、<code>required属性</code>，用户必须填写内容才能提交，为空时提交不上。</p>
+<p>2、<code>placeholder属性</code>，提示需要输入的内容。</p>
+<p>3、<code>autofocus属性</code>，用于自动获取焦点。</p>
+<p>4、<code>form属性</code>，用于设置input元素属于哪个表单。在html4中，表单中的所以元素都必须在这个表单的开始标签和结束标签之间，<br>而在html5中，如果要将表单开始和结束标签之外的元素归属到该表单，只需要设置<code>form属性</code>。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"#"</span> <span class="attr">method</span>=<span class="string">"get"</span> <span class="attr">id</span>=<span class="string">"myForm"</span>&gt;</span></span><br><span class="line">    常用地址：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"ftxt"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">临时地址：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"ltxt"</span> <span class="attr">form</span>=<span class="string">"myForm"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>5、<code>override属性</code>，用于重写表单元素的某些属性，在html5中，可以重写的表单属性有<code>formaction</code>、<code>formmethod</code>、<code>formenctype</code>、<code>formnovalidate</code>和<code>formtarget</code>，这些属性分别用于重写表单的action、enctype、method、novalidate和target属性。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"a.jsp"</span> <span class="attr">method</span>=<span class="string">"get"</span>&gt;</span></span><br><span class="line">    用户名：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"fname"</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"张三的提交"</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">formaction</span>=<span class="string">"b.jsp"</span> <span class="attr">value</span>=<span class="string">"李四的提交"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>6、<code>list属性</code>，用于设置输入域的datalist元素，为list属性设置datalist的id属性值，可以将datalist元素与input元素相关联。（谷歌浏览器可用）<br>list属性适应于以下类型的input元素：text、search、url、telephone、email、date、 pickers、number、range和color。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"url"</span> <span class="attr">list</span>=<span class="string">"url_list"</span> <span class="attr">name</span>=<span class="string">"myUrl"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">datalist</span> <span class="attr">id</span>=<span class="string">"url_list"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">label</span>=<span class="string">"Microsoft"</span> <span class="attr">value</span>=<span class="string">"http://www.microsoft.com"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">label</span>=<span class="string">"Google"</span> <span class="attr">value</span>=<span class="string">"http://www.google.com"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">label</span>=<span class="string">"百度"</span> <span class="attr">value</span>=<span class="string">"http://www.baidu.com"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">datalist</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>7、<code>multiple属性</code>，用于设置input元素是否可以有多个值。该属性只适用于email和file类型的input元素。<br>如果给email类型的input元素设置multiple属性，那么在输入框中可以输入多个email地址，多个email地址之间用逗号隔开。<br>如果给file类型的input元素设置multiple属性，那么在打开的选择文件对话框中就可以选择对个文件。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">E-mail：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"email"</span> <span class="attr">name</span>=<span class="string">"myEmail"</span> <span class="attr">multiple</span> /&gt;</span></span><br><span class="line">File：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">name</span>=<span class="string">"myFile"</span> <span class="attr">multiple</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>8、<code>pattern属性</code>，正则表达式由一系列字符和数字组成，用于匹配某个句法规则。<br>该属性适应于text、search、url、telephone、email和password类型的input元素。<br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"myName"</span> <span class="attr">pattern</span>=<span class="string">"[a-zA-Z]\w&#123;5,15&#125;$"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">html</span>&gt;</span>以字母开头，6-16位<span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"提交"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="checkValidity方法"><a href="#checkValidity方法" class="headerlink" title="checkValidity方法"></a>checkValidity方法</h2><p>HTML5客户端校验：<code>checkValidity</code>方法可以用于检验你的输入是否合法，合法时返回true,否则返回false。</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持一下</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat-reward-image.jpg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay-reward-image.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2018/05/09/arr.push.apply如何实现数组降维/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2019/03/18/WxCountUp - 数字滚动（微信小程序插件）/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

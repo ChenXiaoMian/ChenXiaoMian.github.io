@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>传统网站如何巧使webpack解决问题 | BestMian&#39;s blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="webpack,打包," />
+  
+
+  <meta name="description" content="前言哈哈，感觉标题有点大了，有标题党的嫌疑，但实在想不出什么合适的名字。 昨天产品提出一个需求，就是修改现有移动端网站下载APP的提示样式。是的，这是个简单的需求，没什么值得好提的。但就是有个问题，由于现在网站还是以后端为主导，没做分离，很多层次结构比较混乱。而且一改是改三个网站，涉及到三个网站要更新html，css，js，img，额……感觉有点头大。 类似这样的需求：  本来想硬着头皮做完一遍复">
+<meta name="keywords" content="webpack,打包">
+<meta property="og:type" content="article">
+<meta property="og:title" content="传统网站如何巧使webpack解决问题">
+<meta property="og:url" content="http://www.bestmian.com/2018/04/20/传统网站如何巧使webpack解决问题/index.html">
+<meta property="og:site_name" content="BestMian&#39;s blog">
+<meta property="og:description" content="前言哈哈，感觉标题有点大了，有标题党的嫌疑，但实在想不出什么合适的名字。 昨天产品提出一个需求，就是修改现有移动端网站下载APP的提示样式。是的，这是个简单的需求，没什么值得好提的。但就是有个问题，由于现在网站还是以后端为主导，没做分离，很多层次结构比较混乱。而且一改是改三个网站，涉及到三个网站要更新html，css，js，img，额……感觉有点头大。 类似这样的需求：  本来想硬着头皮做完一遍复">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.bestmian.com/2018/04/20/传统网站如何巧使webpack解决问题/04/20/传统网站如何巧使webpack解决问题/1.jpg">
+<meta property="og:image" content="http://www.bestmian.com/2018/04/20/传统网站如何巧使webpack解决问题/04/20/传统网站如何巧使webpack解决问题/2.jpg">
+<meta property="og:updated_time" content="2020-06-16T03:31:49.255Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="传统网站如何巧使webpack解决问题">
+<meta name="twitter:description" content="前言哈哈，感觉标题有点大了，有标题党的嫌疑，但实在想不出什么合适的名字。 昨天产品提出一个需求，就是修改现有移动端网站下载APP的提示样式。是的，这是个简单的需求，没什么值得好提的。但就是有个问题，由于现在网站还是以后端为主导，没做分离，很多层次结构比较混乱。而且一改是改三个网站，涉及到三个网站要更新html，css，js，img，额……感觉有点头大。 类似这样的需求：  本来想硬着头皮做完一遍复">
+<meta name="twitter:image" content="http://www.bestmian.com/2018/04/20/传统网站如何巧使webpack解决问题/04/20/传统网站如何巧使webpack解决问题/1.jpg">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?e725065614a17e5024342c65ce59cd39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">M</span>
+  
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">M</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#尝试"><span class="toc-text">尝试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-传统网站如何巧使webpack解决问题" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">传统网站如何巧使webpack解决问题</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.04.20</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>陈晓勉</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/webpack/">webpack</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>哈哈，感觉标题有点大了，有标题党的嫌疑，但实在想不出什么合适的名字。</p>
+<p>昨天产品提出一个需求，就是修改现有移动端网站下载APP的提示样式。是的，这是个简单的需求，没什么值得好提的。但就是有个问题，由于现在网站还是以后端为主导，没做分离，很多层次结构比较混乱。而且一改是改三个网站，涉及到三个网站要更新<code>html，css，js，img</code>，额……感觉有点头大。</p>
+<p>类似这样的需求：</p>
+<img src="/2018/04/20/传统网站如何巧使webpack解决问题/04/20/传统网站如何巧使webpack解决问题/1.jpg" title="资讯界面加下载提示">
+<p>本来想硬着头皮做完一遍复制，替换就好。后来想到是不是可以用<code>webpack</code>将<code>html，css，js，img</code>打包成一个js文件呢，于是开始了尝试。</p>
+<h1 id="尝试"><a href="#尝试" class="headerlink" title="尝试"></a>尝试</h1><p>目录结构：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">- build-test</span><br><span class="line">    - example                       <span class="comment"># 代码开发目录</span></span><br><span class="line">        downApp.js                  <span class="comment"># 逻辑代码</span></span><br><span class="line">        downApp.min.js            <span class="comment"># 打包代码</span></span><br><span class="line">        index.css                 <span class="comment"># 引用样式</span></span><br><span class="line">        index.html                <span class="comment"># html结构</span></span><br><span class="line">        js.cookie.js              <span class="comment"># 引用cookie</span></span><br><span class="line">        km-downapp-close.png      <span class="comment"># 关闭按钮图片</span></span><br><span class="line">        km-downapp-logo.png       <span class="comment"># logo图片</span></span><br><span class="line">    + node_modules       <span class="comment">#所使用的nodejs模块</span></span><br><span class="line">    package.json         <span class="comment">#项目配置</span></span><br><span class="line">    package-lock.json</span><br><span class="line">    webpack.config.js    <span class="comment">#webpack配置</span></span><br><span class="line">    README.md            <span class="comment">#项目说明</span></span><br></pre></td></tr></table></figure></p>
+<p>1、新建目录 <code>mkdir build-test</code>，进入目录 <code>cd build-test</code>。</p>
+<p>2、执行 <code>npm init --yes</code> 快速初始化项目。</p>
+<p>3、安装webpack<code>npm install --save-dev webpack</code>，各种loader <code>npm install --save-dev css-loader style-loader url-loader</code>，js压缩插件 <code>npm install --save-dev uglifyjs-webpack-plugin</code>。</p>
+<p>4、新建webpack配置</p>
+<p><code>webpack.config.js</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> UglifyJsPlugin = <span class="built_in">require</span>(<span class="string">'uglifyjs-webpack-plugin'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: &#123;</span><br><span class="line">        index : <span class="string">'./example/downApp.js'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">                use: [</span><br><span class="line">                  &#123; <span class="attr">loader</span>: <span class="string">"style-loader"</span> &#125;,</span><br><span class="line">                  &#123; <span class="attr">loader</span>: <span class="string">"css-loader"</span> &#125;,</span><br><span class="line">                ]</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="comment">// 将css中引用url路径的图片转成base64（字节数小于10000的图片）</span></span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/</span>,</span><br><span class="line">                loader: <span class="string">'url-loader'</span>,</span><br><span class="line">                options: &#123;</span><br><span class="line">                  limit: <span class="number">10000</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="comment">// 压缩js</span></span><br><span class="line">        <span class="comment">// new UglifyJsPlugin()</span></span><br><span class="line">    ],</span><br><span class="line">    output: &#123;</span><br><span class="line">        filename: <span class="string">'./example/downApp.min.js'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>5、新建目录 <code>mkdir example</code>，进入目录 <code>cd example</code></p>
+<p>6、新建页面<code>index.html</code>，配置一些基本结构。</p>
+<p><code>index.html</code></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>demo页面<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.documentElement.style.fontSize = <span class="built_in">document</span>.documentElement.clientWidth / <span class="number">7.50</span> + <span class="string">'px'</span>;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">media</span>=<span class="string">"screen"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-tag">body</span>&#123;<span class="attribute">margin</span>:<span class="number">0</span>;&#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"km-header"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"http://m.kmzyw.com.cn/resources/js/jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"downApp.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>7、主要逻辑 <code>downApp.js</code></p>
+<p><code>downApp.js</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'./index.css'</span>;</span><br><span class="line"><span class="keyword">import</span> Cookies <span class="keyword">from</span> <span class="string">'./js.cookie.js'</span>;</span><br><span class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getRequest</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="keyword">var</span> u = location.search;</span><br><span class="line">      <span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">      <span class="keyword">if</span> (u.indexOf(<span class="string">"?"</span>) != <span class="number">-1</span>) &#123;</span><br><span class="line">          <span class="keyword">var</span> str = u.substr(<span class="number">1</span>);</span><br><span class="line">          strs = str.split(<span class="string">"&amp;"</span>);</span><br><span class="line">          <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; strs.length; i++) &#123;</span><br><span class="line">               p[strs[i].split(<span class="string">"="</span>)[<span class="number">0</span>]] = <span class="built_in">decodeURI</span>(strs[i].split(<span class="string">"="</span>)[<span class="number">1</span>]);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> p;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> reqObj = getRequest();</span><br><span class="line">    <span class="comment">// 判断是否APP访问</span></span><br><span class="line">    <span class="keyword">if</span>(reqObj.from != <span class="string">'app'</span> &amp;&amp; !reqObj.from)&#123;</span><br><span class="line">        <span class="keyword">var</span> downValues = Cookies(<span class="string">"__closeapp"</span>);</span><br><span class="line">        <span class="keyword">var</span> downDom = <span class="string">'&lt;div class="km-downapp-wrap"&gt;&lt;a href="http://m.kmzyw.com.cn/resources/html/app-download.html"class="km-downapp-link"&gt;&lt;div class="km-downapp-logo"&gt;&lt;/div&gt;&lt;div class="km-downapp-text"&gt;&lt;p class="font-large"&gt;康美中药城APP新版上线&lt;/p&gt;&lt;p&gt;随时随地，药材服务不离线&lt;/p&gt;&lt;/div&gt;&lt;div class="km-downapp-button"&gt;立即下载&lt;/div&gt;&lt;/a&gt;&lt;a href="javascript:void(0);"class="km-downapp-close"&gt;&lt;/a&gt;&lt;/div&gt;'</span>;</span><br><span class="line">        <span class="keyword">if</span> (downValues != <span class="string">'1'</span>) &#123;</span><br><span class="line">            $(<span class="string">"#km-header"</span>).before(downDom);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    $(<span class="string">"body"</span>).on(<span class="string">"click"</span>, <span class="string">".km-downapp-close"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        $(<span class="string">".km-downapp-wrap"</span>).remove();</span><br><span class="line">        Cookies(<span class="string">'__closeapp'</span>, <span class="string">'1'</span>,&#123; <span class="attr">expires</span>: <span class="number">1</span>&#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>8、样式表 <code>index.css</code></p>
+<p><code>index.css</code></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.km-downapp-wrap</span>&#123;<span class="attribute">position</span>:relative;<span class="attribute">width</span>:<span class="number">100%</span>;<span class="attribute">height</span>:<span class="number">1rem</span>;<span class="attribute">background</span>:<span class="number">#e7666e</span>;<span class="attribute">z-index</span>:<span class="number">9999</span>;<span class="attribute">-webkit-box-sizing</span>:border-box;<span class="attribute">box-sizing</span>:border-box;<span class="attribute">overflow</span>:hidden;<span class="attribute">display</span>:-webkit-box;<span class="attribute">display</span>:-webkit-flex;<span class="attribute">display</span>:-ms-flexbox;<span class="attribute">display</span>:flex;<span class="attribute">-webkit-box-align</span>:center;<span class="attribute">-webkit-align-items</span>:center;<span class="attribute">-ms-flex-align</span>:center;<span class="attribute">align-items</span>:center;<span class="attribute">font-family</span>: -apple-system, BlinkMacSystemFont, <span class="string">"PingFang SC"</span>,<span class="string">"Helvetica Neue"</span>,STHeiti,<span class="string">"Microsoft Yahei"</span>,Tahoma,Simsun,sans-serif;&#125;</span><br><span class="line"><span class="selector-class">.km-downapp-logo</span>&#123;<span class="attribute">margin-right</span>: <span class="number">0.24rem</span>;<span class="attribute">width</span>:<span class="number">0.7rem</span>;<span class="attribute">height</span>:<span class="number">0.7rem</span>;<span class="attribute">background</span>:<span class="built_in">url</span>(<span class="string">'./km-downapp-logo.png'</span>) no-repeat;<span class="attribute">background-size</span>:<span class="number">100%</span> <span class="number">100%</span>;&#125;</span><br><span class="line"><span class="selector-class">.km-downapp-link</span>&#123;<span class="attribute">display</span>:-webkit-box;<span class="attribute">display</span>:-webkit-flex;<span class="attribute">display</span>:-ms-flexbox;<span class="attribute">display</span>:flex;<span class="attribute">text-decoration</span>:none;<span class="attribute">margin-left</span>: <span class="number">0.3rem</span>;<span class="attribute">-webkit-box-align</span>:center;<span class="attribute">-webkit-align-items</span>:center;<span class="attribute">-ms-flex-align</span>:center;<span class="attribute">align-items</span>:center;&#125;</span><br><span class="line"><span class="selector-class">.km-downapp-link</span><span class="selector-pseudo">:hover</span>,<span class="selector-class">.km-downapp-link</span><span class="selector-pseudo">:active</span>&#123;<span class="attribute">text-decoration</span>:none;&#125;</span><br><span class="line"><span class="selector-class">.km-downapp-text</span>&gt;<span class="selector-tag">p</span>&#123;<span class="attribute">font-size</span>:<span class="number">0.2rem</span>;<span class="attribute">font-weight</span>:normal;<span class="attribute">color</span>:<span class="number">#f5cbcc</span>;<span class="attribute">line-height</span>: <span class="number">0.28rem</span>;<span class="attribute">margin</span>:<span class="number">0</span>;&#125;</span><br><span class="line"><span class="selector-class">.km-downapp-text</span> <span class="selector-class">.font-large</span>&#123;<span class="attribute">font-size</span>:<span class="number">0.32rem</span>;<span class="attribute">color</span>:<span class="number">#fff</span>;<span class="attribute">line-height</span>: <span class="number">0.4rem</span>;&#125;</span><br><span class="line"><span class="selector-class">.km-downapp-button</span>&#123;<span class="attribute">display</span>:block;<span class="attribute">width</span>: <span class="number">1.7rem</span>;<span class="attribute">height</span>: <span class="number">0.6rem</span>;<span class="attribute">background</span>:<span class="number">#fff</span>;<span class="attribute">-webkit-border-radius</span>:<span class="number">0.3rem</span>;<span class="attribute">border-radius</span>:<span class="number">0.3rem</span>;<span class="attribute">font-size</span>:<span class="number">0.28rem</span>;<span class="attribute">line-height</span>:<span class="number">0.6rem</span>;<span class="attribute">text-decoration</span>:none;<span class="attribute">color</span>:<span class="number">#ea4d58</span>;<span class="attribute">text-align</span>:center;<span class="attribute">-webkit-tap-highlight-color</span>: <span class="built_in">rgba</span>(255,255,255,.35);      <span class="attribute">-webkit-touch-callout</span>: none;<span class="attribute">margin-left</span>:<span class="number">0.36rem</span>;&#125;</span><br><span class="line"><span class="selector-class">.km-downapp-close</span>&#123;<span class="attribute">display</span>:block;<span class="attribute">width</span>:<span class="number">0.28rem</span>;<span class="attribute">height</span>:<span class="number">0.28rem</span>;<span class="attribute">background</span>:<span class="built_in">url</span>(<span class="string">'./km-downapp-close.png'</span>) no-repeat;<span class="attribute">background-size</span>:<span class="number">100%</span> <span class="number">100%</span>;<span class="attribute">margin-left</span>: <span class="number">0.2rem</span>;&#125;</span><br></pre></td></tr></table></figure>
+<p>9、跳回<code>/build-test</code>目录，执行 <code>webpack</code> 命令，生成 <code>downApp.min.js</code> 文件，测试结果，大功告成！（可以开启压缩JS插件减少文件大小）</p>
+<p>打包结果</p>
+<img src="/2018/04/20/传统网站如何巧使webpack解决问题/04/20/传统网站如何巧使webpack解决问题/2.jpg" title="打包结果">
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>其实文章内容很简单，用的还是基本的webpack打包功能，关键是看你怎么用。如果是单页应用，打包成一个js会遇到白屏问题，为了避免这个还会把css文件单独分离出来。但对于传统项目年久失修的复杂结构来说的话，不失为一个好的解决方法。</p>
+<p>谢谢您的品读，此处抛砖引玉，希望大家共同探讨学习。</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持一下</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat-reward-image.jpg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay-reward-image.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2018/04/16/this到底是什么？/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2018/04/23/js闭包学习笔记/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

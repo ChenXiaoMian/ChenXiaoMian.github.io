@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>JS高阶函数学习 | BestMian&#39;s blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="javascript,高阶函数," />
+  
+
+  <meta name="description" content="高阶函数 高阶函数是接受函数作为参数并且/或者返回函数作为输出的函数。  函数作为参数传递最经典的莫过于ajax异步请求的回调函数。 var getUserInfo = function( userId, callback )&amp;#123;    $.ajax( &apos;http://xxx.com/getUserInfo?&apos; + userId, function( data )&amp;#123;">
+<meta name="keywords" content="javascript,高阶函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS高阶函数学习">
+<meta property="og:url" content="http://www.bestmian.com/2018/05/08/JS高阶函数学习/index.html">
+<meta property="og:site_name" content="BestMian&#39;s blog">
+<meta property="og:description" content="高阶函数 高阶函数是接受函数作为参数并且/或者返回函数作为输出的函数。  函数作为参数传递最经典的莫过于ajax异步请求的回调函数。 var getUserInfo = function( userId, callback )&amp;#123;    $.ajax( &apos;http://xxx.com/getUserInfo?&apos; + userId, function( data )&amp;#123;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-16T03:31:49.247Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS高阶函数学习">
+<meta name="twitter:description" content="高阶函数 高阶函数是接受函数作为参数并且/或者返回函数作为输出的函数。  函数作为参数传递最经典的莫过于ajax异步请求的回调函数。 var getUserInfo = function( userId, callback )&amp;#123;    $.ajax( &apos;http://xxx.com/getUserInfo?&apos; + userId, function( data )&amp;#123;">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?e725065614a17e5024342c65ce59cd39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">M</span>
+  
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">M</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#高阶函数"><span class="toc-text">高阶函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#函数作为参数传递"><span class="toc-text">函数作为参数传递</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数作为返回值输出"><span class="toc-text">函数作为返回值输出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#综合实现"><span class="toc-text">综合实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#高阶函数运用"><span class="toc-text">高阶函数运用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#实现抽象"><span class="toc-text">实现抽象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AOP-面向切面编程"><span class="toc-text">AOP(面向切面编程)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数节流"><span class="toc-text">函数节流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分时函数"><span class="toc-text">分时函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#结语"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-JS高阶函数学习" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">JS高阶函数学习</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.05.08</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>陈晓勉</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h1><blockquote>
+<p>高阶函数是<code>接受函数作为参数</code>并且/或者<code>返回函数作为输出</code>的函数。</p>
+</blockquote>
+<h2 id="函数作为参数传递"><a href="#函数作为参数传递" class="headerlink" title="函数作为参数传递"></a>函数作为参数传递</h2><p>最经典的莫过于ajax异步请求的回调函数。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> getUserInfo = <span class="function"><span class="keyword">function</span>(<span class="params"> userId, callback </span>)</span>&#123;</span><br><span class="line">    $.ajax( <span class="string">'http://xxx.com/getUserInfo?'</span> + userId, <span class="function"><span class="keyword">function</span>(<span class="params"> data </span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ( <span class="keyword">typeof</span> callback === <span class="string">'function'</span> )&#123;</span><br><span class="line">            callback( data );</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line">getUserInfo( <span class="number">13157</span>, <span class="function"><span class="keyword">function</span>(<span class="params"> data </span>)</span>&#123;</span><br><span class="line">    alert( data.userName );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>当我们想在 ajax请求返回之后做一些事情，但又并不知道请求返回的确切时间时，最常见的方案就是把callback 函数当作参数传入发起 ajax 请求的方法中，待请求完成之后执行 callback 函数。</p>
+<h2 id="函数作为返回值输出"><a href="#函数作为返回值输出" class="headerlink" title="函数作为返回值输出"></a>函数作为返回值输出</h2><blockquote>
+<p><strong> 让函数继续返回一个可执行的函数，意味着运算过程是可延续的，</strong> 也更能体现函数式编程的巧妙。</p>
+</blockquote>
+<p>判断数据类型的例子</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> isType = <span class="function"><span class="keyword">function</span>(<span class="params"> type </span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"> obj </span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString.call( obj ) === <span class="string">'[object '</span>+ type +<span class="string">']'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> isString = isType( <span class="string">'String'</span> );</span><br><span class="line"><span class="keyword">var</span> isArray = isType( <span class="string">'Array'</span> );</span><br><span class="line"><span class="keyword">var</span> isNumber = isType( <span class="string">'Number'</span> );</span><br><span class="line"><span class="built_in">console</span>.log( isArray( [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> ] ) ); <span class="comment">// 输出： true</span></span><br></pre></td></tr></table></figure>
+<h2 id="综合实现"><a href="#综合实现" class="headerlink" title="综合实现"></a>综合实现</h2><p>单例模式</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> getSingle = <span class="function"><span class="keyword">function</span> (<span class="params"> fn </span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> ret;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ret || ( ret = fn.apply( <span class="keyword">this</span>, <span class="built_in">arguments</span> ) );</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>既把函数当作参数传递，又让函数执行后返回了另外一个函数。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> getScript = getSingle(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">document</span>.createElement( <span class="string">'script'</span> );</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">var</span> script1 = getScript();</span><br><span class="line"><span class="keyword">var</span> script2 = getScript();</span><br><span class="line">alert ( script1 === script2 ); <span class="comment">// 输出： true</span></span><br></pre></td></tr></table></figure>
+<h1 id="高阶函数运用"><a href="#高阶函数运用" class="headerlink" title="高阶函数运用"></a>高阶函数运用</h1><h2 id="实现抽象"><a href="#实现抽象" class="headerlink" title="实现抽象"></a>实现抽象</h2><blockquote>
+<p>高阶函数就是定义抽象，<strong> 抽象让我们专注于预定的目标而无须关心底层的系统概念。</strong></p>
+</blockquote>
+<p>如何实现 <code>forEach</code> 函数？</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> forEach = <span class="function">(<span class="params">arrry, fn</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; arrry.length; i++)&#123;</span><br><span class="line">        fn(arrry[i])</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一般使用API，forEach的用户不需要理解 <code>forEach</code> 函数是如何遍历的，如此问题就被抽象出来了。</p>
+<p>因此，<code>forEach</code> 函数这样调用它：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">forEach([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],(data)=&gt;&#123;</span><br><span class="line">    <span class="comment">// data 被作为参数从forEach函数传到当前的函数</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>forEach本质上遍历了数组，那如何遍历一个对象呢？</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> forEachObject = <span class="function">(<span class="params">obj, fn</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> property <span class="keyword">in</span> obj)&#123;</span><br><span class="line">        <span class="keyword">if</span>(obj.hasOwnProperty(property))&#123;</span><br><span class="line">            <span class="comment">// 以key和value作为参数调用fn</span></span><br><span class="line">            fn(property, obj[property])</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>forEachObject</code> 接受第一个参数为js对象，第二个参数是一个函数fn，并分别以<code>key</code>和<code>value</code>作为参数调用<code>fn</code>。</p>
+<p>运行结果：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> object = &#123;<span class="attr">a</span>:<span class="number">1</span>,<span class="attr">b</span>:<span class="number">2</span>&#125;</span><br><span class="line">forEachObject(object, (k,v) =&gt; <span class="built_in">console</span>.log(k + <span class="string">":"</span> + v)</span><br><span class="line"><span class="comment">// a:1</span></span><br><span class="line"><span class="comment">// b:2</span></span><br></pre></td></tr></table></figure>
+<h2 id="AOP-面向切面编程"><a href="#AOP-面向切面编程" class="headerlink" title="AOP(面向切面编程)"></a>AOP(面向切面编程)</h2><p><code>AOP（面向切面编程）</code> 的主要作用是把一些跟核心业务逻辑模块无关的功能抽离出来，这些<br>跟业务逻辑无关的功能通常包括日志统计、安全控制、异常处理等。</p>
+<p>这样做的好处首先是可以保持业务逻辑模块的纯净和高内聚性，其次是可以很方便地复用日志统计等功能模块。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.before = <span class="function"><span class="keyword">function</span>(<span class="params">beforefn</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> _self = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        beforefn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">        <span class="keyword">return</span> _self.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">Function</span>.prototype.after = <span class="function"><span class="keyword">function</span>(<span class="params">afterfn</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> _self = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> ret = _self.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">        afterfn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line">&#125;;</span><br><span class="line">func = func.before(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">&#125;).after(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">3</span>);</span><br><span class="line">&#125;);</span><br><span class="line">func();</span><br></pre></td></tr></table></figure>
+<p>这种使用 AOP 的方式来给函数添加职责，也是 JavaScript 语言中一种非常特别和巧妙的装饰<br>者模式实现。</p>
+<h2 id="函数节流"><a href="#函数节流" class="headerlink" title="函数节流"></a>函数节流</h2><p><code>throttle</code> 函数的原理是，将即将被执行的函数用setTimeout延迟一段时间执行。如果该次延迟执行还没有完成，则忽略接下来调用该函数的请求。<br><code>throttle</code> 函数接受2个参数，第一个参数为需要被延迟执行的函数，第二个参数为延迟执行的时间。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> throttle = <span class="function"><span class="keyword">function</span>(<span class="params">fn, interval</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> _self = fn,     <span class="comment">// 保存需要被延迟执行的函数引用</span></span><br><span class="line">        timer,          <span class="comment">// 定时器</span></span><br><span class="line">        firstTime = <span class="literal">true</span>;   <span class="comment">// 是否是第一次调用</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> args = <span class="built_in">arguments</span>,</span><br><span class="line">            _me = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">if</span>(firstTime)&#123;      <span class="comment">// 如果是第一次调用，不需要延迟执行</span></span><br><span class="line">            _self.apply(_me, args);</span><br><span class="line">            <span class="keyword">return</span> firstTime = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(timer)&#123;          <span class="comment">// 如果定时器还在，说明前一次延迟执行还没有完成</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        timer = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;   <span class="comment">// 延迟一段时间执行</span></span><br><span class="line">            clearTimeout(timer);</span><br><span class="line">            timer = <span class="literal">null</span>;</span><br><span class="line">            _self.apply(_me, args);</span><br><span class="line">        &#125;, interval || <span class="number">500</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.onresize = throttle(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">&#125;, <span class="number">500</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="分时函数"><a href="#分时函数" class="headerlink" title="分时函数"></a>分时函数</h2><p>有时候我们需要往页面大量添加DOM节点，但是要一次性往页面中创建成百上千个节点，短时间内显然会让浏览器吃不消，造成卡顿甚至假死。</p>
+<p>解决方案之一就是使用 <code>timeChunk</code> 函数，<code>timeChunk</code> 函数让创建节点的工作分批进行，比如把1秒钟创建1000个节点，改为每隔200毫秒创建8个节点。</p>
+<p><code>timeChunk</code> 函数接受3个参数，第1个参数是创建节点时需要用到的数据，第2个参数是封装了创建节点逻辑的函数，第3个参数表示每一批创建的节点数量。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> timeChunk = <span class="function"><span class="keyword">function</span>(<span class="params">ary, fn, count</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> obj,</span><br><span class="line">        t;</span><br><span class="line">    <span class="keyword">var</span> len = ary.length;</span><br><span class="line">    <span class="keyword">var</span> start = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="built_in">Math</span>.min(count || <span class="number">1</span>, ary.length); i++)&#123;</span><br><span class="line">            <span class="keyword">var</span> obj = ary.shift();</span><br><span class="line">            fn(obj);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        t = setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(ary.length === <span class="number">0</span>)&#123;     <span class="comment">// 如果全部节点都已经被创建好</span></span><br><span class="line">                <span class="keyword">return</span> clearInterval(t);</span><br><span class="line">            &#125;</span><br><span class="line">            start();</span><br><span class="line">        &#125;, <span class="number">200</span>);  <span class="comment">// 分批执行的时间间隔，也可以用参数的形式传入</span></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>测试</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> ary = [];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">1</span>; i &lt;= <span class="number">1000</span>; i++)&#123;</span><br><span class="line">    ary.push(i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> renderFriendList = timeChunk(ary, <span class="function"><span class="keyword">function</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> div = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);</span><br><span class="line">    div.innerHTML = n;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(div);</span><br><span class="line">&#125;, <span class="number">8</span>);</span><br><span class="line"></span><br><span class="line">renderFriendList();</span><br></pre></td></tr></table></figure>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>高阶函数的实现得益于JS的闭包机制，让开发者在实际项目中只需要关注业务逻辑和容易变化的部分，而无须关心底层的概念，避免了多余的代码。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://item.jd.com/11686375.html" target="_blank" rel="noopener">javascript设计模式与开发实践</a><br><a href="https://item.jd.com/12257861.html" target="_blank" rel="noopener">javascript ES6 函数式编程入门经典</a></p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持一下</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat-reward-image.jpg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay-reward-image.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2018/04/23/js闭包学习笔记/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2018/05/09/arr.push.apply如何实现数组降维/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

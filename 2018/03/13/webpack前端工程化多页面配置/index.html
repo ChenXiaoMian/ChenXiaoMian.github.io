@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>webpack前端工程化多页面配置 | BestMian&#39;s blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="webpack,工程化,多页面," />
+  
+
+  <meta name="description" content="前言平时工作中，公司项目没有做前后端分离，用的还是grunt+seajs比较旧的技术，基本是后端主导，前端只负责样式和效果，没办法有更多尝试。不过，前端技术日新月异，不能因为环境而局限自己想折腾的心，于是，在看过《基于webpack的前端工程化开发之多页站点篇》这篇文章之后，开始尝试。 github地址webpack-multiplepage前端工程化多页面配置 项目依赖npm init 初始化项">
+<meta name="keywords" content="webpack,工程化,多页面">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack前端工程化多页面配置">
+<meta property="og:url" content="http://www.bestmian.com/2018/03/13/webpack前端工程化多页面配置/index.html">
+<meta property="og:site_name" content="BestMian&#39;s blog">
+<meta property="og:description" content="前言平时工作中，公司项目没有做前后端分离，用的还是grunt+seajs比较旧的技术，基本是后端主导，前端只负责样式和效果，没办法有更多尝试。不过，前端技术日新月异，不能因为环境而局限自己想折腾的心，于是，在看过《基于webpack的前端工程化开发之多页站点篇》这篇文章之后，开始尝试。 github地址webpack-multiplepage前端工程化多页面配置 项目依赖npm init 初始化项">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-16T03:31:49.254Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webpack前端工程化多页面配置">
+<meta name="twitter:description" content="前言平时工作中，公司项目没有做前后端分离，用的还是grunt+seajs比较旧的技术，基本是后端主导，前端只负责样式和效果，没办法有更多尝试。不过，前端技术日新月异，不能因为环境而局限自己想折腾的心，于是，在看过《基于webpack的前端工程化开发之多页站点篇》这篇文章之后，开始尝试。 github地址webpack-multiplepage前端工程化多页面配置 项目依赖npm init 初始化项">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?e725065614a17e5024342c65ce59cd39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">M</span>
+  
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">M</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#github地址"><span class="toc-text">github地址</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#项目依赖"><span class="toc-text">项目依赖</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#目录结构"><span class="toc-text">目录结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#开发"><span class="toc-text">开发</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#webpack配置"><span class="toc-text">webpack配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#根据模式匹配获取文件列表"><span class="toc-text">根据模式匹配获取文件列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何在-webpack-中引入未模块化的库，如-Zepto"><span class="toc-text">如何在 webpack 中引入未模块化的库，如 Zepto</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NodeJs中process-cwd-与-dirname的区别"><span class="toc-text">NodeJs中process.cwd()与__dirname的区别</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#结语"><span class="toc-text">结语</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-webpack前端工程化多页面配置" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">webpack前端工程化多页面配置</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.03.13</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>陈晓勉</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/webpack/">webpack</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>平时工作中，公司项目没有做前后端分离，用的还是grunt+seajs比较旧的技术，基本是后端主导，前端只负责样式和效果，没办法有更多尝试。不过，前端技术日新月异，不能因为环境而局限自己想折腾的心，于是，在看过<a href="https://segmentfault.com/a/1190000004511992" target="_blank" rel="noopener">《基于webpack的前端工程化开发之多页站点篇》</a>这篇文章之后，开始尝试。</p>
+<h1 id="github地址"><a href="#github地址" class="headerlink" title="github地址"></a>github地址</h1><p><a href="https://github.com/ChenXiaoMian/webpack-multiplepage" target="_blank" rel="noopener">webpack-multiplepage前端工程化多页面配置</a></p>
+<h1 id="项目依赖"><a href="#项目依赖" class="headerlink" title="项目依赖"></a>项目依赖</h1><p><code>npm init</code> 初始化项目</p>
+<p><code>npm install plugins --save-dev</code> 安装依赖</p>
+<p><code>package.json</code> 依赖声明如下：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">    <span class="string">"babel-core"</span>: <span class="string">"^6.26.0"</span>,                    <span class="comment">// babel转译核心</span></span><br><span class="line">    <span class="string">"babel-loader"</span>: <span class="string">"^7.1.2"</span>,                   <span class="comment">// webpack使用转换ES6</span></span><br><span class="line">    <span class="string">"babel-preset-env"</span>: <span class="string">"^1.6.1"</span>,               <span class="comment">// 转码规则，按需转译</span></span><br><span class="line">    <span class="string">"clean-webpack-plugin"</span>: <span class="string">"^0.1.18"</span>,          <span class="comment">// 清理文件</span></span><br><span class="line">    <span class="string">"copy-webpack-plugin"</span>: <span class="string">"^4.5.0"</span>,            <span class="comment">// 复制文件</span></span><br><span class="line">    <span class="string">"css-loader"</span>: <span class="string">"^0.28.9"</span>,                    <span class="comment">// 将css装载到js</span></span><br><span class="line">    <span class="string">"exports-loader"</span>: <span class="string">"^0.7.0"</span>,                 <span class="comment">// 模块化，导出指定对象</span></span><br><span class="line">    <span class="string">"extract-text-webpack-plugin"</span>: <span class="string">"^3.0.2"</span>,    <span class="comment">// 将css分离成文件</span></span><br><span class="line">    <span class="string">"file-loader"</span>: <span class="string">"^1.1.11"</span>,                   <span class="comment">// 解析项目中的url引入</span></span><br><span class="line">    <span class="string">"glob"</span>: <span class="string">"^7.1.2"</span>,                           <span class="comment">// 根据模式匹配获取文件列表的node模块</span></span><br><span class="line">    <span class="string">"html-loader"</span>: <span class="string">"^0.5.5"</span>,                    <span class="comment">// 解析html文件的url</span></span><br><span class="line">    <span class="string">"html-webpack-plugin"</span>: <span class="string">"^2.30.1"</span>,           <span class="comment">// 处理html文件</span></span><br><span class="line">    <span class="string">"node-sass"</span>: <span class="string">"^4.7.2"</span>,                      <span class="comment">// 编译sass</span></span><br><span class="line">    <span class="string">"sass-loader"</span>: <span class="string">"^6.0.7"</span>,                    <span class="comment">// 将sass文件编译成css</span></span><br><span class="line">    <span class="string">"script-loader"</span>: <span class="string">"^0.7.2"</span>,                  <span class="comment">// 全局上下文执行一次 JS 脚本</span></span><br><span class="line">    <span class="string">"style-loader"</span>: <span class="string">"^0.20.1"</span>,                  <span class="comment">// css插入到页面的style标签</span></span><br><span class="line">    <span class="string">"uglifyjs-webpack-plugin"</span>: <span class="string">"^1.1.8"</span>,        <span class="comment">// 压缩js</span></span><br><span class="line">    <span class="string">"url-loader"</span>: <span class="string">"^1.0.1"</span>,                     <span class="comment">// url-loader封装了file-loader，将小图片生成dataURl</span></span><br><span class="line">    <span class="string">"webpack"</span>: <span class="string">"^3.9.1"</span>,                        <span class="comment">// webpack核心</span></span><br><span class="line">    <span class="string">"webpack-dev-server"</span>: <span class="string">"^2.11.1"</span>,            <span class="comment">// 热更新服务</span></span><br><span class="line">    <span class="string">"webpack-merge"</span>: <span class="string">"^4.1.1"</span>                   <span class="comment">// 合并配置</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>npm run dev</code> 执行开发环境，点击进入<code>view</code>文件夹</p>
+<p><code>npm run build</code> 执行打包发布</p>
+<h1 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- website</span><br><span class="line">    - config             #webpack配置目录</span><br><span class="line">        - util           #入口文件逻辑</span><br><span class="line">        base.js          #基本配置</span><br><span class="line">        dev.js           #开发配置</span><br><span class="line">        pro.js           #发布配置</span><br><span class="line">    - src                #代码开发目录</span><br><span class="line">        - scss           #sass文件目录</span><br><span class="line">        - css            #css目录，按照页面（模块）、通用、第三方三个级别进行组织</span><br><span class="line">            + page       #页面级css目录</span><br><span class="line">        + img            #图片资源</span><br><span class="line">        - js             #JS脚本，按照page、components进行组织</span><br><span class="line">            + page       #页面级js目录</span><br><span class="line">        + view           #HTML模板</span><br><span class="line">    - dist               #webpack编译打包输出目录，无需建立目录可由webpack根据配置自动生成</span><br><span class="line">        + css</span><br><span class="line">        + js</span><br><span class="line">        + view</span><br><span class="line">    + node_modules       #所使用的nodejs模块</span><br><span class="line">    .gitignore           #忽略项</span><br><span class="line">    package.json         #项目配置</span><br><span class="line">    package-lock.json    #版本锁定，类似yarn</span><br><span class="line">    README.md            #项目说明</span><br></pre></td></tr></table></figure>
+<p>项目目录有个局限性，就是开发目录里<code>js</code>中固定需要<code>page</code>文件夹放置页面级的js逻辑，与<code>view</code>中的<code>.html</code>文件一一对应。</p>
+<h1 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h1><p>在src/js/page目录下建立index.js文件，在src/view目录下建立index.html文件。入口js和模板文件名对应。</p>
+<p>index.js文件如下（这里已默认引入<code>zepto</code>，可直接使用<code>$</code>）：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">"scss/variable.scss"</span>);</span><br><span class="line">$(<span class="string">".gb-body"</span>).text(<span class="string">"测试的一段话"</span>);</span><br></pre></td></tr></table></figure>
+<p>index.html 内容如下：<br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>测试首页<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">        描述：head中无需再引入css以及facicon，webpack将根据入口JS文件的要求自动实现按需加载或者生成style标签</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"gb-body"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">        描述：body中同样无需单独引入JS文件，webpack会根据入口JS文件自动实现按需加载或者生成script标签，还可以生成对应的hash值</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="webpack配置"><a href="#webpack配置" class="headerlink" title="webpack配置"></a>webpack配置</h1><p>webpack配置<code>base.js</code>如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)                                                <span class="comment">// 引入node模块，获取路径</span></span><br><span class="line"><span class="keyword">const</span> cwd = process.cwd()                                                   <span class="comment">// 当前Node.js进程执行时的工作目录</span></span><br><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>)                                          <span class="comment">// 引入webpack</span></span><br><span class="line"><span class="keyword">const</span> ExtractTextPlugin = <span class="built_in">require</span>(<span class="string">"extract-text-webpack-plugin"</span>)            <span class="comment">// 分离css</span></span><br><span class="line"><span class="keyword">const</span> getEntry = <span class="built_in">require</span>(<span class="string">'./util/getEntry.js'</span>)</span><br><span class="line"><span class="keyword">const</span> getHtml = <span class="built_in">require</span>(<span class="string">'./util/getHtml.js'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> entryList = getEntry(path.resolve(cwd, <span class="string">'src/js/page/**/*.js'</span>))        <span class="comment">// 获取入口文件配置</span></span><br><span class="line"><span class="keyword">const</span> htmlPluginList = getHtml(path.resolve(cwd, <span class="string">'src/view/**/*.html'</span>))     <span class="comment">// 生成html配置</span></span><br><span class="line"><span class="keyword">const</span> chunksList = <span class="built_in">Object</span>.keys(entryList)                                   <span class="comment">// 获取公共代码列表</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 抽取公共模块</span></span><br><span class="line"><span class="keyword">const</span> chunkPlugin = <span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">    name: <span class="string">'vendors'</span>,</span><br><span class="line">    chunks: chunksList,</span><br><span class="line">    minChunks: chunksList.length</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 分离css配置</span></span><br><span class="line"><span class="keyword">const</span> extractPlugin = <span class="keyword">new</span> ExtractTextPlugin(&#123;</span><br><span class="line">    filename: <span class="string">'css/[name].[contenthash].css'</span>,</span><br><span class="line">    disable: process.env.NODE_ENV === <span class="string">"development"</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">const</span> plugins = [</span><br><span class="line">    <span class="comment">// 自动加载模块</span></span><br><span class="line">    <span class="keyword">new</span> webpack.ProvidePlugin(&#123;</span><br><span class="line">        $: <span class="string">'zepto'</span></span><br><span class="line">    &#125;),</span><br><span class="line">    extractPlugin,</span><br><span class="line">    chunkPlugin</span><br><span class="line">].concat(htmlPluginList)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="comment">// 入口</span></span><br><span class="line">    entry: entryList,</span><br><span class="line">    <span class="comment">// 输出目录</span></span><br><span class="line">    output: &#123;</span><br><span class="line">        path: path.resolve(cwd, <span class="string">'./dist'</span>),</span><br><span class="line">        filename: <span class="string">'js/[name].js'</span>,</span><br><span class="line">        chunkFilename: <span class="string">'js/[id].chunk.js'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 解析别名</span></span><br><span class="line">    resolve: &#123;</span><br><span class="line">        extensions: [<span class="string">'.js'</span>,<span class="string">'.json'</span>],</span><br><span class="line">        alias: &#123;</span><br><span class="line">            <span class="string">'@'</span>: path.join(cwd, <span class="string">'src'</span>),</span><br><span class="line">            <span class="string">'css'</span>: path.join(cwd, <span class="string">'src/css'</span>),</span><br><span class="line">            <span class="string">'scss'</span>: path.join(cwd, <span class="string">'src/scss'</span>),</span><br><span class="line">            <span class="string">'js'</span>: path.join(cwd, <span class="string">'src/js'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            <span class="comment">// 处理html文件url</span></span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.(html)$/</span>,</span><br><span class="line">                use: &#123;</span><br><span class="line">                    loader: <span class="string">'html-loader'</span>,</span><br><span class="line">                    options: &#123;</span><br><span class="line">                        attrs: [<span class="string">':data-src'</span>]</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="comment">// 处理css文件</span></span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">                use: extractPlugin.extract(&#123;</span><br><span class="line">                    use: <span class="string">'css-loader'</span>,</span><br><span class="line">                    fallback: <span class="string">'style-loader'</span></span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="comment">// 处理scss文件</span></span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.scss$/</span>,</span><br><span class="line">                use: extractPlugin.extract(&#123;</span><br><span class="line">                    use: [<span class="string">'css-loader'</span>,<span class="string">'sass-loader'</span>],</span><br><span class="line">                    fallback: <span class="string">'style-loader'</span></span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="comment">// es6转译</span></span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">                exclude: <span class="regexp">/(node_modules|bower_components)/</span>,</span><br><span class="line">                use: &#123;</span><br><span class="line">                    loader: <span class="string">'babel-loader'</span>,</span><br><span class="line">                    options: &#123;</span><br><span class="line">                        presets: [<span class="string">'babel-preset-env'</span>]</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="comment">// 图片加载器，雷同file-loader，更适合图片，可以将较小的图片转成base64，减少http请求</span></span><br><span class="line">            <span class="comment">// 如下配置，将小于8192byte的图片转成base64码</span></span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.(png|jpg|gif)$/</span>,</span><br><span class="line">                use: &#123;</span><br><span class="line">                    loader: <span class="string">'url-loader'</span>,</span><br><span class="line">                    options: &#123;</span><br><span class="line">                        limit: <span class="number">8192</span>,</span><br><span class="line">                        name: <span class="string">'./img/[hash].[ext]'</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="comment">// 处理字体文件</span></span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.(woff|woff2|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/</span>,</span><br><span class="line">                use: &#123;</span><br><span class="line">                    loader: <span class="string">'file-loader'</span>,</span><br><span class="line">                    options: &#123;</span><br><span class="line">                        name: <span class="string">'./fonts/[name].[ext]'</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="comment">// exports-loader模块化zepto</span></span><br><span class="line">            <span class="comment">// https://sebastianblade.com/how-to-import-unmodular-library-like-zepto/</span></span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="built_in">require</span>.resolve(<span class="string">'zepto'</span>),</span><br><span class="line">                use: [<span class="string">'exports-loader?window.Zepto'</span>,<span class="string">'script-loader'</span>]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: plugins</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>webpack开发配置<code>dev.js</code>如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>)                                    <span class="comment">// webpack</span></span><br><span class="line"><span class="keyword">const</span> merge = <span class="built_in">require</span>(<span class="string">'webpack-merge'</span>)                                <span class="comment">// 合并插件</span></span><br><span class="line"><span class="keyword">const</span> config = <span class="built_in">require</span>(<span class="string">'./base.js'</span>)                                   <span class="comment">// 基础配置</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = merge(config, &#123;</span><br><span class="line">    devtool: <span class="string">'inline-source-map'</span>,</span><br><span class="line">    devServer: &#123;                                                      <span class="comment">// 热更新</span></span><br><span class="line">        contentBase: <span class="string">'./src'</span>,                                         <span class="comment">// 基于哪个目录</span></span><br><span class="line">        host: <span class="string">'localhost'</span>,</span><br><span class="line">        port: <span class="number">9090</span>,</span><br><span class="line">        inline: <span class="literal">true</span>,</span><br><span class="line">        hot: <span class="literal">true</span>                                                     <span class="comment">// 热启动</span></span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="keyword">new</span> webpack.NamedModulesPlugin(),                             <span class="comment">// 当开启HMR的时候使用该插件会显示模块的相对路径</span></span><br><span class="line">        <span class="keyword">new</span> webpack.HotModuleReplacementPlugin()                      <span class="comment">// 模块热替换插件</span></span><br><span class="line">    ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>webpack开发配置<code>pro.js</code>如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">const</span> cwd = process.cwd()</span><br><span class="line"><span class="keyword">const</span> merge = <span class="built_in">require</span>(<span class="string">'webpack-merge'</span>)</span><br><span class="line"><span class="keyword">const</span> config = <span class="built_in">require</span>(<span class="string">'./base.js'</span>)</span><br><span class="line"><span class="keyword">const</span> CopyWebpackPlugin = <span class="built_in">require</span>(<span class="string">'copy-webpack-plugin'</span>)               <span class="comment">// 拷贝资源插件</span></span><br><span class="line"><span class="keyword">const</span> UglifyJSPlugin = <span class="built_in">require</span>(<span class="string">'uglifyjs-webpack-plugin'</span>)              <span class="comment">// 压缩js插件</span></span><br><span class="line"><span class="keyword">const</span> CleanWebpackPlugin = <span class="built_in">require</span>(<span class="string">'clean-webpack-plugin'</span>)             <span class="comment">// 清理文件插件</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = merge(config, &#123;</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="keyword">new</span> CleanWebpackPlugin([<span class="string">'dist'</span>,<span class="string">'build'</span>,<span class="string">'dist/img'</span>],&#123;</span><br><span class="line">            root: cwd,</span><br><span class="line">            verbose: <span class="literal">true</span></span><br><span class="line">        &#125;),</span><br><span class="line">        <span class="keyword">new</span> UglifyJSPlugin(),</span><br><span class="line">        <span class="keyword">new</span> CopyWebpackPlugin([                                         <span class="comment">// 复制图片文件夹</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">from</span>: path.join(cwd, <span class="string">'src/img'</span>),</span><br><span class="line">                to: path.join(cwd, <span class="string">'dist/img'</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        ])</span><br><span class="line">    ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="根据模式匹配获取文件列表"><a href="#根据模式匹配获取文件列表" class="headerlink" title="根据模式匹配获取文件列表"></a>根据模式匹配获取文件列表</h2><p>结合<a href="https://segmentfault.com/a/1190000004511992" target="_blank" rel="noopener">《基于webpack的前端工程化开发之多页站点篇（一）》</a>和<a href="https://segmentfault.com/a/1190000004516832" target="_blank" rel="noopener">《基于webpack的前端工程化开发之多页站点篇（二）》</a>这两篇文章，应该很容易完成配置，但是我也发现一个问题，就是在<code>view</code>配置多级目录的时候类似<code>view/question/question.html</code>，打包配置会出问题，就仅局限于当前目录。</p>
+<p>于是参考了<a href="https://github.com/kisnows" target="_blank" rel="noopener">kisnows 抹桥</a>的<a href="https://github.com/kisnows/spart" target="_blank" rel="noopener">Spart</a>项目webpack配置，对入口和html生成配置做了调整。</p>
+<p><code>getEntry.js</code>如下：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> glob = <span class="built_in">require</span>(<span class="string">'glob'</span>)</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">const</span> cwd = process.cwd()</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params">jsPath</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">const</span> entrys = &#123;&#125;</span><br><span class="line">    <span class="keyword">const</span> entryFiles = glob.sync(jsPath)</span><br><span class="line">    <span class="keyword">const</span> reg = <span class="regexp">/src\/(\S+)$/</span></span><br><span class="line">    <span class="keyword">const</span> fileReg = <span class="regexp">/src\/js\/(\S+).js$/</span></span><br><span class="line">    entryFiles.forEach(<span class="function">(<span class="params">v</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> pathname = v.match(reg)[<span class="number">1</span>]</span><br><span class="line">      <span class="keyword">const</span> filename = v.match(fileReg)[<span class="number">1</span>]</span><br><span class="line">      entrys[filename] = <span class="string">`./src/<span class="subst">$&#123;pathname&#125;</span>`</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> entrys</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>getEntry.js</code>输出结果如下（举个栗子）：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">'page/about'</span>: <span class="string">'./src/js/page/about.js'</span>,</span><br><span class="line">    <span class="string">'page/index'</span>: <span class="string">'./src/js/page/index.js'</span>,</span><br><span class="line">    <span class="string">'page/question/question'</span>: <span class="string">'./src/js/page/question/question.js'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>getHtml.js</code>如下：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> glob = <span class="built_in">require</span>(<span class="string">'glob'</span>)</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">const</span> cwd = process.cwd()</span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">'html-webpack-plugin'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">htmlPath</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">const</span> pluginList = []</span><br><span class="line">    <span class="keyword">const</span> htmlFileList = glob.sync(htmlPath)</span><br><span class="line">    <span class="keyword">const</span> reg = <span class="regexp">/src\/(\S+)$/</span></span><br><span class="line">    <span class="keyword">const</span> fileReg = <span class="regexp">/src\/view\/(\S+).html$/</span></span><br><span class="line">    htmlFileList.forEach(<span class="function">(<span class="params">v</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">const</span> pathname = v.match(reg)[<span class="number">1</span>]</span><br><span class="line">        <span class="keyword">const</span> filename = path.basename(v, path.extname(v))</span><br><span class="line">        <span class="keyword">const</span> shortname = v.match(fileReg)[<span class="number">1</span>]</span><br><span class="line">        pluginList.push(</span><br><span class="line">            <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">                filename: <span class="string">`<span class="subst">$&#123;pathname&#125;</span>`</span>,</span><br><span class="line">                template: <span class="string">`./src/<span class="subst">$&#123;pathname&#125;</span>`</span>,</span><br><span class="line">                inject: <span class="string">'body'</span>,</span><br><span class="line">                chunks: [<span class="string">'vendors'</span>, <span class="string">`page/<span class="subst">$&#123;shortname&#125;</span>`</span>],</span><br><span class="line">                hash: <span class="literal">false</span>,</span><br><span class="line">                minify: process.env.NODE_ENV !== <span class="string">'production'</span> ? <span class="literal">false</span> : &#123;</span><br><span class="line">                  removeAttributeQuotes: <span class="literal">true</span>,</span><br><span class="line">                  removeComments: <span class="literal">true</span>,</span><br><span class="line">                  collapseWhitespace: <span class="literal">true</span>,</span><br><span class="line">                  html5: <span class="literal">true</span>,</span><br><span class="line">                  minifyCSS: <span class="literal">true</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        )</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> pluginList</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>getHtml.js</code>输出结果如下（举个栗子）:<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        filename: <span class="string">'view/about.html'</span>,</span><br><span class="line">        template: <span class="string">'./src/view/about.html'</span>,</span><br><span class="line">        inject: <span class="string">'body'</span>,</span><br><span class="line">        chunks: [ <span class="string">'page/vendors'</span>, <span class="string">'page/about'</span> ],</span><br><span class="line">        hash: <span class="literal">false</span>,</span><br><span class="line">        minify: <span class="literal">false</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        filename: <span class="string">'view/index.html'</span>,</span><br><span class="line">        template: <span class="string">'./src/view/index.html'</span>,</span><br><span class="line">        inject: <span class="string">'body'</span>,</span><br><span class="line">        chunks: [ <span class="string">'page/vendors'</span>, <span class="string">'page/index'</span> ],</span><br><span class="line">        hash: <span class="literal">false</span>,</span><br><span class="line">        minify: <span class="literal">false</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        filename: <span class="string">'view/question/question.html'</span>,</span><br><span class="line">        template: <span class="string">'./src/view/question/question.html'</span>,</span><br><span class="line">        inject: <span class="string">'body'</span>,</span><br><span class="line">        chunks: [ <span class="string">'page/vendors'</span>, <span class="string">'page/question/question'</span> ],</span><br><span class="line">        hash: <span class="literal">false</span>,</span><br><span class="line">        minify: <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<h2 id="如何在-webpack-中引入未模块化的库，如-Zepto"><a href="#如何在-webpack-中引入未模块化的库，如-Zepto" class="headerlink" title="如何在 webpack 中引入未模块化的库，如 Zepto"></a><a href="https://sebastianblade.com/how-to-import-unmodular-library-like-zepto/" target="_blank" rel="noopener">如何在 webpack 中引入未模块化的库，如 Zepto</a></h2><p>解决方法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ npm i -D script-loader exports-loader</span><br></pre></td></tr></table></figure>
+<p>引入script-loader与exports-loader，然后参考以上的配置</p>
+<h2 id="NodeJs中process-cwd-与-dirname的区别"><a href="#NodeJs中process-cwd-与-dirname的区别" class="headerlink" title="NodeJs中process.cwd()与__dirname的区别"></a><a href="https://www.cnblogs.com/tim100/p/6590733.html" target="_blank" rel="noopener">NodeJs中process.cwd()与__dirname的区别</a></h2><p><code>process.cwd()</code> 是当前执行node命令时候的文件夹地址 ——工作目录，就是说 <code>process.cwd()</code> 返回的是当前Node.js进程执行时的工作目录</p>
+<p><code>__dirname</code> 是被执行的js文件的地址 ——文件所在目录，等同于 <code>__filename</code> 的 <code>path.dirname()</code></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
+<ul>
+<li><a href="https://segmentfault.com/a/1190000004511992" target="_blank" rel="noopener">基于webpack的前端工程化开发之多页站点篇（一）</a></li>
+<li><a href="https://segmentfault.com/a/1190000004516832" target="_blank" rel="noopener">基于webpack的前端工程化开发之多页站点篇（二）</a></li>
+<li><a href="https://doc.webpack-china.org/concepts/" target="_blank" rel="noopener">webpack概念</a></li>
+<li><a href="https://www.sass.hk/guide/" target="_blank" rel="noopener">sass</a></li>
+<li><a href="https://www.cnblogs.com/tim100/p/6590733.html" target="_blank" rel="noopener">NodeJs中process.cwd()与__dirname的区别</a></li>
+<li><a href="https://sebastianblade.com/how-to-import-unmodular-library-like-zepto/" target="_blank" rel="noopener">如何在 webpack 中引入未模块化的库，如 Zepto</a></li>
+<li><a href="https://blog.kisnows.com/archives/" target="_blank" rel="noopener">抹桥的博客</a></li>
+</ul>
+</blockquote>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>其实在配置的过程中，有考虑到一个问题，就是后端童鞋不一定会用你这一套东西，就好像<a href="https://github.com/kisnows" target="_blank" rel="noopener">@抹桥</a>说的那样，感觉这是为了用 webpack 而用 webpack 的节奏，还不如直接用gulp来的方便。可能确实也可能如此，但后面又想一想，思路通了就做一下吧，不能总是半途而废，于是就有了这篇文章。</p>
+<p>配置的时候，参照了很多文章，自身水平有限，如有冒犯，请通知我！</p>
+<p>谢谢您的品读，此处抛砖引玉，希望大家共同探讨学习。</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持一下</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat-reward-image.jpg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay-reward-image.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2018/02/26/webpack3.0前端工程化/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2018/04/03/node.js常用知识/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

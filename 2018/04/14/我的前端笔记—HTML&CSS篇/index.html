@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>我的前端笔记—HTML&amp;CSS篇 | BestMian&#39;s blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="meta,css3,移动端," />
+  
+
+  <meta name="description" content="PC端基础meta标签&amp;lt;!-- 页面关键词--&amp;gt;&amp;lt;meta name=&quot;keywords&quot; content=&quot;your tags&quot; /&amp;gt;&amp;lt;!-- 页面描述--&amp;gt;&amp;lt;meta name=&quot;description&quot; content=&quot;150 words&quot; /&amp;gt;&amp;lt;!-- 搜索引擎索引方式：robotterms是一组使用逗号(,)分割的值，通常有如下几种">
+<meta name="keywords" content="meta,css3,移动端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我的前端笔记—HTML&amp;CSS篇">
+<meta property="og:url" content="http://www.bestmian.com/2018/04/14/我的前端笔记—HTML&CSS篇/index.html">
+<meta property="og:site_name" content="BestMian&#39;s blog">
+<meta property="og:description" content="PC端基础meta标签&amp;lt;!-- 页面关键词--&amp;gt;&amp;lt;meta name=&quot;keywords&quot; content=&quot;your tags&quot; /&amp;gt;&amp;lt;!-- 页面描述--&amp;gt;&amp;lt;meta name=&quot;description&quot; content=&quot;150 words&quot; /&amp;gt;&amp;lt;!-- 搜索引擎索引方式：robotterms是一组使用逗号(,)分割的值，通常有如下几种">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-16T03:31:49.257Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="我的前端笔记—HTML&amp;CSS篇">
+<meta name="twitter:description" content="PC端基础meta标签&amp;lt;!-- 页面关键词--&amp;gt;&amp;lt;meta name=&quot;keywords&quot; content=&quot;your tags&quot; /&amp;gt;&amp;lt;!-- 页面描述--&amp;gt;&amp;lt;meta name=&quot;description&quot; content=&quot;150 words&quot; /&amp;gt;&amp;lt;!-- 搜索引擎索引方式：robotterms是一组使用逗号(,)分割的值，通常有如下几种">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?e725065614a17e5024342c65ce59cd39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">M</span>
+  
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">M</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PC端基础meta标签"><span class="toc-text">PC端基础meta标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#H5基本meta标签"><span class="toc-text">H5基本meta标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#移动端如何定义字体font-family"><span class="toc-text">移动端如何定义字体font-family</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ios系统中元素被触摸时产生的半透明灰色遮罩怎么去掉"><span class="toc-text">ios系统中元素被触摸时产生的半透明灰色遮罩怎么去掉</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#部分android系统中元素被点击时产生的边框怎么去掉"><span class="toc-text">部分android系统中元素被点击时产生的边框怎么去掉</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#禁止ios和android用户选中文字"><span class="toc-text">禁止ios和android用户选中文字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#打电话发短信写邮件怎么实现"><span class="toc-text">打电话发短信写邮件怎么实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#css实现单行文本缩略显示"><span class="toc-text">css实现单行文本缩略显示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#css实现多行文本缩略显示"><span class="toc-text">css实现多行文本缩略显示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#placeholder的字体颜色大小"><span class="toc-text">placeholder的字体颜色大小</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见移动设备的-CSS3-Media-Query-整理"><span class="toc-text">常见移动设备的 CSS3 Media Query 整理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS3-盒阴影"><span class="toc-text">CSS3 盒阴影</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS画出三角形"><span class="toc-text">CSS画出三角形</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS画出有边框的三角形"><span class="toc-text">CSS画出有边框的三角形</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#移动web-1像素边框"><span class="toc-text">移动web 1像素边框</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flex布局"><span class="toc-text">flex布局</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS实现背景透明文字不透明"><span class="toc-text">CSS实现背景透明文字不透明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IE各个版本hack"><span class="toc-text">IE各个版本hack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用条件注释判断浏览器版本解决页面兼容问题"><span class="toc-text">用条件注释判断浏览器版本解决页面兼容问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-我的前端笔记—HTML&amp;CSS篇" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">我的前端笔记—HTML&amp;CSS篇</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.04.14</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>陈晓勉</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="PC端基础meta标签"><a href="#PC端基础meta标签" class="headerlink" title="PC端基础meta标签"></a>PC端基础meta标签</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 页面关键词--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"keywords"</span> <span class="attr">content</span>=<span class="string">"your tags"</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 页面描述--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"description"</span> <span class="attr">content</span>=<span class="string">"150 words"</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 搜索引擎索引方式：robotterms是一组使用逗号(,)分割的值，通常有如下几种取值：none，noindex，nofollow，all，index和follow。确保正确使用nofollow和noindex属性值。--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"robots"</span> <span class="attr">content</span>=<span class="string">"index,follow"</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">    all：文件将被检索，且页面上的链接可以被查询；</span></span><br><span class="line"><span class="comment">    none：文件将不被检索，且页面上的链接不可以被查询；</span></span><br><span class="line"><span class="comment">    index：文件将被检索；</span></span><br><span class="line"><span class="comment">    follow：页面上的链接可以被查询；</span></span><br><span class="line"><span class="comment">    noindex：文件将不被检索；</span></span><br><span class="line"><span class="comment">    nofollow：页面上的链接不可以被查询。</span></span><br><span class="line"><span class="comment"> --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 页面重定向和刷新：content内的数字代表时间（秒），既多少时间后刷新。如果加url,则会重定向到指定网页（搜索引擎能够自动检测，也很容易被引擎视作误导而受到惩罚）。--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"refresh"</span> <span class="attr">content</span>=<span class="string">"0;url="</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 清除缓存 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"pragma"</span> <span class="attr">content</span>=<span class="string">"no-cache"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"cache-control"</span> <span class="attr">content</span>=<span class="string">"no-cache"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"expires"</span> <span class="attr">content</span>=<span class="string">"0"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="H5基本meta标签"><a href="#H5基本meta标签" class="headerlink" title="H5基本meta标签"></a>H5基本meta标签</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 设置缩放 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1, user-scalable=no, minimal-ui"</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">    width    设置viewport宽度，为一个正整数，或字符串‘device-width’</span></span><br><span class="line"><span class="comment">    device-width  设备宽度</span></span><br><span class="line"><span class="comment">    height   设置viewport高度，一般设置了宽度，会自动解析出高度，可以不用设置</span></span><br><span class="line"><span class="comment">    initial-scale    默认缩放比例（初始缩放比例），为一个数字，可以带小数</span></span><br><span class="line"><span class="comment">    minimum-scale    允许用户最小缩放比例，为一个数字，可以带小数</span></span><br><span class="line"><span class="comment">    maximum-scale    允许用户最大缩放比例，为一个数字，可以带小数</span></span><br><span class="line"><span class="comment">    user-scalable    是否允许手动缩放</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 可隐藏地址栏，仅针对IOS的Safari（注：IOS7.0版本以后，safari上已看不到效果） --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-capable"</span> <span class="attr">content</span>=<span class="string">"yes"</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 仅针对IOS的Safari顶端状态条的样式（可选default/black/black-translucent ） --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-status-bar-style"</span> <span class="attr">content</span>=<span class="string">"black"</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- IOS中禁用将数字识别为电话号码/忽略Android平台中对邮箱地址的识别 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"format-detection"</span><span class="attr">content</span>=<span class="string">"telephone=no, email=no"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 其他meta标签 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 启用360浏览器的极速模式(webkit) --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"renderer"</span> <span class="attr">content</span>=<span class="string">"webkit"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 避免IE使用兼容模式 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"IE=edge"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"HandheldFriendly"</span> <span class="attr">content</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 微软的老式浏览器 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"MobileOptimized"</span> <span class="attr">content</span>=<span class="string">"320"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- uc强制竖屏 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"screen-orientation"</span> <span class="attr">content</span>=<span class="string">"portrait"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- QQ强制竖屏 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"x5-orientation"</span> <span class="attr">content</span>=<span class="string">"portrait"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- UC强制全屏 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"full-screen"</span> <span class="attr">content</span>=<span class="string">"yes"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- QQ强制全屏 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"x5-fullscreen"</span> <span class="attr">content</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- UC应用模式 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"browsermode"</span> <span class="attr">content</span>=<span class="string">"application"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- QQ应用模式 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"x5-page-mode"</span> <span class="attr">content</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- windows phone 点击无高光 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"msapplication-tap-highlight"</span> <span class="attr">content</span>=<span class="string">"no"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="移动端如何定义字体font-family"><a href="#移动端如何定义字体font-family" class="headerlink" title="移动端如何定义字体font-family"></a>移动端如何定义字体font-family</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">@ --------------------------------------中文字体的英文名称</span><br><span class="line">@ 宋体      SimSun</span><br><span class="line">@ 黑体      SimHei</span><br><span class="line">@ 微信雅黑   Microsoft Yahei</span><br><span class="line">@ 微软正黑体 Microsoft JhengHei</span><br><span class="line">@ 新宋体    NSimSun</span><br><span class="line">@ 新细明体  MingLiU</span><br><span class="line">@ 细明体    MingLiU</span><br><span class="line">@ 标楷体    DFKai-SB</span><br><span class="line">@ 仿宋     FangSong</span><br><span class="line">@ 楷体     KaiTi</span><br><span class="line">@ 仿宋_GB2312  FangSong_GB2312</span><br><span class="line">@ 楷体_GB2312  KaiTi_GB2312  </span><br><span class="line">@</span><br><span class="line">@ 说明：中文字体多数使用宋体、雅黑，英文用Helvetica</span><br><span class="line"></span><br><span class="line">body &#123; <span class="selector-tag">font-family</span>: <span class="selector-tag">Microsoft</span> <span class="selector-tag">Yahei</span>,<span class="selector-tag">SimSun</span>,<span class="selector-tag">Helvetica</span>; &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="ios系统中元素被触摸时产生的半透明灰色遮罩怎么去掉"><a href="#ios系统中元素被触摸时产生的半透明灰色遮罩怎么去掉" class="headerlink" title="ios系统中元素被触摸时产生的半透明灰色遮罩怎么去掉"></a>ios系统中元素被触摸时产生的半透明灰色遮罩怎么去掉</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">a</span>,<span class="selector-tag">button</span>,<span class="selector-tag">input</span>,<span class="selector-tag">textarea</span>&#123;<span class="attribute">-webkit-tap-highlight-color</span>: <span class="built_in">rgba</span>(0,0,0,0;)&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="部分android系统中元素被点击时产生的边框怎么去掉"><a href="#部分android系统中元素被点击时产生的边框怎么去掉" class="headerlink" title="部分android系统中元素被点击时产生的边框怎么去掉"></a>部分android系统中元素被点击时产生的边框怎么去掉</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">a</span>,<span class="selector-tag">button</span>,<span class="selector-tag">input</span>,<span class="selector-tag">textarea</span>&#123;</span><br><span class="line"><span class="attribute">-webkit-tap-highlight-color</span>: <span class="built_in">rgba</span>(0,0,0,0;);</span><br><span class="line"><span class="attribute">-webkit-user-modify</span>:read-write-plaintext-only; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="禁止ios和android用户选中文字"><a href="#禁止ios和android用户选中文字" class="headerlink" title="禁止ios和android用户选中文字"></a>禁止ios和android用户选中文字</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.css</span>&#123;<span class="attribute">-webkit-user-select</span>:none&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="打电话发短信写邮件怎么实现"><a href="#打电话发短信写邮件怎么实现" class="headerlink" title="打电话发短信写邮件怎么实现"></a>打电话发短信写邮件怎么实现</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"tel:0755-10086"</span>&gt;</span>打电话给:0755-10086<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"sms:10086"</span>&gt;</span>发短信给: 10086<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"mailto:peun@foxmail.com"</span>&gt;</span>peun@foxmail.com<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="css实现单行文本缩略显示"><a href="#css实现单行文本缩略显示" class="headerlink" title="css实现单行文本缩略显示"></a>css实现单行文本缩略显示</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">overflow</span>: <span class="selector-tag">hidden</span>;</span><br><span class="line"><span class="selector-tag">text-overflow</span><span class="selector-pseudo">:ellipsis</span>;</span><br><span class="line"><span class="selector-tag">white-space</span>: <span class="selector-tag">nowrap</span>;</span><br><span class="line"><span class="comment">/* 当然还需要加宽度width属来兼容部分浏览。*/</span></span><br></pre></td></tr></table></figure>
+<h2 id="css实现多行文本缩略显示"><a href="#css实现多行文本缩略显示" class="headerlink" title="css实现多行文本缩略显示"></a>css实现多行文本缩略显示</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">display</span>: <span class="selector-tag">-webkit-box</span>;</span><br><span class="line"><span class="selector-tag">-webkit-box-orient</span>: <span class="selector-tag">vertical</span>;</span><br><span class="line"><span class="selector-tag">-webkit-line-clamp</span>: 3;</span><br><span class="line"><span class="selector-tag">overflow</span>: <span class="selector-tag">hidden</span>;</span><br><span class="line"><span class="selector-tag">text-overflow</span>: <span class="selector-tag">ellipsis</span>;</span><br><span class="line"><span class="selector-tag">word-break</span>: <span class="selector-tag">break-all</span>; <span class="comment">/* 追加这一行代码 */</span></span><br></pre></td></tr></table></figure>
+<h2 id="placeholder的字体颜色大小"><a href="#placeholder的字体颜色大小" class="headerlink" title="placeholder的字体颜色大小"></a>placeholder的字体颜色大小</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">::-webkit-input-placeholder</span> &#123; </span><br><span class="line">    <span class="comment">/* WebKit browsers */</span> </span><br><span class="line">    <span class="attribute">font-size</span>:<span class="number">14px</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#333</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:focus</span><span class="selector-pseudo">::-webkit-input-placeholder</span>&#123;</span><br><span class="line">    <span class="attribute">color</span>:<span class="number">#EEEEEE</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">::-moz-placeholder</span> &#123; </span><br><span class="line">    <span class="comment">/* Mozilla Firefox 19+ */</span> </span><br><span class="line">    <span class="attribute">font-size</span>:<span class="number">14px</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#333</span>;</span><br><span class="line">&#125; </span><br><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:-ms-input-placeholder</span> &#123; </span><br><span class="line">    <span class="comment">/* Internet Explorer 10+ */</span> </span><br><span class="line">    <span class="attribute">font-size</span>:<span class="number">14px</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#333</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="常见移动设备的-CSS3-Media-Query-整理"><a href="#常见移动设备的-CSS3-Media-Query-整理" class="headerlink" title="常见移动设备的 CSS3 Media Query 整理"></a>常见移动设备的 CSS3 Media Query 整理</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * iPhone 4/4s landscape &amp; portrait</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">@<span class="keyword">media</span> only screen</span><br><span class="line">and (min-device-width: <span class="number">320px</span>)</span><br><span class="line">and (max-device-width: <span class="number">480px</span>)</span><br><span class="line">and (-webkit-device-pixel-ratio: <span class="number">2</span>)</span><br><span class="line">and (device-aspect-ratio: <span class="number">2</span>/<span class="number">3</span>) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * iPhone 4/4s landscape</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">@<span class="keyword">media</span> only screen</span><br><span class="line">and (min-device-width: <span class="number">320px</span>)</span><br><span class="line">and (max-device-width: <span class="number">480px</span>)</span><br><span class="line">and (-webkit-device-pixel-ratio: <span class="number">2</span>)</span><br><span class="line">and (device-aspect-ratio: <span class="number">2</span>/<span class="number">3</span>)</span><br><span class="line">and (orientation:landscape) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  iPhone 5/5s landscape &amp; portrait</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">@<span class="keyword">media</span> only screen</span><br><span class="line">and (min-device-width: <span class="number">414px</span>)</span><br><span class="line">and (max-device-width: <span class="number">736px</span>)</span><br><span class="line">and (-webkit-min-device-pixel-ratio: <span class="number">3</span>) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * iPhone 6 Portrait</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">@<span class="keyword">media</span> only screen and (min-device-width: <span class="number">375px</span>) and (max-device-width: <span class="number">667px</span>) and (orientation : portrait) &#123; </span><br><span class="line">    //iPhone 6 Portrait</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 宽度小于等于 320px </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">@<span class="keyword">media</span> screen and (max-width: <span class="number">320px</span>) &#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 宽度大于等于 320px </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">@<span class="keyword">media</span> screen and (min-width: <span class="number">320px</span>)&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="CSS3-盒阴影"><a href="#CSS3-盒阴影" class="headerlink" title="CSS3 盒阴影"></a>CSS3 盒阴影</h2><p><code>box-shadow</code> 属性接受值最多由五个不同的部分组成。</p>
+<p><code>offset-x</code>  必需。水平阴影的位置。允许负值。<br><code>offset-y</code>  必需。垂直阴影的位置。允许负值。<br><code>blur</code>      可选。模糊距离。<br><code>spread</code>    可选。阴影的尺寸。<br><code>color</code>     可选。阴影的颜色。请参阅 CSS 颜色值。<br><code>position</code>  可选。将外部阴影 (outset) 改为内部阴影。</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">box-shadow</span>: <span class="selector-tag">offset-x</span> <span class="selector-tag">offset-y</span> <span class="selector-tag">blur</span> <span class="selector-tag">spread</span> <span class="selector-tag">color</span> <span class="selector-tag">position</span>;</span><br><span class="line"><span class="comment">/* blur */</span></span><br><span class="line"><span class="selector-class">.right</span> &#123; <span class="attribute">box-shadow</span>: <span class="number">0px</span> <span class="number">0px</span> <span class="number">50px</span> <span class="number">0px</span> <span class="built_in">rgba</span>(0,0,0,0.5) &#125;</span><br><span class="line"><span class="comment">/* 多重阴影 */</span></span><br><span class="line"><span class="selector-class">.foo</span> &#123;</span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="number">20px</span> <span class="number">20px</span> <span class="number">10px</span> <span class="number">0px</span> <span class="built_in">rgba</span>(0,0,0,0.5) inset, <span class="comment">/* inner shadow */</span></span><br><span class="line">    <span class="number">20px</span> <span class="number">20px</span> <span class="number">10px</span> <span class="number">0px</span> <span class="built_in">rgba</span>(0,0,0,0.5); <span class="comment">/* outer shadow */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 大杂烩 */</span></span><br><span class="line"><span class="selector-class">.simple</span> &#123;</span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="number">0px</span> <span class="number">0px</span> <span class="number">0px</span> <span class="number">40px</span> indianred;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.multiple</span> &#123;</span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="number">20px</span> <span class="number">20px</span> <span class="number">0px</span> <span class="number">20px</span> lightcoral,</span><br><span class="line">                -<span class="number">20px</span> -<span class="number">20px</span> <span class="number">0px</span> <span class="number">20px</span> mediumvioletred,</span><br><span class="line">                <span class="number">0px</span> <span class="number">0px</span> <span class="number">0px</span> <span class="number">40px</span> <span class="built_in">rgb</span>(200,200,200);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 弹出效果 */</span></span><br><span class="line"><span class="selector-class">.popup</span> &#123;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">scale</span>(1);</span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="number">0px</span> <span class="number">0px</span> <span class="number">10px</span> <span class="number">5px</span> <span class="built_in">rgba</span>(0, 0, 0, 0.3);</span><br><span class="line">    <span class="attribute">transition</span>: box-shadow <span class="number">0.5s</span>, transform <span class="number">0.5s</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.popup</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">scale</span>(1.3);</span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="number">0px</span> <span class="number">0px</span> <span class="number">50px</span> <span class="number">10px</span> <span class="built_in">rgba</span>(0, 0, 0, 0.3);</span><br><span class="line">    <span class="attribute">transition</span>: box-shadow <span class="number">0.5s</span>, transform <span class="number">0.5s</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="CSS画出三角形"><a href="#CSS画出三角形" class="headerlink" title="CSS画出三角形"></a>CSS画出三角形</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.tip</span> &#123;</span><br><span class="line">    <span class="attribute">border-color</span>: transparent transparent <span class="built_in">rgb</span>(0,0,0) transparent;</span><br><span class="line">    <span class="attribute">border-width</span>: <span class="number">10px</span> <span class="number">100px</span> <span class="number">150px</span> <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="CSS画出有边框的三角形"><a href="#CSS画出有边框的三角形" class="headerlink" title="CSS画出有边框的三角形"></a>CSS画出有边框的三角形</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.find-div-body</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">    <span class="attribute">top</span>:<span class="number">30px</span>;</span><br><span class="line">    <span class="attribute">right</span>:<span class="number">0px</span>;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">padding</span>:<span class="number">8px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#FFFFFF</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">#cccccc</span> solid <span class="number">1px</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">3px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.find-div-body</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">    <span class="attribute">box-sizing</span>: content-box;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">0px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">0px</span>;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">top</span>: -<span class="number">16px</span>;</span><br><span class="line">    <span class="attribute">right</span>:<span class="number">41px</span>;</span><br><span class="line">    <span class="attribute">padding</span>:<span class="number">0</span>;</span><br><span class="line">    <span class="attribute">border-bottom</span>:<span class="number">8px</span> solid <span class="number">#FFFFFF</span>;</span><br><span class="line">    <span class="attribute">border-top</span>:<span class="number">8px</span> solid transparent;</span><br><span class="line">    <span class="attribute">border-left</span>:<span class="number">8px</span> solid transparent;</span><br><span class="line">    <span class="attribute">border-right</span>:<span class="number">8px</span> solid transparent;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">content</span>:<span class="string">''</span>;</span><br><span class="line">    <span class="attribute">z-index</span>: <span class="number">12</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.find-div-body</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">    <span class="attribute">box-sizing</span>: content-box;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">0px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">0px</span>;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">top</span>: -<span class="number">18px</span>;</span><br><span class="line">    <span class="attribute">right</span>:<span class="number">40px</span>;</span><br><span class="line">    <span class="attribute">padding</span>:<span class="number">0</span>;</span><br><span class="line">    <span class="attribute">border-bottom</span>:<span class="number">9px</span> solid <span class="number">#cccccc</span>;</span><br><span class="line">    <span class="attribute">border-top</span>:<span class="number">9px</span> solid transparent;</span><br><span class="line">    <span class="attribute">border-left</span>:<span class="number">9px</span> solid transparent;</span><br><span class="line">    <span class="attribute">border-right</span>:<span class="number">9px</span> solid transparent;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">content</span>:<span class="string">''</span>;</span><br><span class="line">    <span class="attribute">z-index</span>:<span class="number">10</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="移动web-1像素边框"><a href="#移动web-1像素边框" class="headerlink" title="移动web 1像素边框"></a>移动web 1像素边框</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.div</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">200%</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">200%</span>;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#bfbfbf</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">4px</span>;</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">scale</span>(0.5,0.5);</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">scale</span>(0.5,0.5);</span><br><span class="line">    <span class="attribute">-webkit-transform-origin</span>: top left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="flex布局"><a href="#flex布局" class="headerlink" title="flex布局"></a>flex布局</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* ============================================================</span></span><br><span class="line"><span class="comment">   flex：定义布局为盒模型</span></span><br><span class="line"><span class="comment">   flex-v：盒模型垂直布局</span></span><br><span class="line"><span class="comment">   flex-1：子元素占据剩余的空间</span></span><br><span class="line"><span class="comment">   flex-align-center：子元素垂直居中</span></span><br><span class="line"><span class="comment">   flex-pack-center：子元素水平居中</span></span><br><span class="line"><span class="comment">   flex-pack-justify：子元素两端对齐</span></span><br><span class="line"><span class="comment">   兼容性：ios 4+、android 2.3+、winphone8+</span></span><br><span class="line"><span class="comment">   ============================================================ */</span></span><br><span class="line"><span class="selector-class">.flex</span>&#123;<span class="attribute">display</span>:-webkit-box;<span class="attribute">display</span>:-webkit-flex;<span class="attribute">display</span>:-ms-flexbox;<span class="attribute">display</span>:flex;&#125;</span><br><span class="line"><span class="selector-class">.flex-v</span>&#123;<span class="attribute">-webkit-box-orient</span>:vertical;<span class="attribute">-webkit-flex-direction</span>:column;<span class="attribute">-ms-flex-direction</span>:column;<span class="attribute">flex-direction</span>:column;&#125;</span><br><span class="line"><span class="selector-class">.flex-1</span>&#123;<span class="attribute">-webkit-box-flex</span>:<span class="number">1</span>;<span class="attribute">-webkit-flex</span>:<span class="number">1</span>;<span class="attribute">-ms-flex</span>:<span class="number">1</span>;<span class="attribute">flex</span>:<span class="number">1</span>;&#125;</span><br><span class="line"><span class="selector-class">.flex-align-center</span>&#123;<span class="attribute">-webkit-box-align</span>:center;<span class="attribute">-webkit-align-items</span>:center;<span class="attribute">-ms-flex-align</span>:center;<span class="attribute">align-items</span>:center;&#125;</span><br><span class="line"><span class="selector-class">.flex-pack-center</span>&#123;<span class="attribute">-webkit-box-pack</span>:center;<span class="attribute">-webkit-justify-content</span>:center;<span class="attribute">-ms-flex-pack</span>:center;<span class="attribute">justify-content</span>:center;&#125;</span><br><span class="line"><span class="selector-class">.flex-pack-justify</span>&#123;<span class="attribute">-webkit-box-pack</span>:justify;<span class="attribute">-webkit-justify-content</span>:space-between;<span class="attribute">-ms-flex-pack</span>:justify;<span class="attribute">justify-content</span>:space-between;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="CSS实现背景透明文字不透明"><a href="#CSS实现背景透明文字不透明" class="headerlink" title="CSS实现背景透明文字不透明"></a>CSS实现背景透明文字不透明</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.parent</span>&#123;</span><br><span class="line">    <span class="attribute">background</span>:<span class="built_in">rgba</span>(0,0,0,0.2) none repeat scroll <span class="meta">!important</span>; <span class="comment">/*实现FF背景透明，文字不透明*/</span></span><br><span class="line">    <span class="attribute">background</span>:<span class="number">#000</span>;</span><br><span class="line">    <span class="attribute">filter</span>:<span class="built_in">Alpha</span>(opacity=20);<span class="comment">/*实现IE背景透明*/</span> </span><br><span class="line">    <span class="attribute">width</span>:<span class="number">500px</span>;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">500px</span>;</span><br><span class="line">    <span class="attribute">color</span>:<span class="number">#F30</span>;</span><br><span class="line">    <span class="attribute">font-size</span>:<span class="number">32px</span>;</span><br><span class="line">    <span class="attribute">font-weight</span>:bold;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.parent</span> <span class="selector-tag">p</span>&#123;</span><br><span class="line">    <span class="attribute">position</span>:relative; <span class="comment">/*实现IE文字不透明*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="IE各个版本hack"><a href="#IE各个版本hack" class="headerlink" title="IE各个版本hack"></a>IE各个版本hack</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*类内部hack：*/</span></span><br><span class="line"><span class="selector-class">.header</span> &#123;<span class="attribute">_width</span>:<span class="number">100px</span>;&#125;            <span class="comment">/* IE6专用*/</span></span><br><span class="line">.header &#123;*+width:100px;&#125;        /* IE7专用*/</span><br><span class="line">.header &#123;*width:100px;&#125;            /* IE6、IE7共用*/</span><br><span class="line"><span class="selector-class">.header</span> &#123;<span class="attribute">width</span>:<span class="number">100px</span>\<span class="number">0</span>;&#125;        <span class="comment">/* IE8、IE9共用*/</span></span><br><span class="line"><span class="selector-class">.header</span> &#123;<span class="attribute">width</span>:<span class="number">100px</span>\<span class="number">9</span>;&#125;        <span class="comment">/* IE6、IE7、IE8、IE9共用*/</span></span><br><span class="line"><span class="selector-class">.header</span> &#123;<span class="attribute">width</span>:<span class="number">330px</span>\<span class="number">9</span>\<span class="number">0</span>;&#125;    <span class="comment">/* IE9专用*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*选择器Hack：*/</span></span><br><span class="line">*<span class="selector-tag">html</span> <span class="selector-class">.header</span>&#123;&#125;        <span class="comment">/*IE6*/</span> </span><br><span class="line">*+<span class="selector-tag">html</span> <span class="selector-class">.header</span>&#123;&#125;    <span class="comment">/*IE7*/</span></span><br></pre></td></tr></table></figure>
+<h2 id="用条件注释判断浏览器版本解决页面兼容问题"><a href="#用条件注释判断浏览器版本解决页面兼容问题" class="headerlink" title="用条件注释判断浏览器版本解决页面兼容问题"></a>用条件注释判断浏览器版本解决页面兼容问题</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span> 用条件注释判断浏览器版本,解决兼容问题 <span class="tag">&lt;/<span class="name">title</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>/&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span> </span><br><span class="line"><span class="comment">&lt;!--[if IE]&gt;只有IE6,7,8,9浏览器显示(IE10标准模式不支持)&lt;hr/&gt;&lt;![endif]--&gt;</span> </span><br><span class="line"><span class="comment">&lt;!--[if !IE]&gt;&lt;!--&gt;</span>只有非IE浏览器显示(不包括IE10)<span class="tag">&lt;<span class="name">hr</span>/&gt;</span><span class="comment">&lt;!--&gt;&lt;![endif]--&gt;</span> </span><br><span class="line"><span class="comment">&lt;!--[if IE 9]&gt;IE9浏览器显示&lt;hr/&gt;&lt;![endif]--&gt;</span> </span><br><span class="line"><span class="comment">&lt;!--[if IE 8]&gt;IE8浏览器显示&lt;hr/&gt;&lt;![endif]--&gt;</span> </span><br><span class="line"><span class="comment">&lt;!--[if IE 7]&gt;IE7浏览器显示&lt;hr/&gt;&lt;![endif]--&gt;</span> </span><br><span class="line"><span class="comment">&lt;!--[if IE 6]&gt;IE6浏览器显示&lt;hr/&gt;&lt;![endif]--&gt;</span> </span><br><span class="line"><span class="comment">&lt;!--[if lt IE 10]&gt;IE10以下版本浏览器显示(不包括IE10)&lt;hr/&gt;&lt;![endif]--&gt;</span> </span><br><span class="line"><span class="comment">&lt;!--[if lte IE 9]&gt;IE9及IE9以下版本浏览器显示(包括IE9)&lt;hr/&gt;&lt;![endif]--&gt;</span> </span><br><span class="line"><span class="comment">&lt;!--[if gt IE 6]&gt;IE6以上版本浏览器显示(不含IE6)&lt;hr/&gt;&lt;![endif]--&gt;</span> </span><br><span class="line"><span class="comment">&lt;!--[if gte IE 7]&gt;IE7及IE7以上版本浏览器显示(包含IE7)&lt;hr/&gt;&lt;![endif]--&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://www.cnblogs.com/PeunZhang/p/3407453.html" target="_blank" rel="noopener">【原】移动web资源整理</a><br><a href="https://segmentfault.com/a/1190000013331105?utm_source=index-hottest#articleHeader12" target="_blank" rel="noopener">面试的信心来源于过硬的基础</a><br><a href="http://www.iyangqiong.com/web/318.html" target="_blank" rel="noopener">box-shadow属性详解</a><br><a href="http://yunkus.com/text-overflow-ellipsis-do-not-work/" target="_blank" rel="noopener">text-overflow:ellipsis 文字超出省略号代替不起作用解决方法</a><br><a href="https://www.zhihu.com/question/35180018" target="_blank" rel="noopener">有谁能详细讲一下css如何画出一个三角形？怎么想都想不懂？</a><br><a href="https://segmentfault.com/a/1190000007604842" target="_blank" rel="noopener">移动web 1像素边框 瞧瞧大公司是怎么做的</a><br><a href="https://www.w3cplus.com/mobile/mobile-terminal-refactoring-reset-style.html" target="_blank" rel="noopener">移动端重构系列4——重置样式</a></p>
+<p>注：笔记借鉴了其他文章，只用于个人学习收集，如有冒犯，请通知我。</p>
+<p>将会持续更新~</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持一下</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat-reward-image.jpg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay-reward-image.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2018/04/08/vue-cli 3.0配置webpack目录别名alias/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2018/04/16/this到底是什么？/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

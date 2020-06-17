@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>PHP类包含的七种语法说明 | BestMian&#39;s blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="php," />
+  
+
+  <meta name="description" content="一个完整的PHP类包含的七种语法说明,这些语法包括属性、静态属性、方法、静态方法、类常量、构造函数、析构函数。 类中的七种语法说明 属性 静态属性 方法 静态方法 类常量 构造函数 析构函数  &amp;lt;?php  class Student &amp;#123;    // 类里的属性、方法和函数的访问权限有 （函数和方法是同一个概念）    // private 私有的 protected 受保护的 p">
+<meta name="keywords" content="php">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP类包含的七种语法说明">
+<meta property="og:url" content="http://www.bestmian.com/2016/02/13/PHP类包含的七种语法说明/index.html">
+<meta property="og:site_name" content="BestMian&#39;s blog">
+<meta property="og:description" content="一个完整的PHP类包含的七种语法说明,这些语法包括属性、静态属性、方法、静态方法、类常量、构造函数、析构函数。 类中的七种语法说明 属性 静态属性 方法 静态方法 类常量 构造函数 析构函数  &amp;lt;?php  class Student &amp;#123;    // 类里的属性、方法和函数的访问权限有 （函数和方法是同一个概念）    // private 私有的 protected 受保护的 p">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-16T03:31:49.247Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP类包含的七种语法说明">
+<meta name="twitter:description" content="一个完整的PHP类包含的七种语法说明,这些语法包括属性、静态属性、方法、静态方法、类常量、构造函数、析构函数。 类中的七种语法说明 属性 静态属性 方法 静态方法 类常量 构造函数 析构函数  &amp;lt;?php  class Student &amp;#123;    // 类里的属性、方法和函数的访问权限有 （函数和方法是同一个概念）    // private 私有的 protected 受保护的 p">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?e725065614a17e5024342c65ce59cd39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">M</span>
+  
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">M</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#类中的七种语法说明"><span class="toc-text">类中的七种语法说明</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-PHP类包含的七种语法说明" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">PHP类包含的七种语法说明</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.02.13</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>陈晓勉</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>一个完整的PHP类包含的七种语法说明,这些语法包括属性、静态属性、方法、静态方法、类常量、构造函数、析构函数。</p>
+<h2 id="类中的七种语法说明"><a href="#类中的七种语法说明" class="headerlink" title="类中的七种语法说明"></a>类中的七种语法说明</h2><ol>
+<li>属性</li>
+<li>静态属性</li>
+<li>方法</li>
+<li>静态方法</li>
+<li>类常量</li>
+<li>构造函数</li>
+<li>析构函数</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">  class Student &#123;</span><br><span class="line">    // 类里的属性、方法和函数的访问权限有 （函数和方法是同一个概念）</span><br><span class="line">    // private 私有的 protected 受保护的 public 公有的</span><br><span class="line">    // 类常量 没有访问权限修饰符</span><br><span class="line">    const STUDENT = <span class="string">'Tom'</span>;</span><br><span class="line">    // 属性</span><br><span class="line">    public <span class="variable">$stu_name</span>;</span><br><span class="line">    // 静态属性</span><br><span class="line">    public static <span class="variable">$stu_num</span> = 1;</span><br><span class="line">    // 方法</span><br><span class="line">    public <span class="keyword">function</span> <span class="function"><span class="title">stuFunction</span></span>() &#123;</span><br><span class="line">      <span class="built_in">echo</span> <span class="string">'non_static_function'</span>,<span class="string">'&lt;br /&gt;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    // 静态方法</span><br><span class="line">    public static <span class="keyword">function</span> <span class="function"><span class="title">static_stuFunction</span></span>() &#123;</span><br><span class="line">      <span class="built_in">echo</span> <span class="string">'static_function'</span>,<span class="string">'&lt;br /&gt;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    // 构造函数 创建对象时自动调用</span><br><span class="line">    public <span class="keyword">function</span> __construct(<span class="variable">$stu_name</span>) &#123;</span><br><span class="line">      <span class="variable">$this</span>-&gt;stu_name = <span class="variable">$stu_name</span>;</span><br><span class="line">      <span class="built_in">echo</span> <span class="string">'__construct'</span>,<span class="string">'&lt;br /&gt;'</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    // 析构函数 销毁对象时自动调用</span><br><span class="line">    public <span class="keyword">function</span> <span class="function"><span class="title">__destruct</span></span>() &#123;</span><br><span class="line">      <span class="built_in">echo</span> <span class="string">'__destruct'</span>,<span class="string">'&lt;br /&gt;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // 实例化类对象</span><br><span class="line">  <span class="variable">$object</span> = new Student(<span class="string">'Tom'</span>);</span><br><span class="line">  // 对象调用属性</span><br><span class="line">  <span class="built_in">echo</span> <span class="variable">$object</span>-&gt;stu_name,<span class="string">'&lt;br /&gt;'</span>;</span><br><span class="line">  // 对象调用静态属性</span><br><span class="line">  <span class="built_in">echo</span> <span class="variable">$object</span>::<span class="variable">$stu_num</span>,<span class="string">'&lt;br /&gt;'</span>;</span><br><span class="line">  // 类调用静态属性</span><br><span class="line">  <span class="built_in">echo</span> Student::<span class="variable">$stu_num</span>,<span class="string">'&lt;br /&gt;'</span>;</span><br><span class="line">  // 使用对象分别调用方法和静态方法</span><br><span class="line">  <span class="variable">$object</span>-&gt;stuFunction();</span><br><span class="line">  <span class="variable">$object</span>-&gt;static_stuFunction();</span><br><span class="line">  <span class="variable">$object</span>::stuFunction();</span><br><span class="line">  <span class="variable">$object</span>::static_stuFunction();</span><br><span class="line">  // 使用类分别调用方法和静态方法</span><br><span class="line">  Student::stuFunction();</span><br><span class="line">  Student::static_stuFunction();</span><br><span class="line">  // 类调用类常量</span><br><span class="line">  <span class="built_in">echo</span> Student::STUDENT,<span class="string">'&lt;br /&gt;'</span>;</span><br></pre></td></tr></table></figure>
+<p>总结：<br>对象可以调用属性和静态属性，类只能调用静态属性。<br>对象可以调用方法和静态方法，类可以调用方法和静态方法。</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持一下</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat-reward-image.jpg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay-reward-image.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="hide pull-left" href="/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/07/16/underscore中的排序sortBy/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

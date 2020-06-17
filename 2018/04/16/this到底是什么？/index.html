@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>this到底是什么？ | BestMian&#39;s blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="javascript,this," />
+  
+
+  <meta name="description" content="为什么要使用this记得小学上英语课的时候，学着介绍自己的名字，每个人都是造一个同样的句型。 普通函数写法 function myName(name)&amp;#123;    console.log(&apos;my name is &apos; + name);&amp;#125;myName(&apos;xiaoming&apos;); // my name is xiaomingmyName(&apos;xiaohong&apos;); // my name is">
+<meta name="keywords" content="javascript,this">
+<meta property="og:type" content="article">
+<meta property="og:title" content="this到底是什么？">
+<meta property="og:url" content="http://www.bestmian.com/2018/04/16/this到底是什么？/index.html">
+<meta property="og:site_name" content="BestMian&#39;s blog">
+<meta property="og:description" content="为什么要使用this记得小学上英语课的时候，学着介绍自己的名字，每个人都是造一个同样的句型。 普通函数写法 function myName(name)&amp;#123;    console.log(&apos;my name is &apos; + name);&amp;#125;myName(&apos;xiaoming&apos;); // my name is xiaomingmyName(&apos;xiaohong&apos;); // my name is">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-16T03:31:49.252Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="this到底是什么？">
+<meta name="twitter:description" content="为什么要使用this记得小学上英语课的时候，学着介绍自己的名字，每个人都是造一个同样的句型。 普通函数写法 function myName(name)&amp;#123;    console.log(&apos;my name is &apos; + name);&amp;#125;myName(&apos;xiaoming&apos;); // my name is xiaomingmyName(&apos;xiaohong&apos;); // my name is">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?e725065614a17e5024342c65ce59cd39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">M</span>
+  
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">M</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#为什么要使用this"><span class="toc-text">为什么要使用this</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#this到底是什么？"><span class="toc-text">this到底是什么？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#this的指向"><span class="toc-text">this的指向</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#默认绑定"><span class="toc-text">默认绑定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#隐式绑定"><span class="toc-text">隐式绑定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#显式绑定"><span class="toc-text">显式绑定</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#call和apply的区别"><span class="toc-text">call和apply的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bind的用法"><span class="toc-text">bind的用法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#new绑定"><span class="toc-text">new绑定</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#判断this-amp-amp-优先级"><span class="toc-text">判断this &amp;&amp; 优先级</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-this到底是什么？" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">this到底是什么？</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.04.16</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>陈晓勉</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/javascript/">javascript</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="为什么要使用this"><a href="#为什么要使用this" class="headerlink" title="为什么要使用this"></a>为什么要使用this</h1><p>记得小学上英语课的时候，学着介绍自己的名字，每个人都是造一个同样的句型。</p>
+<p><code>普通函数</code>写法</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myName</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'my name is '</span> + name);</span><br><span class="line">&#125;</span><br><span class="line">myName(<span class="string">'xiaoming'</span>); <span class="comment">// my name is xiaoming</span></span><br><span class="line">myName(<span class="string">'xiaohong'</span>); <span class="comment">// my name is xiaohong</span></span><br></pre></td></tr></table></figure>
+<p>使用<code>this</code>写法</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myName</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'my name is '</span> + <span class="keyword">this</span>.name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = &#123; <span class="attr">name</span>: <span class="string">'xiaoming'</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> b = &#123; <span class="attr">name</span>: <span class="string">'xiaohong'</span> &#125;;</span><br><span class="line">myName.call(a); <span class="comment">// my name is xiaoming</span></span><br><span class="line">myName.call(b); <span class="comment">// my name is xiaohong</span></span><br></pre></td></tr></table></figure>
+<p>介绍自己的名字当然比较简单，那么我们来增加点难度。</p>
+<p><code>普通函数</code>写法</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myName</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"my name is "</span> + name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mySex</span>(<span class="params">sex</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"I'm a "</span> + sex;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myAge</span>(<span class="params">age</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"I'm "</span> + age + <span class="string">" years old"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">introduce</span>(<span class="params">name, sex, age</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> greeting = myName(name) + <span class="string">'. '</span> + mySex(sex) + <span class="string">'. '</span> + myAge(age);</span><br><span class="line">    <span class="built_in">console</span>.log(greeting);</span><br><span class="line">&#125;</span><br><span class="line">introduce(<span class="string">'xiaoming'</span>,<span class="string">'boy'</span>,<span class="string">'9'</span>); <span class="comment">// my name is xiaoming. I'm a boy. I'm 9 years old</span></span><br><span class="line">introduce(<span class="string">'xiaohong'</span>,<span class="string">'girl'</span>,<span class="string">'7'</span>); <span class="comment">// my name is xiaohong. I'm a girl. I'm 7 years old</span></span><br></pre></td></tr></table></figure>
+<p>使用<code>this</code>写法</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myName</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"my name is "</span> + <span class="keyword">this</span>.name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mySex</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"I'm a "</span> + <span class="keyword">this</span>.sex;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myAge</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"I'm "</span> + <span class="keyword">this</span>.age + <span class="string">" years old"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">introduce</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> greeting = myName.call(<span class="keyword">this</span>) + <span class="string">'. '</span> + mySex.call(<span class="keyword">this</span>) + <span class="string">'. '</span> + myAge.call(<span class="keyword">this</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(greeting);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    name: <span class="string">'xiaoming'</span>,</span><br><span class="line">    sex: <span class="string">'boy'</span>,</span><br><span class="line">    age: <span class="string">'9'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b = &#123;</span><br><span class="line">    name: <span class="string">'xiaohong'</span>,</span><br><span class="line">    sex: <span class="string">'girl'</span>,</span><br><span class="line">    age: <span class="string">'7'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">introduce.call(a); <span class="comment">// my name is xiaoming. I'm a boy. I'm 9 years old</span></span><br><span class="line">introduce.call(b); <span class="comment">// my name is xiaohong. I'm a girl. I'm 7 years old</span></span><br></pre></td></tr></table></figure>
+<p>如果不使用<code>this</code>，那么就需要给<code>myName()</code>函数显式的传入一个参数<code>name</code>来代替不同的上下文对象，单单一个参数还可以接受，可随着你的使用模式越来越复杂，显式传递上下文对象会让代码变得越来越混乱。所以，<code>this</code>提供了一种更优雅的方式来隐式“传递”一个对象的引用，可以将API设计的更加<code>简洁</code>易于<code>复用</code>。</p>
+<h1 id="this到底是什么？"><a href="#this到底是什么？" class="headerlink" title="this到底是什么？"></a>this到底是什么？</h1><blockquote>
+<p><code>this</code>是运行时进行绑定的，是基于<code>函数的执行环境动态绑定</code>的，而非函数被声明时的环境。</p>
+</blockquote>
+<p>当一个函数被调用时，会创建一个活动记录（也称为上下文）。这个记录会包含函数在哪里被调用（调用栈）、函数的调用方式、传入的参数 等信息。<code>this</code>就是这个记录的一个函数，会在函数执行的过程中用到。</p>
+<h1 id="this的指向"><a href="#this的指向" class="headerlink" title="this的指向"></a>this的指向</h1><ul>
+<li>默认绑定（作为普通函数调用，指向<code>全局对象</code>）</li>
+<li>隐式绑定（作为对象的方法调用，指向<code>该调用对象</code>）</li>
+<li>显式绑定（使用call和apply方法，指向<code>第一个参数对象</code>）</li>
+<li>new绑定（作为构造函数调用，指向<code>新创建的对象</code>）</li>
+</ul>
+<h2 id="默认绑定"><a href="#默认绑定" class="headerlink" title="默认绑定"></a>默认绑定</h2><p>当函数不作为对象的属性被调用时，也就是我们常说的普通函数方式，此时的<code>this</code>总是指向<code>全局对象</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.name = <span class="string">'globalName'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">'functionName'</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);  <span class="comment">// globalName</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getName();</span><br></pre></td></tr></table></figure>
+<p>严格模式</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.name = <span class="string">'globalName'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"><span class="meta">    "use strict"</span>;</span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">'functionName'</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);  <span class="comment">// Uncaught TypeError: Cannot read property 'name' of undefined</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getName();</span><br></pre></td></tr></table></figure>
+<p>如果使用<code>严格模式</code>，则不能将全局对象用于默认绑定。</p>
+<h2 id="隐式绑定"><a href="#隐式绑定" class="headerlink" title="隐式绑定"></a>隐式绑定</h2><p>当函数作为对象的方法被调用时，<code>this</code>指向<code>该对象</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a: <span class="number">2</span>,</span><br><span class="line">    foo: foo</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj.foo(); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<p>对象属性引用链中只有<code>上一层</code>或者说是<code>最后一层</code>在调用位置中起作用。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj2 = &#123;</span><br><span class="line">    a: <span class="number">42</span>,</span><br><span class="line">    foo: foo</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj1 = &#123;</span><br><span class="line">    a: <span class="number">2</span>,</span><br><span class="line">    obj2: obj2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj1.obj2.foo(); <span class="comment">// 42</span></span><br></pre></td></tr></table></figure>
+<h2 id="显式绑定"><a href="#显式绑定" class="headerlink" title="显式绑定"></a>显式绑定</h2><p><code>Function</code>的原型定义了两个方法，它们是<code>Function.prototype.call</code>和<code>Function.prototype.apply</code>。它们的第一个参数，允许直接指定<code>this</code>的绑定对象。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a: <span class="number">2</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">foo.call(obj); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<h3 id="call和apply的区别"><a href="#call和apply的区别" class="headerlink" title="call和apply的区别"></a>call和apply的区别</h3><p><code>apply</code>接收两个参数，第一个参数指定了函数体内<code>this</code>对象的指向，第二个参数为一个带下标的集合，可以是<code>数组</code>或<code>类数组</code>，可以将这个集合中的元素作为参数传递。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params">a,b,c</span>)</span>&#123;</span><br><span class="line">    alert([a,b,c]);  <span class="comment">// 输出 [1,2,3]</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">func.apply(<span class="literal">null</span>, [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]);</span><br></pre></td></tr></table></figure>
+<p><code>call</code>传入的参数数量不固定，但是跟<code>apply</code>相同的是，第一个参数也是代表了函数体内<code>this</code>对象的指向，之后的参数每个依次传入函数。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params">a,b,c</span>)</span>&#123;</span><br><span class="line">    alert([a,b,c]);  <span class="comment">// 输出 [1,2,3]</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">func.call(<span class="literal">null</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="bind的用法"><a href="#bind的用法" class="headerlink" title="bind的用法"></a>bind的用法</h3><p><code>bind</code>是把它的上下文绑定到<code>bind()</code>括号中的参数上，它<code>不会执行</code>，而只是返回一个改变了上下文的函数副本，而call和apply是<code>直接执行</code>函数。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> button = <span class="built_in">document</span>.getElementById(<span class="string">"button"</span>),</span><br><span class="line">    text = <span class="built_in">document</span>.getElementById(<span class="string">"text"</span>);</span><br><span class="line">button.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(<span class="keyword">this</span>.id); <span class="comment">// 弹出text</span></span><br><span class="line">&#125;.bind(text);</span><br></pre></td></tr></table></figure>
+<h2 id="new绑定"><a href="#new绑定" class="headerlink" title="new绑定"></a>new绑定</h2><p>当用<code>new</code>调用函数时，会执行以下操作：</p>
+<ul>
+<li>创建一个全新的对象。</li>
+<li>新的对象会被执行[Prototype]链接。</li>
+<li>新对象会绑定到函数调用的<code>this</code>。</li>
+<li>如果函数没有返回其他对象，那么<code>new</code>中的函数调用会自动返回这个新对象。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> myClass = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = <span class="string">'javascript'</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> myClass();</span><br><span class="line"><span class="built_in">console</span>.log(obj.name); <span class="comment">// javascript</span></span><br></pre></td></tr></table></figure>
+<h1 id="判断this-amp-amp-优先级"><a href="#判断this-amp-amp-优先级" class="headerlink" title="判断this &amp;&amp; 优先级"></a>判断this &amp;&amp; 优先级</h1><p>优先级</p>
+<blockquote>
+<p>new绑定 &gt; 显示绑定 &gt; 隐式绑定 &gt; 默认绑定</p>
+</blockquote>
+<p>按以下顺序判断：</p>
+<p>1、函数是否在 <code>new</code> 中调用（new绑定）？如果是的话<code>this</code>绑定的是<code>新创建的对象</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> bar = <span class="keyword">new</span> foo();  <span class="comment">// bar</span></span><br></pre></td></tr></table></figure>
+<p>2、函数是否通过<code>call</code>、<code>apply</code>（显示绑定）或<code>bind</code>硬绑定？如果是的话<code>this</code>绑定的是<code>指定的对象</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> bar = foo.call(obj2);  <span class="comment">// obj2</span></span><br></pre></td></tr></table></figure>
+<p>3、函数是否在某个上下文对象调用（隐式绑定）？如果是的话<code>this</code>绑定的是<code>那个上下文对象</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> bar = obj1.foo();  <span class="comment">// obj1</span></span><br></pre></td></tr></table></figure>
+<p>4、如果都不是的话，使用默认绑定。如果在<code>严格模式</code>下，就绑定到<code>undefined</code>，否则绑定到<code>全局对象</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> bar = foo();</span><br></pre></td></tr></table></figure>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://github.com/getify/You-Dont-Know-JS/blob/master/this%20&amp;%20object%20prototypes/README.md#you-dont-know-js-this--object-prototypes" target="_blank" rel="noopener">你不知道的JavaScript（上卷）</a><br><a href="https://item.jd.com/11686375.html" target="_blank" rel="noopener">javascript设计模式与开发实践</a></p>
+<p>仅供个人学习记录~</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持一下</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat-reward-image.jpg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay-reward-image.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2018/04/14/我的前端笔记—HTML&CSS篇/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2018/04/20/传统网站如何巧使webpack解决问题/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

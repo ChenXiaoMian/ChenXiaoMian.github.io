@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>React Native开发《狗狗说》App学习总结 | BestMian&#39;s blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="react,react native,app,android," />
+  
+
+  <meta name="description" content="github地址react-native-dogapp 搭建React脚手架 [x] 可以解析JSX语法 [x] 配置babel编译ES6语法 [x] 实现代码的热替换，浏览器实时刷新查看效果 [x] 支持SCSS预处理器 [x] 编译完成自动打开浏览器 [x] 支持图片、图标字体等资源的编译 [x] 区分开发环境和生产环境  运行项目# 克隆项目git clone https://github.">
+<meta name="keywords" content="react,react native,app,android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React Native开发《狗狗说》App学习总结">
+<meta property="og:url" content="http://www.bestmian.com/2017/12/08/React Native开发《狗狗说》App学习总结/index.html">
+<meta property="og:site_name" content="BestMian&#39;s blog">
+<meta property="og:description" content="github地址react-native-dogapp 搭建React脚手架 [x] 可以解析JSX语法 [x] 配置babel编译ES6语法 [x] 实现代码的热替换，浏览器实时刷新查看效果 [x] 支持SCSS预处理器 [x] 编译完成自动打开浏览器 [x] 支持图片、图标字体等资源的编译 [x] 区分开发环境和生产环境  运行项目# 克隆项目git clone https://github.">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-16T03:31:49.248Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React Native开发《狗狗说》App学习总结">
+<meta name="twitter:description" content="github地址react-native-dogapp 搭建React脚手架 [x] 可以解析JSX语法 [x] 配置babel编译ES6语法 [x] 实现代码的热替换，浏览器实时刷新查看效果 [x] 支持SCSS预处理器 [x] 编译完成自动打开浏览器 [x] 支持图片、图标字体等资源的编译 [x] 区分开发环境和生产环境  运行项目# 克隆项目git clone https://github.">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?e725065614a17e5024342c65ce59cd39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">M</span>
+  
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">M</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#github地址"><span class="toc-text">github地址</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#搭建React脚手架"><span class="toc-text">搭建React脚手架</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#运行项目"><span class="toc-text">运行项目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#学习参考教程"><span class="toc-text">学习参考教程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#完成功能"><span class="toc-text">完成功能</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#要点小记"><span class="toc-text">要点小记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念"><span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#路由配置"><span class="toc-text">路由配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、-lt-BrowserRouter-gt-和-lt-HashRouter-gt"><span class="toc-text">1、&lt;BrowserRouter&gt;和&lt;HashRouter&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、react-router-还是-react-router-dom？"><span class="toc-text">2、react-router 还是 react-router-dom？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、path可选url-params"><span class="toc-text">3、path可选url-params</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、history-push"><span class="toc-text">4、history.push</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#列表加载更多"><span class="toc-text">列表加载更多</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#让-lt-br-gt-换行"><span class="toc-text">让&lt;br/&gt;换行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#搜索结果列表"><span class="toc-text">搜索结果列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#登录后的跳转"><span class="toc-text">登录后的跳转</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#最后"><span class="toc-text">最后</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-React Native开发《狗狗说》App学习总结" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">React Native开发《狗狗说》App学习总结</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.12.08</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>陈晓勉</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/react-native/">react native</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="github地址"><a href="#github地址" class="headerlink" title="github地址"></a>github地址</h1><p><a href="https://github.com/ChenXiaoMian/react-native-dogapp" target="_blank" rel="noopener">react-native-dogapp</a></p>
+<h1 id="搭建React脚手架"><a href="#搭建React脚手架" class="headerlink" title="搭建React脚手架"></a>搭建React脚手架</h1><ul>
+<li>[x] 可以解析JSX语法</li>
+<li>[x] 配置babel编译ES6语法</li>
+<li>[x] 实现代码的热替换，浏览器实时刷新查看效果</li>
+<li>[x] 支持SCSS预处理器</li>
+<li>[x] 编译完成自动打开浏览器</li>
+<li>[x] 支持图片、图标字体等资源的编译</li>
+<li>[x] 区分开发环境和生产环境</li>
+</ul>
+<h1 id="运行项目"><a href="#运行项目" class="headerlink" title="运行项目"></a>运行项目</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 克隆项目</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/ChenXiaoMian/react-o2o-app.git</span><br><span class="line"><span class="comment"># 进入目录</span></span><br><span class="line"><span class="built_in">cd</span> react-o2o-app</span><br><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line">npm install</span><br><span class="line"><span class="comment"># 运行开发环境 访问 http://localhost:8080/</span></span><br><span class="line">npm run dev</span><br><span class="line"><span class="comment"># 运行开发环境 Mock后台数据接口 访问 http://localhost:3000</span></span><br><span class="line">npm run server</span><br><span class="line"><span class="comment"># 打包发布</span></span><br><span class="line">npm run dist</span><br></pre></td></tr></table></figure>
+<h1 id="学习参考教程"><a href="#学习参考教程" class="headerlink" title="学习参考教程"></a>学习参考教程</h1><blockquote>
+<ul>
+<li><a href="http://www.imooc.com/article/16082" target="_blank" rel="noopener">React 模仿大众点评 webapp 手记</a></li>
+<li><a href="https://doc.webpack-china.org/guides/getting-started/" target="_blank" rel="noopener">webpack</a>搭建开发环境及生产环境。</li>
+<li><a href="https://www.sass.hk/guide/" target="_blank" rel="noopener">sass</a>css预处理</li>
+<li><a href="https://reactjs.org/docs/state-and-lifecycle.html" target="_blank" rel="noopener">react</a>运用组件化开发思想、虚拟DOM，</li>
+<li><a href="https://reacttraining.com/react-router/web/example/basic" target="_blank" rel="noopener">react-route</a>配套路由</li>
+<li><a href="http://www.redux.org.cn/" target="_blank" rel="noopener">redux</a>数据状态管理，<a href="http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html" target="_blank" rel="noopener">阮一峰Redux 入门教程</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_three_react-redux.html" target="_blank" rel="noopener">react-redux</a>React-Redux 的用法</li>
+<li><a href="https://github.com/voronianski/react-swipe" target="_blank" rel="noopener">react-swipe</a>轮播图插件</li>
+<li><a href="http://www.jianshu.com/p/e3adc9b5f75c/" target="_blank" rel="noopener">初探 React Router 4.0</a></li>
+<li><a href="http://www.cnblogs.com/YZH-chengdu/p/6855237.html" target="_blank" rel="noopener">react-router 4.0 下服务器如何配合BrowserRouter</a></li>
+</ul>
+</blockquote>
+<h1 id="完成功能"><a href="#完成功能" class="headerlink" title="完成功能"></a>完成功能</h1><ul>
+<li>[x] 开发首页</li>
+<li>[x] 开发城市页面</li>
+<li>[x] 开发搜索结果页</li>
+<li>[x] 开发商户详情页</li>
+<li>[x] 开发登录页</li>
+<li>[x] 收藏功能</li>
+<li>[x] 开发用户中心页</li>
+<li>[x] 评价功能</li>
+</ul>
+<h1 id="要点小记"><a href="#要点小记" class="headerlink" title="要点小记"></a>要点小记</h1><p>组件化开发的思想主要体现在代码分离的三个层上，分别是page(页面层)，subpage(智能组件)，component(木偶组件)。木偶组件主要根据props传值的内容来显示，智能组件主要是获取数据的逻辑代码。</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ul>
+<li><code>react-router</code> React Router 核心</li>
+<li><code>react-router-dom</code> 用于 DOM 绑定的 React Router</li>
+<li><code>react-router-native</code> 用于 React Native 的 React Router</li>
+<li><code>react-router-redux</code> React Router 和 Redux 的集成</li>
+</ul>
+<h2 id="路由配置"><a href="#路由配置" class="headerlink" title="路由配置"></a>路由配置</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;HashRouter&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;Switch&gt;</span><br><span class="line">        &lt;Route exact path=<span class="string">"/"</span> component=&#123;Home&#125;/&gt;</span><br><span class="line">        &lt;Route path=<span class="string">"/city"</span> component=&#123;City&#125;/&gt;</span><br><span class="line">        &lt;Route path=<span class="string">"/search/:category/:keyword?"</span> component=&#123;Search&#125;/&gt;</span><br><span class="line">        &lt;Route path=<span class="string">"/detail/:id"</span> component=&#123;Detail&#125;/&gt;</span><br><span class="line">        &lt;Route path=<span class="string">"/login/:router?"</span> component=&#123;Login&#125;/&gt;</span><br><span class="line">        &lt;Route path=<span class="string">"/user"</span> component=&#123;User&#125;/&gt;</span><br><span class="line">        &lt;Route component=&#123;NotFound&#125;/&gt;</span><br><span class="line">      &lt;<span class="regexp">/Switch&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/HashRouter&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="1、-lt-BrowserRouter-gt-和-lt-HashRouter-gt"><a href="#1、-lt-BrowserRouter-gt-和-lt-HashRouter-gt" class="headerlink" title="1、&lt;BrowserRouter&gt;和&lt;HashRouter&gt;"></a>1、<code>&lt;BrowserRouter&gt;</code>和<code>&lt;HashRouter&gt;</code></h3><p>在react-router 4.0版本中，API与先前版本相比有了很大的修改，在2.0、3.0中常用的<code>&lt;Router&gt;</code>组件作为路由底层配置组件不再常用，取而代之的是四个各有不同的路由组件：</p>
+<ul>
+<li><code>&lt;BrowserRouter&gt;</code>一个使用了 HTML5 history API 的高阶路由组件，保证你的 UI 界面和 URL 保持同步。</li>
+<li><code>&lt;HashRouter&gt;</code>不支持 location.key 和 location.state。另外由于该技术只是用来支持旧版浏览器，因此更推荐大家使用 BrowserRouter。</li>
+<li><code>&lt;MemoryRouter&gt;</code>组件在内存中保存“URL”信息，不会修改浏览器的地址栏，往往用于React Native或测试环境等非浏览器环境。</li>
+<li><code>&lt;StaticRouter&gt;</code>组件从名字能看出它从不修改路由，这在服务器端渲染时很有用。</li>
+</ul>
+<p><code>&lt;BrowserRouter&gt;</code>和<code>&lt;HashRouter&gt;</code>都可以实现前端路由的功能，区别是前者基于url的<code>pathname</code>段，后者基于<code>hash</code>段。</p>
+<p>前者：<code>http://127.0.0.1:3000/article/num1</code></p>
+<p>后者：<code>http://127.0.0.1:3000/#/article/num1（不一定是这样，但#是少不了的）</code></p>
+<p>这样的区别带来的直接问题就是当处于二级或多级路由状态时，刷新页面，<code>&lt;BrowserRouter&gt;</code>会将当前路由发送到服务器（因为是pathname），而<code>&lt;HashRouter&gt;</code>不会（因为是hash段）。</p>
+<p>在react-router 4.0 的文档中有这样一段话：</p>
+<blockquote>
+<p>注意： 使用 hash 的方式记录导航历史不支持 location.key 和 location.state。 在以前的版本中，我们为这种行为提供了 shim，但是仍有一些问题我们无法解决。 任何依赖此行为的代码或插件都将无法正常使用。 由于该技术仅用于支持传统的浏览器，因此在用于浏览器时可以使用 <code>&lt;BrowserHistory&gt;</code> 代替。</p>
+</blockquote>
+<h3 id="2、react-router-还是-react-router-dom？"><a href="#2、react-router-还是-react-router-dom？" class="headerlink" title="2、react-router 还是 react-router-dom？"></a>2、react-router 还是 react-router-dom？</h3><p>在 React 的使用中，我们一般要引入两个包，<code>react</code> 和 <code>react-dom</code>，那么 <code>react-router</code> 和 <code>react-router-dom</code> 是不是两个都要引用呢？<br>非也，坑就在这里。他们两个只要引用一个就行了，不同之处就是后者比前者多出了 <code>&lt;Link&gt;</code> <code>&lt;BrowserRouter&gt;</code> 这样的 DOM 类组件。<br>因此我们只需引用 <code>react-router-dom</code> 这个包就行了。当然，如果搭配 <code>redux</code> ，你还需要使用 <code>react-router-redux</code>。</p>
+<h3 id="3、path可选url-params"><a href="#3、path可选url-params" class="headerlink" title="3、path可选url-params"></a>3、path可选url-params</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;Route path=<span class="string">"/search/:category/:keyword?"</span> component=&#123;Search&#125;/&gt;</span><br></pre></td></tr></table></figure>
+<p>在开发搜索组件路由的时候，路由参数有两个参数或者三个参数的情况。这时候<code>/:keyword?</code>是可选的参数，只需要在末尾加个<code>?</code>号。</p>
+<h3 id="4、history-push"><a href="#4、history-push" class="headerlink" title="4、history.push"></a>4、history.push</h3><p>学习教程的时候，history是通过<code>import { history } from &#39;react-router&#39;</code>引入的。4.0以上没找到这个对象，最后发现在页面组件的<code>this.props.history</code>找到了。参照<a href="http://www.jianshu.com/p/e3adc9b5f75c/" target="_blank" rel="noopener">初探 React Router 4.0</a> 一文得到的。</p>
+<h2 id="列表加载更多"><a href="#列表加载更多" class="headerlink" title="列表加载更多"></a>列表加载更多</h2><p>首先需要准备3个状态</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.state = &#123;</span><br><span class="line">    data : [],  <span class="comment">//存储数据</span></span><br><span class="line">    hasMore : <span class="literal">false</span>,  <span class="comment">//记录是否还有更多数据</span></span><br><span class="line">    isLoadingMore : <span class="literal">false</span>,  <span class="comment">//是否正在加载</span></span><br><span class="line">    page : <span class="number">1</span>  <span class="comment">//记录下一页的页码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后，还需要加一个loadMoreData的方法，即在点击“加载更多”时会触发的方法。加载首页数据和加载更多数据，这两个函数可以提取一些公共代码，具体的写法可以是：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">loadFirstPageData() &#123;</span><br><span class="line">    <span class="comment">// 加载首页数据，result</span></span><br><span class="line">    <span class="comment">// 处理数据</span></span><br><span class="line">    <span class="keyword">this</span>.resultHandle(result)</span><br><span class="line">&#125;</span><br><span class="line">loadMoreData() &#123;</span><br><span class="line">    <span class="comment">// 加载下一页的数据，result</span></span><br><span class="line">    <span class="comment">// 处理</span></span><br><span class="line">    <span class="keyword">this</span>.resultHandle(result)</span><br><span class="line">&#125;</span><br><span class="line">resultHandle() &#123;</span><br><span class="line">    <span class="comment">// 解析数据，更改 state</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上都是在引入LoadMore组件（该组件后面会教大家创建，现在还没创建）之前需要做的准备工作，那么这些准备工作该怎么用到<code>LoadMore</code>组件中呢？通过以下代码来体会一下。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="keyword">this</span>.state.hasMore</span><br><span class="line">    ? <span class="xml"><span class="tag">&lt;<span class="name">LoadMore</span> <span class="attr">isLoadingMore</span>=<span class="string">&#123;this.state.isLoadingMore&#125;</span> <span class="attr">loadMoreFn</span>=<span class="string">&#123;this.loadMoreData.bind(this)&#125;/</span>&gt;</span></span></span><br><span class="line"><span class="xml">    : <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>总结一下以上的准备数据在LoadMore组件中的应用。</p>
+<ul>
+<li>hasMore控制组件的显示和隐藏</li>
+<li>isLoadingMore控制组件是显示“加载中…”（此时点击失效）还是“点击加载更多”</li>
+<li>loadMoreData函数会在点击组件时触发，并加载下一页数据</li>
+<li>page记录下一页的页码，会在loadMoreData函数中使用并累加</li>
+</ul>
+<p>创建LoadMore组件，并用上上面传递过来的数据。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;div className=<span class="string">"load-more"</span> ref=<span class="string">"wrapper"</span>&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">this</span>.props.isLoadingMore</span><br><span class="line">            ? <span class="xml"><span class="tag">&lt;<span class="name">span</span>&gt;</span>加载中...<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line">            : <span class="xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">onClick</span>=<span class="string">&#123;this.loadMoreHandle.bind(this)&#125;</span>&gt;</span>点击加载更多<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line">        &#125;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    )</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">loadMoreHandle () &#123;</span></span><br><span class="line"><span class="regexp">    this.props.loadMoreFn()</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>如何实现上拉加载效果，上面代码中有<code>ref=&quot;wrapper&quot;</code>，实现思路是：监控 window 的<code>scroll</code>方法，然后获取<code>ref=&quot;wrapper&quot;</code>的DOM，利用<code>getBoundingClientRect()</code>方法获得距离顶部的高度，然后看是否触发 <code>loadMore</code>方法。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">componentDidMount () &#123;</span><br><span class="line">    <span class="keyword">const</span> loadMoreFn = <span class="keyword">this</span>.props.loadMoreFn</span><br><span class="line">    <span class="keyword">const</span> wrapper = <span class="keyword">this</span>.refs.wrapper</span><br><span class="line">    <span class="comment">// console.log(wrapper)</span></span><br><span class="line">    <span class="keyword">let</span> timeoutId</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">callback</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">const</span> top = wrapper.getBoundingClientRect().top</span><br><span class="line">        <span class="keyword">const</span> windowHeight = <span class="built_in">window</span>.screen.height</span><br><span class="line">        <span class="keyword">if</span>(top &amp;&amp; top &lt; windowHeight)&#123;</span><br><span class="line">            <span class="comment">// 当wrapper已经被滚动到暴露在页面可视范围之内的时候，触发加载更多</span></span><br><span class="line">            loadMoreFn()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">window</span>.addEventListener(<span class="string">'scroll'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>.props.isLoadingMore)&#123;</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(timeoutId)&#123;</span><br><span class="line">            clearTimeout(timeoutId)</span><br><span class="line">        &#125;</span><br><span class="line">        timeoutId = setTimeout(callback,<span class="number">100</span>)</span><br><span class="line">    &#125;.bind(<span class="keyword">this</span>),<span class="literal">false</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="让-lt-br-gt-换行"><a href="#让-lt-br-gt-换行" class="headerlink" title="让&lt;br/&gt;换行"></a>让<code>&lt;br/&gt;</code>换行</h2><p>有<code>&lt;br /&gt;</code>的代码在页面中不换行，而是直接显示<code>&lt;br /&gt;</code>。<code>dangerouslySetInnerHTML</code>, 让React正常显示你的html代码 这个<code>prop</code>的命名是故意这么设计的，以此来警告，它的prop值（一个对象而不是字符串）应该被用来表明净化后的数据。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;div className=<span class="string">"headlineText"</span> dangerouslySetInnerHTML=&#123;&#123;<span class="attr">__html</span>: data.lineText&#125;&#125;&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="搜索结果列表"><a href="#搜索结果列表" class="headerlink" title="搜索结果列表"></a>搜索结果列表</h2><p>如果在搜索结果页头部的输入框中再次输入内容重新进行搜索时，就需要多一步处理。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">componentDidUpdate (prevProps,prevState) &#123;</span><br><span class="line">    <span class="keyword">const</span> keyword = <span class="keyword">this</span>.props.keyWord</span><br><span class="line">    <span class="keyword">const</span> category = <span class="keyword">this</span>.props.category</span><br><span class="line">    <span class="comment">// 搜索条件完全相等时，忽略</span></span><br><span class="line">    <span class="keyword">if</span>(keyword === prevProps.keyWord &amp;&amp; category === prevProps.category)&#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 重置state</span></span><br><span class="line">    <span class="keyword">this</span>.setState(initialState)</span><br><span class="line">    <span class="comment">// 重新加载数据</span></span><br><span class="line">    <span class="keyword">this</span>.loadFirstPageData()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里需要理解<code>componentDidMount</code>和<code>componentDidUpdate</code>两个生命周期的不同。</p>
+<ul>
+<li>页面初次渲染，会走<code>componentDidMount</code></li>
+<li>页面再次渲染，就不会走<code>componentDidMount</code>，而只走<code>componentDidUpdate</code></li>
+</ul>
+<h2 id="登录后的跳转"><a href="#登录后的跳转" class="headerlink" title="登录后的跳转"></a>登录后的跳转</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;Route path=<span class="string">"/login/:router?"</span> component=&#123;Login&#125;/&gt;</span><br></pre></td></tr></table></figure>
+<p>在路由配置中，登录组件也增加了一个可选参数<code>router</code>即登录之后需要跳转的页面。即在哪个页面登录的，登录完了之后还要再跳转到哪个页面，这种功能很常见。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 读取Redux中是否有用户信息</span></span><br><span class="line">doCheck ()&#123;</span><br><span class="line">    <span class="keyword">const</span> userinfo = <span class="keyword">this</span>.props.userinfo</span><br><span class="line">    <span class="keyword">if</span>(userinfo.username)&#123;</span><br><span class="line">        <span class="comment">// 已经登录</span></span><br><span class="line">        <span class="keyword">this</span>.goUserPage()</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">// 尚未登录</span></span><br><span class="line">        <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">            checking : <span class="literal">false</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 登录成功之后的处理</span></span><br><span class="line">loginHandle (username) &#123;</span><br><span class="line">    <span class="keyword">if</span>(username.trim()==<span class="string">''</span>)&#123;</span><br><span class="line">        alert(<span class="string">'手机号不能为空'</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 保存用户名</span></span><br><span class="line">    <span class="keyword">const</span> actions = <span class="keyword">this</span>.props.userInfoActions   <span class="comment">//存储用户id到Redux</span></span><br><span class="line">    <span class="keyword">let</span> userinfo = <span class="keyword">this</span>.props.userinfo</span><br><span class="line">    userinfo.username = username</span><br><span class="line">    actions.login(userinfo)</span><br><span class="line">    <span class="comment">// 跳转链接</span></span><br><span class="line">    <span class="keyword">const</span> params = <span class="keyword">this</span>.props.match.params</span><br><span class="line">    <span class="keyword">const</span> history = <span class="keyword">this</span>.props.history</span><br><span class="line">    <span class="keyword">if</span>(params.router)&#123;</span><br><span class="line">        <span class="comment">// 跳转到指定的页面</span></span><br><span class="line">        history.push(<span class="string">'/'</span>+<span class="built_in">decodeURIComponent</span>(params.router))</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">// 跳转到默认页面-用户中心</span></span><br><span class="line">        <span class="keyword">this</span>.goUserPage()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在商户详情页立即购买按钮的事件上，先判断是否登录，如果没登录则跳到登录页(且带上可调回的路由参数)</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 验证登录</span></span><br><span class="line">loginCheck () &#123;</span><br><span class="line">    <span class="keyword">const</span> id = <span class="keyword">this</span>.props.id</span><br><span class="line">    <span class="keyword">const</span> userinfo = <span class="keyword">this</span>.props.userinfo</span><br><span class="line">    <span class="keyword">const</span> history = <span class="keyword">this</span>.props.history</span><br><span class="line">    <span class="keyword">if</span>(!userinfo.username)&#123;</span><br><span class="line">        history.push(<span class="string">'/login/'</span>+<span class="built_in">encodeURIComponent</span>(<span class="string">'detail/'</span>+id))</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>这算是在学习react期间，完成的一个比较完整的项目。文章主要是记录比较重要的要点，分享一下自己的收获，遇坑的点在react-router 4.0上，版本更新太快，视频用的许多方法都用不上，还有redux和react-redux的概念比较难理解，这里推荐一篇文章<a href="https://github.com/bailicangdu/react-pxq" target="_blank" rel="noopener">React-Redux</a>。</p>
+<p>谢谢您的品读，此处抛砖引玉，希望大家共同探讨学习。</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持一下</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat-reward-image.jpg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay-reward-image.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/11/26/《javascript设计模式与开发实践》基础知识笔记/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2018/02/02/vue-music 移动端音乐webApp学习总结/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>《javascript设计模式与开发实践》基础知识笔记 | BestMian&#39;s blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="javascript,设计模式," />
+  
+
+  <meta name="description" content="好记忆不如烂笔头，这句话是很有道理的。看过的东西，当时有感悟就应该记录下来，回忆和复习是更浪费时间的一件事。《javascript设计模式与开发实践》–曾探著。这本书写的真好，我看了很久（内容很多），之后隔了很久才想起来要记录下来。 先说一说什么是设计模式吧。通俗的讲：设计模式是在某种场合下对某个问题的一种解决方案，其实也就是给面向对象软件开发中的一些好的设计取个名字。作用呢？就是在熟悉这些模式，">
+<meta name="keywords" content="javascript,设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《javascript设计模式与开发实践》基础知识笔记">
+<meta property="og:url" content="http://www.bestmian.com/2017/11/26/《javascript设计模式与开发实践》基础知识笔记/index.html">
+<meta property="og:site_name" content="BestMian&#39;s blog">
+<meta property="og:description" content="好记忆不如烂笔头，这句话是很有道理的。看过的东西，当时有感悟就应该记录下来，回忆和复习是更浪费时间的一件事。《javascript设计模式与开发实践》–曾探著。这本书写的真好，我看了很久（内容很多），之后隔了很久才想起来要记录下来。 先说一说什么是设计模式吧。通俗的讲：设计模式是在某种场合下对某个问题的一种解决方案，其实也就是给面向对象软件开发中的一些好的设计取个名字。作用呢？就是在熟悉这些模式，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-16T03:31:49.254Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《javascript设计模式与开发实践》基础知识笔记">
+<meta name="twitter:description" content="好记忆不如烂笔头，这句话是很有道理的。看过的东西，当时有感悟就应该记录下来，回忆和复习是更浪费时间的一件事。《javascript设计模式与开发实践》–曾探著。这本书写的真好，我看了很久（内容很多），之后隔了很久才想起来要记录下来。 先说一说什么是设计模式吧。通俗的讲：设计模式是在某种场合下对某个问题的一种解决方案，其实也就是给面向对象软件开发中的一些好的设计取个名字。作用呢？就是在熟悉这些模式，">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?e725065614a17e5024342c65ce59cd39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">M</span>
+  
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">M</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基础知识"><span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#动态类型"><span class="toc-text">动态类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多态性"><span class="toc-text">多态性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#封装"><span class="toc-text">封装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原型继承"><span class="toc-text">原型继承</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-《javascript设计模式与开发实践》基础知识笔记" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">《javascript设计模式与开发实践》基础知识笔记</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.11.26</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>陈晓勉</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>好记忆不如烂笔头，这句话是很有道理的。看过的东西，当时有感悟就应该记录下来，回忆和复习是更浪费时间的一件事。《javascript设计模式与开发实践》–曾探著。这本书写的真好，我看了很久（内容很多），之后隔了很久才想起来要记录下来。</p>
+<p>先说一说什么是设计模式吧。通俗的讲：设计模式是在某种场合下对某个问题的一种解决方案，其实也就是给面向对象软件开发中的一些好的设计取个名字。作用呢？就是在熟悉这些模式，对某些模式的理解的情况下，形成条件反射，在解决问题的时候能很快的找到解决方案。</p>
+<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><p>javascript没有提供传统面向对象语言中的类式继承，而是通过原型委托的方式来实现对象与对象之间的继承。主要有几个特性，分别是动态类型，多态性，封装，原型继承。</p>
+<h2 id="动态类型"><a href="#动态类型" class="headerlink" title="动态类型"></a>动态类型</h2><p>在javascript中，我们都知道对一个变量赋值时，可以不需要考虑它的类型，从而可以把更多精力放在业务逻辑上，编写的代码数量更少，看起来更加简洁。但是，动态类型语言对变量类型的宽容给实际编码带来很大灵活的同时，也会让程序在某些情况下变得难以理解，在程序运行期间有可能发生于跟类型相关的报错，需要编写一些检测类型的代码，可谓是有利也有弊。</p>
+<h2 id="多态性"><a href="#多态性" class="headerlink" title="多态性"></a>多态性</h2><p>多态的实际含义是：同一操作作用于不同的对象上面，可以产生不同的解释和不同的执行结果。换句话说，就是给不同的对象发送同一个消息的时候，这些对象会根据这个消息分别给出不同的反馈。</p>
+<p>举个栗子</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> makeSound = <span class="function"><span class="keyword">function</span>(<span class="params">animal</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(animal <span class="keyword">instanceof</span> Duck)&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'嘎嘎嘎'</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(animal <span class="keyword">instanceof</span> Chicken)&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'咯咯咯'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> Duck = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> Chicken = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">makeSound(<span class="keyword">new</span> Duck());      <span class="comment">//嘎嘎嘎</span></span><br><span class="line">makeSound(<span class="keyword">new</span> Chicken());   <span class="comment">//咯咯咯</span></span><br></pre></td></tr></table></figure>
+<p>但是以上的做法如果增加一个狗叫声的话，就必须改动makeSound函数，才能实现“多态性”。这样做并没有把“做什么”和“谁去做”分离开。应该把不变的部分隔离出来，可变的部分封装起来。归根结底就是要消除他们之间的耦合关系。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> makeSound = <span class="function"><span class="keyword">function</span>(<span class="params">animal</span>)</span>&#123;</span><br><span class="line">    animal.sound();</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> Duck = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">Duck.prototype.sound = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'嘎嘎嘎'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> Chicken = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">Chicken.prototype.sound = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'咯咯咯'</span>);</span><br><span class="line">&#125;</span><br><span class="line">makeSound(<span class="keyword">new</span> Duck());      <span class="comment">//嘎嘎嘎</span></span><br><span class="line">makeSound(<span class="keyword">new</span> Chicken());   <span class="comment">//咯咯咯</span></span><br><span class="line"><span class="keyword">var</span> Dog = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">Dog.prototype.sound = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'汪汪汪'</span>);</span><br><span class="line">&#125;</span><br><span class="line">makeSound(<span class="keyword">new</span> Dog());       <span class="comment">//汪汪汪</span></span><br></pre></td></tr></table></figure>
+<p><code>多态最根本的作用就是通过把过程化的条件分支语句转化为对象的多态性，从而消除这些条件分支语句。</code></p>
+<p>假设我们要编一个地图应用，有两家可选的API提供商选择接入我们的应该。目前我们选择的是谷歌地图，谷歌地图API提供了show方法，负责在页面上展示整个地图。<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> googleMap = &#123;</span><br><span class="line">    show: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'开始渲染谷歌地图'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> renderMap = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    googleMap.show();</span><br><span class="line">&#125;;</span><br><span class="line">renderMap();            <span class="comment">//输出：开始渲染谷歌地图</span></span><br></pre></td></tr></table></figure></p>
+<p>后来因为某些原因，要求把谷歌地图换成百度地图，我们使用条件分支来让renderMap函数同时支持两家地图API。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> googleMap = &#123;</span><br><span class="line">    show: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'开始渲染谷歌地图'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> baiduMap = &#123;</span><br><span class="line">    show: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'开始渲染百度地图'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> renderMap = <span class="function"><span class="keyword">function</span>(<span class="params">type</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(type === <span class="string">'google'</span>)&#123;</span><br><span class="line">        googleMap.show();</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(type === <span class="string">'baidu'</span>)&#123;</span><br><span class="line">        baiduMap.show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">renderMap(<span class="string">'google'</span>);            <span class="comment">//输出：开始渲染谷歌地图</span></span><br><span class="line">renderMap(<span class="string">'baidu'</span>);             <span class="comment">//输出：开始渲染百度地图</span></span><br></pre></td></tr></table></figure>
+<p>如果在增加一个搜搜地图呢，无疑必须改动renderMap函数，继续堆砌条件分支语句。</p>
+<p>我们还是可以把程序中相同的部分抽象出来，那就是显示地图show方法。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> renderMap = <span class="function"><span class="keyword">function</span>(<span class="params">map</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(map.show <span class="keyword">instanceof</span> <span class="built_in">Function</span>)&#123;</span><br><span class="line">        map.show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">renderMap(googleMap);            <span class="comment">//输出：开始渲染谷歌地图</span></span><br><span class="line">renderMap(baiduMap);             <span class="comment">//输出：开始渲染百度地图</span></span><br><span class="line"><span class="keyword">var</span> sosoMap = &#123;</span><br><span class="line">    show: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'开始渲染搜搜地图'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">renderMap(sosoMap);              <span class="comment">//输出：开始渲染搜搜地图</span></span><br></pre></td></tr></table></figure>
+<p>这段代码中，分别调用它们的show方法，会产生各自不同的执行结果。即使增加搜搜地图，renderMap函数任然不需要做任何改变。这一就把“做什么”和“怎么去做”分开了。</p>
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><p>封装的目的就是将信息隐藏。在许多语言中，封装数据都是由语法解析，提供了private、public、protected等关键字来提供不同的访问权限。但是在javascript中并没有提供这些关键字的支持，而是通过函数创建作用域来模拟出public和private这两种封装性。</p>
+<p>封装不仅仅是隐藏数据，还包括隐藏实现细节，设计细节以及隐藏对象的类型等。</p>
+<h2 id="原型继承"><a href="#原型继承" class="headerlink" title="原型继承"></a>原型继承</h2><p>如果我们想创建一个对象，一种方法就是先指定它的类型，然后通过类来创建这个对象。原型模式选择另一种方式，我们不再关心对象的具体类型，而是找到一个对象，然后通过克隆来创建一个一模一样的对象。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> Plane = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.blood = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">this</span>.attackLevel = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">this</span>.defenseLevel = <span class="number">1</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> plane = <span class="keyword">new</span> Plane();</span><br><span class="line">plane.blood = <span class="number">500</span>;</span><br><span class="line">plane.attackLevel = <span class="number">10</span>;</span><br><span class="line">plane.defenseLevel = <span class="number">7</span>;</span><br><span class="line"><span class="keyword">var</span> clonePlane = <span class="built_in">Object</span>.create(plane);</span><br><span class="line"><span class="built_in">console</span>.log(clonePlane.blood);              <span class="comment">//输出500</span></span><br><span class="line"><span class="built_in">console</span>.log(clonePlane.attackLevel);        <span class="comment">//输出10</span></span><br><span class="line"><span class="built_in">console</span>.log(clonePlane.defenseLevel);       <span class="comment">//输出7</span></span><br></pre></td></tr></table></figure>
+<p>在不支持Object.create方法的浏览器中，可以使用以下代码：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.create = <span class="built_in">Object</span>.create || <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> F = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">    F.prototype = obj;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> F();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>javascript的原型继承遵守的基本规则</p>
+<ul>
+<li><p>所有的数据都是对象。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj1 = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="keyword">var</span> obj2 = &#123;&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(obj1)===<span class="built_in">Object</span>.prototype);  <span class="comment">//输出：true  </span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(obj2)===<span class="built_in">Object</span>.prototype);  <span class="comment">//输出：true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>要得到一个对象，不是通过实例化，而是找到一个对象作为原型并克隆它。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;;</span><br><span class="line">Person.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> Person(<span class="string">'sven'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(a.name);        <span class="comment">//输出：sven</span></span><br><span class="line"><span class="built_in">console</span>.log(a.getName());   <span class="comment">//输出：sven</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(a)===Person.prototype);   <span class="comment">//输出：true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对象会记住它的原型(<code>__proto__</code>)。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="built_in">console</span>.log(a.__proto__===<span class="built_in">Object</span>.prototype);  <span class="comment">//输出：true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果对象无法响应某个请求，会把这个请求委托给它自己的原型。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">name</span>: <span class="string">'sven'</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> A = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">A.prototype = obj;</span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> A();</span><br><span class="line"><span class="built_in">console</span>.log(a.name);    <span class="comment">//输出：sven</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持一下</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat-reward-image.jpg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay-reward-image.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/10/18/React 仿大众点评网App学习总结/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/12/08/React Native开发《狗狗说》App学习总结/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

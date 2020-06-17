@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>arr.push.apply如何实现数组降维 | BestMian&#39;s blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="javascript,apply,push," />
+  
+
+  <meta name="description" content="前言这个问题是出自学习《javascript ES6 函数式编程入门经典》第五章 5-7 concatAll 函数时的疑惑。 有这样的一个对象数组： let apressBooks = [  &amp;#123;    name : &quot;beginners&quot;,    bookDetails : [      &amp;#123;        &quot;id&quot;: 111,        &quot;title&quot;: &quot;C# 6.0&quot;">
+<meta name="keywords" content="javascript,apply,push">
+<meta property="og:type" content="article">
+<meta property="og:title" content="arr.push.apply如何实现数组降维">
+<meta property="og:url" content="http://www.bestmian.com/2018/05/09/arr.push.apply如何实现数组降维/index.html">
+<meta property="og:site_name" content="BestMian&#39;s blog">
+<meta property="og:description" content="前言这个问题是出自学习《javascript ES6 函数式编程入门经典》第五章 5-7 concatAll 函数时的疑惑。 有这样的一个对象数组： let apressBooks = [  &amp;#123;    name : &quot;beginners&quot;,    bookDetails : [      &amp;#123;        &quot;id&quot;: 111,        &quot;title&quot;: &quot;C# 6.0&quot;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-16T03:31:49.249Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="arr.push.apply如何实现数组降维">
+<meta name="twitter:description" content="前言这个问题是出自学习《javascript ES6 函数式编程入门经典》第五章 5-7 concatAll 函数时的疑惑。 有这样的一个对象数组： let apressBooks = [  &amp;#123;    name : &quot;beginners&quot;,    bookDetails : [      &amp;#123;        &quot;id&quot;: 111,        &quot;title&quot;: &quot;C# 6.0&quot;">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?e725065614a17e5024342c65ce59cd39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">M</span>
+  
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">M</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#疑惑"><span class="toc-text">疑惑</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#答案"><span class="toc-text">答案</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#结语"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-arr.push.apply如何实现数组降维" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">arr.push.apply如何实现数组降维</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.05.09</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>陈晓勉</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/javascript/">javascript</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这个问题是出自学习《javascript ES6 函数式编程入门经典》第五章 5-7 concatAll 函数时的疑惑。</p>
+<p>有这样的一个对象数组：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> apressBooks = [</span><br><span class="line">  &#123;</span><br><span class="line">    name : <span class="string">"beginners"</span>,</span><br><span class="line">    bookDetails : [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"id"</span>: <span class="number">111</span>,</span><br><span class="line">        <span class="string">"title"</span>: <span class="string">"C# 6.0"</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"id"</span>: <span class="number">222</span>,</span><br><span class="line">        <span class="string">"title"</span>: <span class="string">"Efficient Learning Machines"</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">      name : <span class="string">"pro"</span>,</span><br><span class="line">      bookDetails : [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"id"</span>: <span class="number">333</span>,</span><br><span class="line">        <span class="string">"title"</span>: <span class="string">"Pro AngularJS"</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"id"</span>: <span class="number">444</span>,</span><br><span class="line">        <span class="string">"title"</span>: <span class="string">"Pro ASP.NET"</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<p>假设我们想要获取所有<code>bookDetails</code>的数据，我们先使用<code>map</code>函数。</p>
+<p><code>map</code>函数</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> map = <span class="function">(<span class="params">array,fn</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> results = []</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">const</span> value <span class="keyword">of</span> array)</span><br><span class="line">      results.push(fn(value))</span><br><span class="line">  <span class="keyword">return</span> results;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用<code>map</code>函数</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">map(apressBooks, (book)=&gt;&#123;</span><br><span class="line">    <span class="keyword">return</span> book.bookDetails</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>返回结果：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">[</span><br><span class="line">    [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"id"</span>: <span class="number">111</span>,</span><br><span class="line">        <span class="string">"title"</span>: <span class="string">"C# 6.0"</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"id"</span>: <span class="number">222</span>,</span><br><span class="line">        <span class="string">"title"</span>: <span class="string">"Efficient Learning Machines"</span></span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"id"</span>: <span class="number">333</span>,</span><br><span class="line">        <span class="string">"title"</span>: <span class="string">"Pro AngularJS"</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"id"</span>: <span class="number">444</span>,</span><br><span class="line">        <span class="string">"title"</span>: <span class="string">"Pro ASP.NET"</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>如你所见，<code>map</code>函数返回的数据包含了数组中的数组。因为 <code>bookDetails</code> 本身就是一个数组，那么我们还需要将所有嵌套数组连接到一个数组中（降维操作）！这时候要使用 <code>concatAll</code> 函数。</p>
+<p><code>concatAll</code> 函数</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> concatAll = <span class="function">(<span class="params">array, fn</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> results = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">const</span> value <span class="keyword">of</span> array)&#123;</span><br><span class="line">        results.push.array(results, value);  <span class="comment">// 为什么不是results.push(value);</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> results;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>concatAll</code> 的主要目的是<code>将嵌套数组转换为非嵌套的单一数据</code>。</p>
+<p>使用 <code>concatAll</code> 函数</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">concatAll(</span><br><span class="line">    map(apressBooks, (book)=&gt;&#123;</span><br><span class="line">        <span class="keyword">return</span> book.bookDetails</span><br><span class="line">    &#125;)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>返回结果（正是我们想要的结果）：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="string">"id"</span>: <span class="number">111</span>,</span><br><span class="line">    <span class="string">"title"</span>: <span class="string">"C# 6.0"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="string">"id"</span>: <span class="number">222</span>,</span><br><span class="line">    <span class="string">"title"</span>: <span class="string">"Efficient Learning Machines"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="string">"id"</span>: <span class="number">333</span>,</span><br><span class="line">    <span class="string">"title"</span>: <span class="string">"Pro AngularJS"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="string">"id"</span>: <span class="number">444</span>,</span><br><span class="line">    <span class="string">"title"</span>: <span class="string">"Pro ASP.NET"</span></span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h1 id="疑惑"><a href="#疑惑" class="headerlink" title="疑惑"></a>疑惑</h1><p><code>concatAll</code> 函数中的 <code>results.push.array(results, value)</code> 为什么要这么调用，不能直接 <code>results.push(value)</code> ？</p>
+<p>我们打印一下<code>value</code>是什么值。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="string">"id"</span>: <span class="number">111</span>,</span><br><span class="line">    <span class="string">"title"</span>: <span class="string">"C# 6.0"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="string">"id"</span>: <span class="number">222</span>,</span><br><span class="line">    <span class="string">"title"</span>: <span class="string">"Efficient Learning Machines"</span></span><br><span class="line">  &#125;</span><br><span class="line">]</span><br><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="string">"id"</span>: <span class="number">333</span>,</span><br><span class="line">    <span class="string">"title"</span>: <span class="string">"Pro AngularJS"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="string">"id"</span>: <span class="number">444</span>,</span><br><span class="line">    <span class="string">"title"</span>: <span class="string">"Pro ASP.NET"</span></span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>是两个数组，那直接 <code>results.push(value)</code> 调用的话，</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> concatAll = <span class="function">(<span class="params">array, fn</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> results = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">const</span> value <span class="keyword">of</span> array)&#123;</span><br><span class="line">        results.push(value);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> results;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可想而知，结果自然还是不对的。也就是 <code>map</code> 函数返回的结果，看上。</p>
+<h1 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h1><p><code>call</code>和<code>apply</code>的区别</p>
+<blockquote>
+<p><code>Function.prototype.call</code> 和 <code>Function.prototype.apply</code> 都是非常常用的方法。它们的作用一模一样，区别仅在于传入参数形式的不同。</p>
+</blockquote>
+<p>apply 接受两个参数，第一个参数指定了函数体内 this 对象的指向，第二个参数为一个带下标的集合，<strong> 这个集合可以为数组，也可以为类数组 </strong>， apply 方法把这个集合中的元素作为参数传递给被调用的函数。</p>
+<p>call 传入的参数数量不固定，跟 apply 相同的是，第一个参数也是代表函数体内的 this 指向，从第二个参数开始往后，每个参数被依次传入函数。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> func1 = <span class="function"><span class="keyword">function</span>(<span class="params">arg1, arg2</span>) </span>&#123;&#125;;</span><br></pre></td></tr></table></figure>
+<p>就可以通过 <code>func1.call(this, arg1, arg2)</code> 或者 <code>func1.apply(this, [arg1, arg2])</code> 来调用。</p>
+<p>所以，<strong> <code>apply</code>第二个参数放的是数组形式 </strong> ，<code>results.push.array(results, value)</code> 这里的<code>value</code>就解释为 <code>[arg1, arg2]</code>，自然而然可以 <code>push</code> 到 <code>map</code>函数返回的每个实参，从而实现将嵌套数组转换为非嵌套的单一数据。</p>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>学习每一个知识的时候，如果不去深究其原因，学到的只是表面的皮毛。</p>
+<p>还有，函数式编程真的很优雅及强大~</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://item.jd.com/11686375.html" target="_blank" rel="noopener">javascript设计模式与开发实践</a><br><a href="https://item.jd.com/12257861.html" target="_blank" rel="noopener">javascript ES6 函数式编程入门经典</a><br><a href="https://www.zhihu.com/question/60828411" target="_blank" rel="noopener">关于红宝石书里的一个问题.push.apply()?</a><br><a href="https://www.zhihu.com/question/20289071/answer/14745394" target="_blank" rel="noopener">如何理解和熟练运用js中的call及apply？</a></p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持一下</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat-reward-image.jpg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay-reward-image.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2018/05/08/JS高阶函数学习/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2018/05/30/html5表单验证笔记/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

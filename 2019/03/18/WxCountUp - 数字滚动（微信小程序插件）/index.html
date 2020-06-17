@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>WxCountUp - 数字滚动（微信小程序插件） | BestMian&#39;s blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="微信小程序,数字滚动,插件," />
+  
+
+  <meta name="description" content="github地址wx-extend  欢迎star~~ 插件介绍该插件是参照 CountUp.js 封装的，为小程序提供的数字滚动，以更有趣的方式显示数值数据。  参数说明Params   参数 类型 描述     target String 滚动对象   endVal Number 滚动结束时的数字   options Object 配置   context Object 微信小程序当前this">
+<meta name="keywords" content="微信小程序,数字滚动,插件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WxCountUp - 数字滚动（微信小程序插件）">
+<meta property="og:url" content="http://www.bestmian.com/2019/03/18/WxCountUp - 数字滚动（微信小程序插件）/index.html">
+<meta property="og:site_name" content="BestMian&#39;s blog">
+<meta property="og:description" content="github地址wx-extend  欢迎star~~ 插件介绍该插件是参照 CountUp.js 封装的，为小程序提供的数字滚动，以更有趣的方式显示数值数据。  参数说明Params   参数 类型 描述     target String 滚动对象   endVal Number 滚动结束时的数字   options Object 配置   context Object 微信小程序当前this">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/3/18/1698e879d7802766?w=375&h=667&f=gif&s=200156">
+<meta property="og:updated_time" content="2020-06-16T03:31:49.249Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WxCountUp - 数字滚动（微信小程序插件）">
+<meta name="twitter:description" content="github地址wx-extend  欢迎star~~ 插件介绍该插件是参照 CountUp.js 封装的，为小程序提供的数字滚动，以更有趣的方式显示数值数据。  参数说明Params   参数 类型 描述     target String 滚动对象   endVal Number 滚动结束时的数字   options Object 配置   context Object 微信小程序当前this">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2019/3/18/1698e879d7802766?w=375&h=667&f=gif&s=200156">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?e725065614a17e5024342c65ce59cd39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">M</span>
+  
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">M</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#github地址"><span class="toc-text">github地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#插件介绍"><span class="toc-text">插件介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参数说明"><span class="toc-text">参数说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Params"><span class="toc-text">Params</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Options-（非必填项）"><span class="toc-text">Options （非必填项）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用方法"><span class="toc-text">使用方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更改部分"><span class="toc-text">更改部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-WxCountUp - 数字滚动（微信小程序插件）" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">WxCountUp - 数字滚动（微信小程序插件）</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.03.18</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>陈晓勉</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/微信小程序/">微信小程序</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="github地址"><a href="#github地址" class="headerlink" title="github地址"></a>github地址</h2><p><a href="https://github.com/ChenXiaoMian/wx-extend" target="_blank" rel="noopener">wx-extend</a>  欢迎star~~</p>
+<h2 id="插件介绍"><a href="#插件介绍" class="headerlink" title="插件介绍"></a>插件介绍</h2><p>该插件是参照 <a href="https://github.com/inorganik/countUp.js" target="_blank" rel="noopener">CountUp.js</a> 封装的，为小程序提供的数字滚动，以更有趣的方式显示数值数据。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/3/18/1698e879d7802766?w=375&amp;h=667&amp;f=gif&amp;s=200156" alt="WxCountUp"></p>
+<h2 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h2><h3 id="Params"><a href="#Params" class="headerlink" title="Params"></a>Params</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>target</td>
+<td><code>String</code></td>
+<td>滚动对象</td>
+</tr>
+<tr>
+<td>endVal</td>
+<td><code>Number</code></td>
+<td>滚动结束时的数字</td>
+</tr>
+<tr>
+<td>options</td>
+<td><code>Object</code></td>
+<td>配置</td>
+</tr>
+<tr>
+<td>context</td>
+<td><code>Object</code></td>
+<td>微信小程序当前this对象，<code>必填</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Options-（非必填项）"><a href="#Options-（非必填项）" class="headerlink" title="Options （非必填项）"></a>Options （非必填项）</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>startVal</td>
+<td><code>Number</code></td>
+<td>滚动开始时的数字，默认为<code>0</code></td>
+</tr>
+<tr>
+<td>decimalPlaces</td>
+<td><code>Number</code></td>
+<td>小数位数，默认为<code>0</code></td>
+</tr>
+<tr>
+<td>duration</td>
+<td><code>Number</code></td>
+<td>动画间隔时间，默认为<code>2</code>秒</td>
+</tr>
+<tr>
+<td>useGrouping</td>
+<td><code>Boolean</code></td>
+<td>是否按组间隔，默认为<code>true</code>。例如：1,000 vs 1000</td>
+</tr>
+<tr>
+<td>useEasing</td>
+<td><code>Boolean</code></td>
+<td>是否使用缓动效果，默认为<code>true</code></td>
+</tr>
+<tr>
+<td>smartEasingThreshold</td>
+<td><code>Number</code></td>
+<td>如果使用缓动，则对大于此值的大数值平滑缓动，默认为<code>999</code></td>
+</tr>
+<tr>
+<td>smartEasingAmount</td>
+<td><code>Number</code></td>
+<td>超过阈值的数字将被放宽，默认为<code>333</code></td>
+</tr>
+<tr>
+<td>separator</td>
+<td><code>String</code></td>
+<td>按组间隔标识，默认为’<code>,</code>‘</td>
+</tr>
+<tr>
+<td>decimal</td>
+<td><code>String</code></td>
+<td>小数点标识，默认为’<code>.</code>‘</td>
+</tr>
+<tr>
+<td>easingFn</td>
+<td><code>Function</code></td>
+<td>例如 <code>(t: number, b: number, c: number, d: number) =&gt; number;</code></td>
+</tr>
+<tr>
+<td>formattingFn</td>
+<td><code>Function</code></td>
+<td>例如 <code>(n: number) =&gt; string;</code></td>
+</tr>
+<tr>
+<td>prefix</td>
+<td><code>String</code></td>
+<td>以结果为前缀的文本，默认为空</td>
+</tr>
+<tr>
+<td>suffix</td>
+<td><code>String</code></td>
+<td>以结果为后缀的文本，默认为空</td>
+</tr>
+<tr>
+<td>numerals</td>
+<td><code>String</code></td>
+<td>数字符号替换</td>
+</tr>
+</tbody>
+</table>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> WxCountUp <span class="keyword">from</span> <span class="string">'../../plugins/wx-countup/WxCountUp.js'</span></span><br><span class="line"></span><br><span class="line">Page(&#123;</span><br><span class="line">  data: &#123;</span><br><span class="line">    number: <span class="number">0</span></span><br><span class="line">  &#125;,</span><br><span class="line">  onLoad: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 最后一个参数必填</span></span><br><span class="line">    <span class="keyword">this</span>.countUp = <span class="keyword">new</span> WxCountUp(<span class="string">'number'</span>, <span class="number">5234</span>, &#123;&#125;, <span class="keyword">this</span>);</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  start() &#123;</span><br><span class="line">    <span class="keyword">this</span>.countUp = <span class="keyword">new</span> WxCountUp(<span class="string">'number'</span>, <span class="number">5234</span>, &#123;&#125;, <span class="keyword">this</span>);</span><br><span class="line">    <span class="comment">// 开始动画</span></span><br><span class="line">    <span class="keyword">this</span>.countUp.start();</span><br><span class="line">    <span class="comment">// this.countUp.start(() =&gt; console.log('Complete!'));</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  pauseResume() &#123;</span><br><span class="line">    <span class="comment">// 暂停/重新开始</span></span><br><span class="line">    <span class="keyword">this</span>.countUp.pauseResume();</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  reset() &#123;</span><br><span class="line">    <span class="comment">// 重置</span></span><br><span class="line">    <span class="keyword">this</span>.countUp.reset();</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  update() &#123;</span><br><span class="line">    <span class="comment">// 更新为新值</span></span><br><span class="line">    <span class="keyword">this</span>.countUp.update(<span class="number">1000</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>更多方法及配置参考 <a href="https://github.com/inorganik/countUp.js" target="_blank" rel="noopener">CountUp.js</a></p>
+<h2 id="更改部分"><a href="#更改部分" class="headerlink" title="更改部分"></a>更改部分</h2><ul>
+<li><a href="https://github.com/inorganik/countUp.js" target="_blank" rel="noopener">CountUp.js</a> 源代码使用 <code>document</code> 浏览器提供的DOM操作接口，在微信小程序中并不支持。只能通过传入一个 <code>this</code> (当前上下文对象) 来 <code>setData</code> 改变数据。</li>
+<li>在真机调试的时候，发现真机不支持 <code>requestAnimationFrame</code> 方法，只得通过 <code>setTimeout</code> 来模拟出 <code>requestAnimationFrame</code> 的效果。</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://github.com/inorganik/countUp.js" target="_blank" rel="noopener">CountUp.js</a></li>
+<li><a href="https://www.dennic365.com/blog/?p=87" target="_blank" rel="noopener">微信小程序 canvas 动画踩坑——requestAnimationFrame 帧渲染</a></li>
+</ul>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持一下</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat-reward-image.jpg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay-reward-image.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2018/05/30/html5表单验证笔记/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2019/08/26/java项目线上环境部署/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

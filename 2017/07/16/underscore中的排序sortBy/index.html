@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>underscore中的排序sortBy | BestMian&#39;s blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="underscore,sortBy," />
+  
+
+  <meta name="description" content="优秀博客文章网络上有很多，一直以来都是读别人的文章。自己嘛，一来文笔不好，二来毫无头绪不知道想分享些什么，于是越是不开始就越不知道怎么写。看了很多鸡汤文，鼓励写博客的文章，终于鼓起勇气写写。目的呢，记录平时所看的书，所想的事，还有想说的话。这可能是今年来的第一篇博文吧，万事开头难，加油咯！ 前端技术日新月异，更新的频率太快了，回头想想自己掌握的知识还是很薄弱，谈不上精通，更还有些许浮躁。一想至此，">
+<meta name="keywords" content="underscore,sortBy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="underscore中的排序sortBy">
+<meta property="og:url" content="http://www.bestmian.com/2017/07/16/underscore中的排序sortBy/index.html">
+<meta property="og:site_name" content="BestMian&#39;s blog">
+<meta property="og:description" content="优秀博客文章网络上有很多，一直以来都是读别人的文章。自己嘛，一来文笔不好，二来毫无头绪不知道想分享些什么，于是越是不开始就越不知道怎么写。看了很多鸡汤文，鼓励写博客的文章，终于鼓起勇气写写。目的呢，记录平时所看的书，所想的事，还有想说的话。这可能是今年来的第一篇博文吧，万事开头难，加油咯！ 前端技术日新月异，更新的频率太快了，回头想想自己掌握的知识还是很薄弱，谈不上精通，更还有些许浮躁。一想至此，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-16T03:31:49.252Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="underscore中的排序sortBy">
+<meta name="twitter:description" content="优秀博客文章网络上有很多，一直以来都是读别人的文章。自己嘛，一来文笔不好，二来毫无头绪不知道想分享些什么，于是越是不开始就越不知道怎么写。看了很多鸡汤文，鼓励写博客的文章，终于鼓起勇气写写。目的呢，记录平时所看的书，所想的事，还有想说的话。这可能是今年来的第一篇博文吧，万事开头难，加油咯！ 前端技术日新月异，更新的频率太快了，回头想想自己掌握的知识还是很薄弱，谈不上精通，更还有些许浮躁。一想至此，">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?e725065614a17e5024342c65ce59cd39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">M</span>
+  
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">M</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Array-prototype-sort"><span class="toc-text">Array.prototype.sort</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sortBy"><span class="toc-text">_.sortBy</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#用法"><span class="toc-text">用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#源码"><span class="toc-text">源码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#开始分析"><span class="toc-text">开始分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#cb"><span class="toc-text">cb</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#map"><span class="toc-text">_.map</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pluck"><span class="toc-text">_.pluck</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-underscore中的排序sortBy" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">underscore中的排序sortBy</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.07.16</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>陈晓勉</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/js源码解读/">js源码解读</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>优秀博客文章网络上有很多，一直以来都是读别人的文章。自己嘛，一来文笔不好，二来毫无头绪不知道想分享些什么，于是越是不开始就越不知道怎么写。看了很多鸡汤文，鼓励写博客的文章，终于鼓起勇气写写。目的呢，记录平时所看的书，所想的事，还有想说的话。这可能是今年来的第一篇博文吧，万事开头难，加油咯！</p>
+<p>前端技术日新月异，更新的频率太快了，回头想想自己掌握的知识还是很薄弱，谈不上精通，更还有些许浮躁。一想至此，决定开始分析一些经典的js源码，这次先从underscore开始分析，结构性上jquery那么复杂，也能更好的学习函数式编程。</p>
+<p><a href="http://www.css88.com/doc/underscore1.8.2/docs/underscore.html" target="_blank" rel="noopener">underscore 1.8.2 源码地址</a><br><a href="http://www.css88.com/doc/underscore1.8.2/" target="_blank" rel="noopener">underscore 1.8.2 中文文档</a></p>
+<h1 id="Array-prototype-sort"><a href="#Array-prototype-sort" class="headerlink" title="Array.prototype.sort"></a>Array.prototype.sort</h1><p>ES5中，已对集合提供一个排序方法 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/sort" target="_blank" rel="noopener">Array.prototype.sort</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">var students = [</span><br><span class="line">  &#123;name: <span class="string">'wxj'</span>, age: 18&#125;,</span><br><span class="line">  &#123;name: <span class="string">'john'</span>, age: 14&#125;,</span><br><span class="line">  &#123;name: <span class="string">'bob'</span>, age: 23&#125;</span><br><span class="line">];</span><br><span class="line">var sortedStudents = students.sort(<span class="keyword">function</span>(left, right) &#123;</span><br><span class="line">  <span class="built_in">return</span> right.age &lt; left.age;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment"># =&gt; sortStudents: [</span></span><br><span class="line"><span class="comment">#  &#123;name: 'john', age: 14&#125;,</span></span><br><span class="line"><span class="comment">#  &#123;name: 'wxj', age: 18&#125;,</span></span><br><span class="line"><span class="comment">#  &#123;name: 'bob', age: 23&#125;,</span></span><br><span class="line"><span class="comment"># ]</span></span><br></pre></td></tr></table></figure>
+<h1 id="sortBy"><a href="#sortBy" class="headerlink" title="_.sortBy"></a>_.sortBy</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">_.sortBy(list, iteratee, [context])</span><br></pre></td></tr></table></figure>
+<p>返回一个排序后的list拷贝副本。如果传递iteratee参数，<code>iteratee将作为list中每个值的排序依据</code>。迭代器也可以是字符串的属性的名称进行排序的(比如 length)。<a href="http://www.css88.com/doc/underscore1.8.2/#sortBy" target="_blank" rel="noopener">api戳这里</a></p>
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># iteratee将作为list中每个值的排序依据</span></span><br><span class="line">_.sortBy([1, 2, 3, 4, 5, 6], <span class="keyword">function</span>(num)&#123; <span class="built_in">return</span> Math.sin(num); &#125;);</span><br><span class="line"><span class="comment"># =&gt; [5, 4, 6, 3, 1, 2]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 根据属性的名称进行排序</span></span><br><span class="line">var stooges = [&#123;name: <span class="string">'moe'</span>, age: 40&#125;, &#123;name: <span class="string">'larry'</span>, age: 50&#125;, &#123;name: <span class="string">'curly'</span>, age: 60&#125;];</span><br><span class="line">_.sortBy(stooges, <span class="string">'name'</span>);</span><br><span class="line">=&gt; [&#123;name: <span class="string">'curly'</span>, age: 60&#125;, &#123;name: <span class="string">'larry'</span>, age: 50&#125;, &#123;name: <span class="string">'moe'</span>, age: 40&#125;];</span><br></pre></td></tr></table></figure>
+<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">_.sortBy = <span class="keyword">function</span>(obj, iteratee, context) &#123;</span><br><span class="line">  <span class="comment"># 内部函数，优化回调</span></span><br><span class="line">  iteratee = cb(iteratee, context);</span><br><span class="line">  <span class="comment"># 先通过map生成新的对象集合,该对象提供了通过iteratee计算后的值, 方便排序</span></span><br><span class="line">  <span class="comment"># [&#123;value:1,index:0,criteria: sin(1)&#125;, ...]</span></span><br><span class="line">  <span class="comment"># 再排序.sort</span></span><br><span class="line">  <span class="comment"># 最后再通过pluck把值摘出来</span></span><br><span class="line">  <span class="built_in">return</span> _.pluck(_.map(obj, <span class="keyword">function</span>(value, index, list) &#123;</span><br><span class="line">    <span class="built_in">return</span> &#123;</span><br><span class="line">      value: value,</span><br><span class="line">      index: index,</span><br><span class="line">      criteria: iteratee(value, index, list)</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;).sort(<span class="keyword">function</span>(left, right) &#123;</span><br><span class="line">    var a = left.criteria;</span><br><span class="line">    var b = right.criteria;</span><br><span class="line">    <span class="keyword">if</span> (a !== b) &#123;</span><br><span class="line">      <span class="keyword">if</span> (a &gt; b || a === void 0) <span class="built_in">return</span> 1;</span><br><span class="line">      <span class="keyword">if</span> (a &lt; b || b === void 0) <span class="built_in">return</span> -1;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> left.index - right.index;</span><br><span class="line">  &#125;), <span class="string">'value'</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="开始分析"><a href="#开始分析" class="headerlink" title="开始分析"></a>开始分析</h1><p><code>_.sortBy</code>的工作流程：</p>
+<h2 id="cb"><a href="#cb" class="headerlink" title="cb"></a>cb</h2><p><code>cb</code> 函数将根据不同情况来为我们的迭代创建一个迭代过程 <code>iteratee</code>。<a href="https://yoyoyohamapi.gitbooks.io/undersercore-analysis/content/base/迭代！迭代！迭代！.html" target="_blank" rel="noopener">迭代！迭代！迭代！</a></p>
+<h2 id="map"><a href="#map" class="headerlink" title="_.map"></a>_.map</h2><p>通过 <a href="http://www.css88.com/doc/underscore1.8.2/#map" target="_blank" rel="noopener">_.map</a> 生成一个新的集合，该集合的每个元素是一个对象，他具有三个属性：</p>
+<ul>
+<li>value:元素值</li>
+<li>index:索引位置</li>
+<li>criteria:排序准则，该准则将通过被优化的 iteratee 计算得到。underscore 看到了元素间的比较仍将落脚到“值比较”的本质。</li>
+</ul>
+<p>假设我们现在有集合：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">var students = [</span><br><span class="line">    &#123;name: <span class="string">'wxj'</span>, age: 18&#125;,</span><br><span class="line">    &#123;name: <span class="string">'john'</span>, age: 14&#125;,</span><br><span class="line">    &#123;name: <span class="string">'bob'</span>, age: 23&#125;</span><br><span class="line">];  </span><br><span class="line">var sortedStudents = _.sortBy(students, <span class="string">'age'</span>);  </span><br><span class="line"><span class="comment"># sortStudents: [</span></span><br><span class="line"><span class="comment">#  &#123;name: 'john', age: 14&#125;,</span></span><br><span class="line"><span class="comment">#  &#123;name: 'wxj', age: 18&#125;,</span></span><br><span class="line"><span class="comment">#  &#123;name: 'bob', age: 23&#125;,</span></span><br><span class="line"><span class="comment"># ]</span></span><br></pre></td></tr></table></figure></p>
+<p>假设我们需要按照年龄进行排序，那么传入的 iteratee 为：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">var iteratee = <span class="keyword">function</span>(value, key, index, elem) &#123;</span><br><span class="line">    <span class="built_in">return</span> elem.age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>经过该过程，该集合将变为：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">var newStudents = [</span><br><span class="line">    &#123;</span><br><span class="line">      value: &#123;name: <span class="string">'wxj'</span>, age: 18&#125;,</span><br><span class="line">      index: 0,</span><br><span class="line">      criteria: 18</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      value: &#123;name: <span class="string">'john'</span>, age: 14&#125;,</span><br><span class="line">      index: 0,</span><br><span class="line">      criteria: 14</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      value: &#123;name: <span class="string">'bob'</span>, age: 23&#125;,</span><br><span class="line">      index: 0,</span><br><span class="line">      criteria: 23</span><br><span class="line">    &#125;</span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
+<p>利用 <a href="#Array-prototype-sort">Array.prototype.sort</a> 以及我们确定的排序准则 criteria 对新生成的集合进行排序：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">var sortedStudents = newStudents.sort(<span class="keyword">function</span> (left, right) &#123;</span><br><span class="line">  var a = left.criteria;</span><br><span class="line">  var b = right.criteria;</span><br><span class="line">  <span class="keyword">if</span> (a !== b) &#123;</span><br><span class="line">      <span class="keyword">if</span> (a &gt; b || a === void 0) <span class="built_in">return</span> 1;</span><br><span class="line">      <span class="keyword">if</span> (a &lt; b || b === void 0) <span class="built_in">return</span> -1;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> left.index - right.index;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment"># =&gt; sortedStudents: [</span></span><br><span class="line"><span class="comment">#    &#123;</span></span><br><span class="line"><span class="comment">#      value: &#123;name: 'john', age: 14&#125;,</span></span><br><span class="line"><span class="comment">#      index: 0,</span></span><br><span class="line"><span class="comment">#      criteria: 14</span></span><br><span class="line"><span class="comment">#    &#125;,</span></span><br><span class="line"><span class="comment">#    &#123;</span></span><br><span class="line"><span class="comment">#      value: &#123;name: 'wxj', age: 18&#125;,</span></span><br><span class="line"><span class="comment">#      index: 0,</span></span><br><span class="line"><span class="comment">#      criteria: 18</span></span><br><span class="line"><span class="comment">#    &#125;,</span></span><br><span class="line"><span class="comment">#    &#123;</span></span><br><span class="line"><span class="comment">#      value: &#123;name: 'bob', age: 23&#125;,</span></span><br><span class="line"><span class="comment">#      index: 0,</span></span><br><span class="line"><span class="comment">#      criteria: 23</span></span><br><span class="line"><span class="comment">#    &#125;</span></span><br><span class="line"><span class="comment">#];</span></span><br></pre></td></tr></table></figure>
+<h2 id="pluck"><a href="#pluck" class="headerlink" title="_.pluck"></a>_.pluck</h2><p>再通过 <a href="http://www.css88.com/doc/underscore1.8.2/#pluck" target="_blank" rel="noopener">_.pluck</a> 取出 value 属性，过滤掉不需要的 index 及 criteria 属性。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">var ret = _.pluck(sortedStudents, <span class="string">'value'</span>);</span><br><span class="line"><span class="comment"># =&gt; ret: [</span></span><br><span class="line"><span class="comment">#  &#123;name: 'john', age: 14&#125;,</span></span><br><span class="line"><span class="comment">#  &#123;name: 'wxj', age: 18&#125;,</span></span><br><span class="line"><span class="comment">#  &#123;name: 'bob', age: 23&#125;,</span></span><br><span class="line"><span class="comment">#]</span></span><br></pre></td></tr></table></figure>
+<p>大功告成！感谢<a href="https://github.com/yoyoyohamapi" target="_blank" rel="noopener">@yoyoyohamapi</a>童鞋，文章是转载的，勿喷。搬运一番，也深入理解了一层。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
+<ul>
+<li><a href="https://yoyoyohamapi.gitbooks.io/undersercore-analysis/content/collection/更好用的排序.html" target="_blank" rel="noopener">更好用的排序</a></li>
+<li><a href="https://yoyoyohamapi.gitbooks.io/undersercore-analysis/content/base/迭代！迭代！迭代！.html" target="_blank" rel="noopener">迭代！迭代！迭代</a></li>
+</ul>
+</blockquote>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持一下</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat-reward-image.jpg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay-reward-image.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2016/02/13/PHP类包含的七种语法说明/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/10/18/React 仿大众点评网App学习总结/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

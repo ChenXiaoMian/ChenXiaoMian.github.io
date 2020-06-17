@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>学习单元测试 | BestMian&#39;s blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="mocha,单元测试," />
+  
+
+  <meta name="description" content="对于前端测试，它是前端工程方面的一个重要分支，因此，在我们的组件库中怎么能少掉这么重要的一角呢？对于单元测试，主要分为两种  TDD（Test-Driven Development）：测试驱动开发，注重输出结果。 BDD（Behavior Driven Development）：行为驱动开发，注重测试逻辑。  基于项目初始化自带的 Karma + Mocha 这两大框架对我们的组件库中的组件进行单">
+<meta name="keywords" content="mocha,单元测试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习单元测试">
+<meta property="og:url" content="http://www.bestmian.com/2019/09/23/单元测试学习/index.html">
+<meta property="og:site_name" content="BestMian&#39;s blog">
+<meta property="og:description" content="对于前端测试，它是前端工程方面的一个重要分支，因此，在我们的组件库中怎么能少掉这么重要的一角呢？对于单元测试，主要分为两种  TDD（Test-Driven Development）：测试驱动开发，注重输出结果。 BDD（Behavior Driven Development）：行为驱动开发，注重测试逻辑。  基于项目初始化自带的 Karma + Mocha 这两大框架对我们的组件库中的组件进行单">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-16T03:31:49.257Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="学习单元测试">
+<meta name="twitter:description" content="对于前端测试，它是前端工程方面的一个重要分支，因此，在我们的组件库中怎么能少掉这么重要的一角呢？对于单元测试，主要分为两种  TDD（Test-Driven Development）：测试驱动开发，注重输出结果。 BDD（Behavior Driven Development）：行为驱动开发，注重测试逻辑。  基于项目初始化自带的 Karma + Mocha 这两大框架对我们的组件库中的组件进行单">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?e725065614a17e5024342c65ce59cd39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">M</span>
+  
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">M</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#i-Karma-框架"><span class="toc-text">i. Karma 框架</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ii-Mocha-框架"><span class="toc-text">ii. Mocha 框架</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实战"><span class="toc-text">实战</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优化"><span class="toc-text">优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-单元测试学习" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">学习单元测试</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.09.23</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>陈晓勉</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/单元测试/">单元测试</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>对于前端测试，它是前端工程方面的一个重要分支，因此，在我们的组件库中怎么能少掉这么重要的一角呢？对于单元测试，主要分为两种</p>
+<ul>
+<li>TDD（Test-Driven Development）：测试驱动开发，注重输出结果。</li>
+<li>BDD（Behavior Driven Development）：行为驱动开发，注重测试逻辑。</li>
+</ul>
+<p>基于项目初始化自带的 Karma + Mocha 这两大框架对我们的组件库中的组件进行单元测试。</p>
+<p>对于 Karma + Mocha 这两大框架，相信大多数接触过单元测试的人都不会陌生，但这里我觉得还是有必要单独开一小节对着两大框架进行一个简单的介绍。</p>
+<h3 id="i-Karma-框架"><a href="#i-Karma-框架" class="headerlink" title="i. Karma 框架"></a>i. Karma 框架</h3><ul>
+<li>Karma 是一个基于 Node.js 的 JavaScript 测试执行过程管理工具（Test Runner）</li>
+<li>Karma 是一个测试工具，能让你的代码在浏览器环境下测试</li>
+<li>Karma 能让你的代码自动在多个浏览器，比如 chrome，firefox，ie 等环境下运行</li>
+<li>为了能让我们的组件库中的组件能够运行在各大主流 Web 浏览器中进行测试，我们选择了 Karma 。最重要的是 Karma 是 vue-cli 推荐的单元测试框架。如果你想了解更多有关 Karma 的介绍，请自行查阅 Karma 官网</li>
+</ul>
+<h3 id="ii-Mocha-框架"><a href="#ii-Mocha-框架" class="headerlink" title="ii. Mocha 框架"></a>ii. Mocha 框架</h3><ul>
+<li>Mocha 是一个 simple，flexible，fun 的测试框架</li>
+<li>Mocha 支持异步的测似用例，如 Promise</li>
+<li>Mocha 支持代码覆盖率 coverage 测试报告</li>
+<li>Mocha 允许你使用任何你想使用的断言库，比如 chai 、should.js （BDD风格）、expect.js 等等</li>
+<li>Mocha 提供了 before(), after(), beforeEach(), 以及 afterEach() 四个钩子函数，方便我们在不同阶段设置不同的操作以更好的完成我们的测试</li>
+</ul>
+<p>这里我介绍一下 mocha 的三种基本用法，以及 describe 的四个钩子函数（生命周期）</p>
+<p>1.describe(moduleName, function)： describe 是可嵌套的，描述测试用例是否正确</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">describe(<span class="string">'测试模块的描述'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="comment">// ....</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>2.it(info, function)：一个 it 对应一个单元测试用例</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">it(<span class="string">'单元测试用例的描述'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="comment">// ....</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>3.断言库的用法</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">expect(<span class="number">1</span> + <span class="number">1</span>).to.be.equal(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<p>4.describe 的生命周期</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">describe(<span class="string">'Test Hooks'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  before(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 在本区块的所有测试用例之前执行</span></span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  after(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 在本区块的所有测试用例之后执行</span></span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  beforeEach(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 在本区块的每个测试用例之前执行</span></span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  afterEach(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 在本区块的每个测试用例之后执行</span></span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// test cases</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><p>在单元测试实战开始前，我们先看看 Karma 的配置，这里我们直接看 vue-cli 脚手架初始化出来的 karma.conf.js 文件里面的配置（具体用处我做了注释）</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> webpackConfig = <span class="built_in">require</span>(<span class="string">'../../build/webpack.test.conf'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> <span class="title">karmaConfig</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">  config.set(&#123;</span><br><span class="line">    <span class="comment">// 浏览器</span></span><br><span class="line">    browsers: [<span class="string">'PhantomJS'</span>],</span><br><span class="line">    <span class="comment">// 测试框架</span></span><br><span class="line">    frameworks: [<span class="string">'mocha'</span>, <span class="string">'sinon-chai'</span>, <span class="string">'phantomjs-shim'</span>],</span><br><span class="line">    <span class="comment">// 测试报告</span></span><br><span class="line">    reporters: [<span class="string">'spec'</span>, <span class="string">'coverage'</span>],</span><br><span class="line">    <span class="comment">// 测试入口文件</span></span><br><span class="line">    files: [<span class="string">'./index.js'</span>],</span><br><span class="line">    <span class="comment">// 预处理器 karma-webpack</span></span><br><span class="line">    preprocessors: &#123;</span><br><span class="line">      <span class="string">'./index.js'</span>: [<span class="string">'webpack'</span>, <span class="string">'sourcemap'</span>]</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// webpack配置</span></span><br><span class="line">    webpack: webpackConfig,</span><br><span class="line">    <span class="comment">// webpack中间件</span></span><br><span class="line">    webpackMiddleware: &#123;</span><br><span class="line">      noInfo: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 测试覆盖率报告</span></span><br><span class="line">    coverageReporter: &#123;</span><br><span class="line">      dir: <span class="string">'./coverage'</span>,</span><br><span class="line">      reporters: [</span><br><span class="line">        &#123; <span class="attr">type</span>: <span class="string">'lcov'</span>, <span class="attr">subdir</span>: <span class="string">'.'</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">type</span>: <span class="string">'text-summary'</span> &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来，我们再来对我们自己的 hello 组件进行简单的测试（只写一个测试用例），在 test/unit/specs 新建 hello.spec.js 文件，并写入以下代码</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span> <span class="comment">// 导入Vue用于生成Vue实例</span></span><br><span class="line"><span class="keyword">import</span> Hello <span class="keyword">from</span> <span class="string">'packages/hello'</span> <span class="comment">// 导入组件</span></span><br><span class="line"><span class="comment">// 测试脚本里面应该包括一个或多个describe块，称为测试套件（test suite）</span></span><br><span class="line">describe(<span class="string">'Hello.vue'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="comment">// 每个describe块应该包括一个或多个it块，称为测试用例（test case）</span></span><br><span class="line">  it(<span class="string">'render default classList in hello'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> Constructor = Vue.extend(Hello) <span class="comment">// 获得Hello组件实例</span></span><br><span class="line">    <span class="keyword">const</span> vm = <span class="keyword">new</span> Constructor().$mount() <span class="comment">// 将组件挂在到DOM上</span></span><br><span class="line">    <span class="comment">// 断言：DOM中包含class为v-hello的元素</span></span><br><span class="line">    expect(vm.$el.classList.contains(<span class="string">'v-hello'</span>)).to.be.true</span><br><span class="line">    <span class="keyword">const</span> message = vm.$el.querySelector(<span class="string">'.v-hello__message'</span>)</span><br><span class="line">    <span class="comment">// 断言：DOM中包含class为v-hello__message的元素</span></span><br><span class="line">    expect(message.classList.contains(<span class="string">'v-hello__message'</span>)).to.be.true</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>测试实例写完，接下来就是进行测试了。执行 npm run test，走你 ~ ，输出结果</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hello.vue</span><br><span class="line">    ✓ render default classList in hello</span><br></pre></td></tr></table></figure>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>从上面 hello 组件的测试实例可以看出，我们需要将组件实例化为一个Vue实例，有时还需要挂载到 DOM 上</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> Constructor = Vue.extend(Hello)</span><br><span class="line"><span class="keyword">const</span> vm = <span class="keyword">new</span> Constructor(&#123;</span><br><span class="line">  propsData: &#123;</span><br><span class="line">    message: <span class="string">'component'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;).$mount()</span><br></pre></td></tr></table></figure>
+<p>如果之后每个组件拥有多个单元测试实例，那这种写法会导致我们最后的测试比较臃肿，这里我们可以参考 element 封装好的 单元测试工具 util.js 。我们需要封装 Vue 在单元测试中常用的一些方法，下面我将列出工具里面提供的一些方法</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 回收 vm，一般在每个测试脚本测试完成后执行回收vm。</span></span><br><span class="line"><span class="comment"> * @param  &#123;Object&#125; vm</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">exports.destroyVM = <span class="function"><span class="keyword">function</span> (<span class="params">vm</span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 创建一个 Vue 的实例对象</span></span><br><span class="line"><span class="comment"> * @param  &#123;Object|String&#125;  Compo     - 组件配置，可直接传 template</span></span><br><span class="line"><span class="comment"> * @param  &#123;Boolean=false&#125;  mounted   - 是否添加到 DOM 上</span></span><br><span class="line"><span class="comment"> * @return &#123;Object&#125; vm</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">exports.createVue = <span class="function"><span class="keyword">function</span> (<span class="params">Compo, mounted = false</span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 创建一个测试组件实例</span></span><br><span class="line"><span class="comment"> * @param  &#123;Object&#125;  Compo          - 组件对象</span></span><br><span class="line"><span class="comment"> * @param  &#123;Object&#125;  propsData      - props 数据</span></span><br><span class="line"><span class="comment"> * @param  &#123;Boolean=false&#125; mounted  - 是否添加到 DOM 上</span></span><br><span class="line"><span class="comment"> * @return &#123;Object&#125; vm</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">exports.createTest = <span class="function"><span class="keyword">function</span> (<span class="params">Compo, propsData = &#123;&#125;, mounted = false</span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 触发一个事件</span></span><br><span class="line"><span class="comment"> * 注： 一般在触发事件后使用 vm.$nextTick 方法确定事件触发完成。</span></span><br><span class="line"><span class="comment"> * mouseenter, mouseleave, mouseover, keyup, change, click 等</span></span><br><span class="line"><span class="comment"> * @param  &#123;Element&#125; elm      - 元素</span></span><br><span class="line"><span class="comment"> * @param  &#123;String&#125; name      - 事件名称</span></span><br><span class="line"><span class="comment"> * @param  &#123;*&#125; opts           - 配置项</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">exports.triggerEvent = <span class="function"><span class="keyword">function</span> (<span class="params">elm, name, ...opts</span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 触发 “mouseup” 和 “mousedown” 事件，既触发点击事件。</span></span><br><span class="line"><span class="comment"> * @param &#123;Element&#125; elm     - 元素</span></span><br><span class="line"><span class="comment"> * @param &#123;*&#125; opts          - 配置选项</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">exports.triggerClick = <span class="function"><span class="keyword">function</span> (<span class="params">elm, ...opts</span>) </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>下面我们将使用定义好的测试工具方法，改造 hello 组件的测试实例，将 hello.spec.js 文件进行改造</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; destroyVM, createTest &#125; <span class="keyword">from</span> <span class="string">'../util'</span></span><br><span class="line"><span class="keyword">import</span> Hello <span class="keyword">from</span> <span class="string">'packages/hello'</span></span><br><span class="line"></span><br><span class="line">describe(<span class="string">'hello.vue'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> vm</span><br><span class="line">  <span class="comment">// 测试用例执行之后销毁实例</span></span><br><span class="line">  afterEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    destroyVM(vm)</span><br><span class="line">  &#125;)</span><br><span class="line">  it(<span class="string">'render default classList in hello'</span>, () =&gt; &#123;</span><br><span class="line">    vm = createTest(Hello)</span><br><span class="line">    expect(vm.$el.classList.contains(<span class="string">'v-hello'</span>)).to.be.true</span><br><span class="line">    <span class="keyword">const</span> message = vm.$el.querySelector(<span class="string">'.v-hello__message'</span>)</span><br><span class="line">    expect(message.classList.contains(<span class="string">'v-hello__message'</span>)).to.be.true</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>重新执行 npm run test，输出结果</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hello.vue</span><br><span class="line">    ✓ render default classList in hello</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://www.ruanyifeng.com/blog/2015/12/a-mocha-tutorial-of-examples.html" target="_blank" rel="noopener">测试框架 Mocha 实例教程</a></li>
+<li><a href="https://xuqiang521.github.io/2018/03/%E6%8F%AD%E7%A7%98%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80%E4%BA%8C%E4%BA%8B/" target="_blank" rel="noopener">揭秘组件库一二事</a></li>
+</ul>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持一下</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat-reward-image.jpg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay-reward-image.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/08/26/java项目线上环境部署/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2019/11/03/router路由原理/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

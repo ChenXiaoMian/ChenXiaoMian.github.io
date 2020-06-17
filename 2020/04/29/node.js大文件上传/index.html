@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>node.js大文件上传 | BestMian&#39;s blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="node,file,upload,大文件上传," />
+  
+
+  <meta name="description" content="form 表单提交，有刷新、体验差&amp;lt;form method=&quot;post&quot; action=&quot;http://localhost:8100&quot; enctype=&quot;multipart/form-data&quot;&amp;gt;  选择文件: &amp;lt;input type=&quot;file&quot; name=&quot;f1&quot;/&amp;gt; input 必须设置 name 属性，否则数据无法发送&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt;">
+<meta name="keywords" content="node,file,upload,大文件上传">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node.js大文件上传">
+<meta property="og:url" content="http://www.bestmian.com/2020/04/29/node.js大文件上传/index.html">
+<meta property="og:site_name" content="BestMian&#39;s blog">
+<meta property="og:description" content="form 表单提交，有刷新、体验差&amp;lt;form method=&quot;post&quot; action=&quot;http://localhost:8100&quot; enctype=&quot;multipart/form-data&quot;&amp;gt;  选择文件: &amp;lt;input type=&quot;file&quot; name=&quot;f1&quot;/&amp;gt; input 必须设置 name 属性，否则数据无法发送&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/2/2/1700586de2c41042?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:updated_time" content="2020-06-16T03:31:49.250Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="node.js大文件上传">
+<meta name="twitter:description" content="form 表单提交，有刷新、体验差&amp;lt;form method=&quot;post&quot; action=&quot;http://localhost:8100&quot; enctype=&quot;multipart/form-data&quot;&amp;gt;  选择文件: &amp;lt;input type=&quot;file&quot; name=&quot;f1&quot;/&amp;gt; input 必须设置 name 属性，否则数据无法发送&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt;">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2020/2/2/1700586de2c41042?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?e725065614a17e5024342c65ce59cd39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">M</span>
+  
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">M</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#form-表单提交，有刷新、体验差"><span class="toc-text">form 表单提交，有刷新、体验差</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#局部刷新-iframe"><span class="toc-text">局部刷新-iframe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#无刷新上传"><span class="toc-text">无刷新上传</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进度条"><span class="toc-text">进度条</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#上传预览"><span class="toc-text">上传预览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#大文件上传"><span class="toc-text">大文件上传</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#断点续传"><span class="toc-text">断点续传</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络请求并发控制"><span class="toc-text">网络请求并发控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#demo"><span class="toc-text">demo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-node.js大文件上传" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">node.js大文件上传</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2020.04.29</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>陈晓勉</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/node/">node</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="form-表单提交，有刷新、体验差"><a href="#form-表单提交，有刷新、体验差" class="headerlink" title="form 表单提交，有刷新、体验差"></a>form 表单提交，有刷新、体验差</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">action</span>=<span class="string">"http://localhost:8100"</span> <span class="attr">enctype</span>=<span class="string">"multipart/form-data"</span>&gt;</span></span><br><span class="line">  选择文件: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">name</span>=<span class="string">"f1"</span>/&gt;</span> input 必须设置 name 属性，否则数据无法发送<span class="tag">&lt;<span class="name">br</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">  标题：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"title"</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">id</span>=<span class="string">"btn-0"</span>&gt;</span>上 传<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>服务端文件的保存基于现有的库<code>koa-body</code>结合 <code>koa2</code>实现服务端文件的保存和数据的返回。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 服务入口</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"><span class="keyword">var</span> koaStatic = <span class="built_in">require</span>(<span class="string">'koa-static'</span>);</span><br><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">var</span> koaBody = <span class="built_in">require</span>(<span class="string">'koa-body'</span>);<span class="comment">//文件保存库</span></span><br><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">var</span> Koa = <span class="built_in">require</span>(<span class="string">'koa2'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> Koa();</span><br><span class="line"><span class="keyword">var</span> port = process.env.PORT || <span class="string">'8100'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> uploadHost= <span class="string">`http://localhost:<span class="subst">$&#123;port&#125;</span>/uploads/`</span>;</span><br><span class="line"></span><br><span class="line">app.use(koaBody(&#123;</span><br><span class="line">    formidable: &#123;</span><br><span class="line">        <span class="comment">//设置文件的默认保存目录，不设置则保存在系统临时目录下  os</span></span><br><span class="line">        uploadDir: path.resolve(__dirname, <span class="string">'../static/uploads'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    multipart: <span class="literal">true</span> <span class="comment">// 开启文件上传，默认是关闭</span></span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line"><span class="comment">//开启静态文件访问</span></span><br><span class="line">app.use(koaStatic(</span><br><span class="line">    path.resolve(__dirname, <span class="string">'../static'</span>) </span><br><span class="line">));</span><br><span class="line"></span><br><span class="line"><span class="comment">//文件二次处理，修改名称</span></span><br><span class="line">app.use(<span class="function">(<span class="params">ctx</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> file = ctx.request.files.f1;<span class="comment">//得道文件对象</span></span><br><span class="line">    <span class="keyword">var</span> path = file.path;</span><br><span class="line">    <span class="keyword">var</span> fname = file.name;<span class="comment">//原文件名称</span></span><br><span class="line">    <span class="keyword">var</span> nextPath = path+fname;</span><br><span class="line">    <span class="keyword">if</span>(file.size&gt;<span class="number">0</span> &amp;&amp; path)&#123;</span><br><span class="line">        <span class="comment">//得到扩展名</span></span><br><span class="line">        <span class="keyword">var</span> extArr = fname.split(<span class="string">'.'</span>);</span><br><span class="line">        <span class="keyword">var</span> ext = extArr[extArr.length<span class="number">-1</span>];</span><br><span class="line">        <span class="keyword">var</span> nextPath = path+<span class="string">'.'</span>+ext;</span><br><span class="line">        <span class="comment">//重命名文件</span></span><br><span class="line">        fs.renameSync(path, nextPath);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//以 json 形式输出上传文件地址</span></span><br><span class="line">    ctx.body = <span class="string">`&#123;</span></span><br><span class="line"><span class="string">        "fileUrl":"<span class="subst">$&#123;uploadHost&#125;</span><span class="subst">$&#123;nextPath.slice(nextPath.lastIndexOf(<span class="string">'/'</span>)+<span class="number">1</span>)&#125;</span>"</span></span><br><span class="line"><span class="string">    &#125;`</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * http server</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> server = http.createServer(app.callback());</span><br><span class="line">server.listen(port);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'demo1 server start ......   '</span>);</span><br></pre></td></tr></table></figure>
+<p>扩展： <a href="http://www.ptbird.cn/koa-body-diy-upload-dir-and-filename.html" target="_blank" rel="noopener">koa-body 文件上传自定义文件夹及文件名称</a></p>
+<h2 id="局部刷新-iframe"><a href="#局部刷新-iframe" class="headerlink" title="局部刷新-iframe"></a>局部刷新-iframe</h2><p>页面内放一个隐藏的 iframe，或者使用 js 动态创建，指定 form 表单的 target 属性值为iframe标签 的 name 属性值，这样 form 表单的 shubmit 行为的跳转就会在 iframe 内完成，整体页面不会刷新。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">   <span class="tag">&lt;<span class="name">iframe</span> <span class="attr">id</span>=<span class="string">"temp-iframe"</span> <span class="attr">name</span>=<span class="string">"temp-iframe"</span> <span class="attr">src</span>=<span class="string">""</span> <span class="attr">style</span>=<span class="string">"display:none;"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">target</span>=<span class="string">"temp-iframe"</span> <span class="attr">action</span>=<span class="string">"http://localhost:8100"</span> <span class="attr">enctype</span>=<span class="string">"multipart/form-data"</span>&gt;</span></span><br><span class="line">        选择文件(可多选):</span><br><span class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">name</span>=<span class="string">"f1"</span> <span class="attr">id</span>=<span class="string">"f1"</span> <span class="attr">multiple</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span> input 必须设置 name 属性，否则数据无法发送<span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">            标题：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"title"</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">id</span>=<span class="string">"btn-0"</span>&gt;</span>上 传<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> iframe = <span class="built_in">document</span>.getElementById(<span class="string">'temp-iframe'</span>);</span></span><br><span class="line"><span class="javascript">iframe.addEventListener(<span class="string">'load'</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> result = iframe.contentWindow.document.body.innerText;</span></span><br><span class="line"><span class="javascript">      <span class="comment">//接口数据转换为 JSON 对象</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> obj = <span class="built_in">JSON</span>.parse(result);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">if</span>(obj &amp;&amp; obj.fileUrl.length)&#123;</span></span><br><span class="line"><span class="javascript">          alert(<span class="string">'上传成功'</span>);</span></span><br><span class="line"><span class="undefined">          </span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(obj);</span></span><br><span class="line"><span class="undefined">&#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="无刷新上传"><a href="#无刷新上传" class="headerlink" title="无刷新上传"></a>无刷新上传</h2><p>无刷新上传文件肯定要用到XMLHttpRequest,在 ie 时代也有这个对象，单只 支持文本数据的传输，无法用来读取和上传二进制数据。<br>现在已然升级到了XMLHttpRequest2，较1版本有非常大的升级，首先就是可以读取和上传二进制数据，可以使用·FormData·对象管理表单数据。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        选择文件(可多选):</span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">id</span>=<span class="string">"f1"</span> <span class="attr">multiple</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">id</span>=<span class="string">"btn-submit"</span>&gt;</span>上 传<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">submitUpload</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">//获得文件列表，注意这里不是数组，而是对象</span></span><br><span class="line">        <span class="keyword">var</span> fileList = <span class="built_in">document</span>.getElementById(<span class="string">'f1'</span>).files;</span><br><span class="line">        <span class="keyword">if</span>(!fileList.length)&#123;</span><br><span class="line">            alert(<span class="string">'请选择文件'</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">var</span> fd = <span class="keyword">new</span> FormData();   <span class="comment">//构造FormData对象</span></span><br><span class="line">        fd.append(<span class="string">'title'</span>, <span class="built_in">document</span>.getElementById(<span class="string">'title'</span>).value);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//多文件上传需要遍历添加到 fromdata 对象</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i =<span class="number">0</span>;i&lt;fileList.length;i++)&#123;</span><br><span class="line">            fd.append(<span class="string">'f1'</span>, fileList[i]);<span class="comment">//支持多文件上传</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();   <span class="comment">//创建对象</span></span><br><span class="line">        xhr.open(<span class="string">'POST'</span>, <span class="string">'http://localhost:8100/'</span>, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">        xhr.send(fd);<span class="comment">//发送时  Content-Type默认就是: multipart/form-data; </span></span><br><span class="line">        xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'state change'</span>, xhr.readyState);</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.readyState == <span class="number">4</span> &amp;&amp; <span class="keyword">this</span>.status == <span class="number">200</span>) &#123;</span><br><span class="line">                <span class="keyword">var</span> obj = <span class="built_in">JSON</span>.parse(xhr.responseText);   <span class="comment">//返回值</span></span><br><span class="line">                <span class="built_in">console</span>.log(obj);</span><br><span class="line">                <span class="keyword">if</span>(obj.fileUrl.length)&#123;</span><br><span class="line">                    alert(<span class="string">'上传成功'</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//绑定提交事件</span></span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'btn-submit'</span>).addEventListener(<span class="string">'click'</span>,submitUpload);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="进度条"><a href="#进度条" class="headerlink" title="进度条"></a>进度条</h2><ul>
+<li>页面内增加一个用于显示进度的标签 div.progress</li>
+<li>js 内处理增加进度处理的监听函数xhr.upload.onprogress</li>
+<li>event.lengthComputable这是一个状态，表示发送的长度有了变化，可计算</li>
+<li>event.loaded表示发送了多少字节</li>
+<li>event.total表示文件总大小</li>
+<li>根据event.loaded和event.total计算进度，渲染div.progress</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>多文件上传 之 xhr formdata 上传进度条<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>选择文件:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">id</span>=<span class="string">"f1"</span> <span class="attr">multiple</span>/&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"progress"</span> <span class="attr">id</span>=<span class="string">"progress"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"red"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">id</span>=<span class="string">"btn-submit"</span>&gt;</span>上传<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    </span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">submit</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> progressBlock = <span class="built_in">document</span>.getElementById(<span class="string">'progress'</span>).firstElementChild;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> fileList = <span class="built_in">document</span>.getElementById(<span class="string">'f1'</span>).files;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">      progressBlock.style.width = <span class="string">'0'</span>;</span></span><br><span class="line"><span class="javascript">      progressBlock.classList.remove(<span class="string">'green'</span>);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">      <span class="keyword">if</span>(!fileList.length)&#123;</span></span><br><span class="line"><span class="javascript">        alert(<span class="string">'请选择文件'</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span>;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(fileList);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> fd = <span class="keyword">new</span> FormData();</span></span><br><span class="line"><span class="javascript">      <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;=fileList.length;i++)&#123;</span></span><br><span class="line"><span class="javascript">        fd.append(<span class="string">'f1'</span>, fileList[i]);</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">      </span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span></span><br><span class="line"><span class="javascript">      xhr.open(<span class="string">'POST'</span>, <span class="string">'http://localhost:8100/upload'</span>, <span class="literal">true</span>);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">      </span></span><br><span class="line"><span class="javascript">      xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">'state change'</span>, xhr.readyState);</span></span><br><span class="line"><span class="javascript">        <span class="comment">// console.log(this);</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">if</span>(<span class="keyword">this</span>.readyState == <span class="number">4</span> &amp;&amp; <span class="keyword">this</span>.status == <span class="number">200</span>) &#123;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">var</span> obj = <span class="built_in">JSON</span>.parse(xhr.responseText);   <span class="comment">//返回值</span></span></span><br><span class="line"><span class="javascript">          <span class="built_in">console</span>.log(obj);</span></span><br><span class="line"><span class="javascript">          <span class="keyword">if</span>(obj.fileUrl.length) &#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// alert('上传成功');</span></span></span><br><span class="line"><span class="undefined">          &#125;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">      xhr.onprogress = updateProgress;</span></span><br><span class="line"><span class="undefined">      xhr.upload.onprogress = updateProgress;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">      <span class="function"><span class="keyword">function</span> <span class="title">updateProgress</span>(<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">if</span> (event.lengthComputable)&#123;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">var</span> completedPercent = (event.loaded / event.total * <span class="number">100</span>).toFixed(<span class="number">2</span>);</span></span><br><span class="line"><span class="javascript">          progressBlock.style.width = completedPercent + <span class="string">'%'</span>;</span></span><br><span class="line"><span class="javascript">          progressBlock.innerHTML = completedPercent + <span class="string">'%'</span>;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">if</span>(completedPercent&gt;<span class="number">90</span>)&#123;<span class="comment">//进度条变色</span></span></span><br><span class="line"><span class="javascript">            progressBlock.classList.add(<span class="string">'green'</span>);</span></span><br><span class="line"><span class="undefined">          &#125;</span></span><br><span class="line"><span class="javascript">          <span class="built_in">console</span>.log(<span class="string">'已上传'</span>, completedPercent);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">      xhr.send(fd);<span class="comment">//发送时  Content-Type默认就是: multipart/form-data; </span></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    </span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.getElementById(<span class="string">'btn-submit'</span>).addEventListener(<span class="string">'click'</span>, submit);</span></span><br><span class="line"><span class="javascript">    <span class="comment">// document.getElementById('f1').addEventListener('change', function(event) &#123;</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">//   console.log(event);</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">// &#125;);</span></span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="上传预览"><a href="#上传预览" class="headerlink" title="上传预览"></a>上传预览</h2><ul>
+<li>为了预览的需要，我们这里选择上传图片文件，其他类型的也一样，只是预览不方便</li>
+<li>页面内增加一个多图预览的容器div.img-box</li>
+<li>根据选择的文件信息动态创建所属的预览区域和进度条以及取消按钮</li>
+<li>为取消按钮绑定事件，调用<code>xhr.abort()</code>;终止上传</li>
+<li>使用<code>window.URL.createObjectURL</code>预览图片，在图片加载成功后需要清除使用的内存<code>window.URL.revokeObjectURL(this.src)</code>;</li>
+</ul>
+<h2 id="大文件上传"><a href="#大文件上传" class="headerlink" title="大文件上传"></a>大文件上传</h2><p><strong>前端</strong></p>
+<p>前端大文件上传网上的大部分文章已经给出了解决方案，核心是利用 <code>Blob.prototype.slice</code> 方法，和数组的 <code>slice</code> 方法相似，调用的 <code>slice</code> 方法可以返回原文件的某个切片</p>
+<p>这样我们就可以根据预先设置好的切片最大数量将文件切分为一个个切片，然后借助 http 的可并发性，同时上传多个切片，这样从原本传一个大文件，变成了同时传多个小的文件切片，可以大大减少上传时间</p>
+<p>另外由于是并发，传输到服务端的顺序可能会发生变化，所以我们还需要给每个切片记录顺序</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 引入 spark-md5 库</span></span><br><span class="line"><span class="keyword">const</span> analyzeFile = <span class="function">(<span class="params">file</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> chunks = <span class="built_in">Math</span>.ceil(file.size / chunkSize); <span class="comment">// 获取切片的个数          </span></span><br><span class="line">    <span class="keyword">var</span> spark = <span class="keyword">new</span> SparkMD5.ArrayBuffer();</span><br><span class="line">    <span class="keyword">var</span> reader = <span class="keyword">new</span> FileReader();</span><br><span class="line">    <span class="keyword">var</span> currentChunk = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">loadNext</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> start = currentChunk * chunkSize;</span><br><span class="line">      <span class="keyword">var</span> end = start + chunkSize &gt; file.size ? file.size : (start + chunkSize);</span><br><span class="line">      reader.readAsArrayBuffer(blobSlice.call(file, start, end));</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    reader.onload = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">const</span> result = e.target.result;</span><br><span class="line">      spark.append(result);</span><br><span class="line">      currentChunk++;</span><br><span class="line">      <span class="keyword">if</span> (currentChunk &lt; chunks) &#123;</span><br><span class="line">        loadNext();</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`第<span class="subst">$&#123;currentChunk&#125;</span>分片解析完成，开始解析第<span class="subst">$&#123;currentChunk + <span class="number">1</span>&#125;</span>分片`</span>);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// const md5 = spark.end();</span></span><br><span class="line">        <span class="keyword">const</span> result = spark.end();</span><br><span class="line">        <span class="comment">// 如果单纯的使用result 作为hash值的时候, 如果文件内容相同，而名称不同的时候</span></span><br><span class="line">        <span class="comment">// 想保留两个文件无法保留。所以把文件名称加上。</span></span><br><span class="line">        <span class="keyword">const</span> sparkMd5 = <span class="keyword">new</span> SparkMD5();</span><br><span class="line">        sparkMd5.append(result);</span><br><span class="line">        sparkMd5.append(file.name);</span><br><span class="line">        <span class="keyword">const</span> hexHash = sparkMd5.end();</span><br><span class="line">        resolve(hexHash);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'解析完成'</span>, hexHash);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    reader.onerror = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.warn(<span class="string">'文件读取失败！'</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">    loadNext();</span><br><span class="line">  &#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>服务端</strong></p>
+<p>服务端需要负责接受这些切片，并在接收到所有切片后合并切片<br>这里又引伸出两个问题</p>
+<p>何时合并切片，即切片什么时候传输完成<br>如何合并切片</p>
+<p>第一个问题需要前端进行配合，前端在每个切片中都携带切片最大数量的信息，当服务端接受到这个数量的切片时自动合并，也可以额外发一个请求主动通知服务端进行切片的合并<br>第二个问题，具体如何合并切片呢？这里可以使用 nodejs 的 读写流（readStream/writeStream），将所有切片的流传输到最终文件的流里</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 上传接口</span></span><br><span class="line"><span class="comment"> * 1、支持多文件上传————按日期区分文件夹</span></span><br><span class="line"><span class="comment"> * 2、支持分片上传————按hash值建立分片文件夹</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">router.post(<span class="string">'/file/upload'</span>, <span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">  <span class="comment">// var body = ctx.request.body;</span></span><br><span class="line">  <span class="keyword">var</span> files = ctx.request.files ? ctx.request.files.file : [];</span><br><span class="line">  <span class="keyword">var</span> fileSize = ctx.request.body.size || <span class="number">0</span>; <span class="comment">// 文件大小</span></span><br><span class="line">  <span class="keyword">var</span> chunkCount = ctx.request.body.chunkCount || <span class="number">0</span>;  <span class="comment">// 文件分片数量</span></span><br><span class="line">  <span class="keyword">var</span> fileIndex = ctx.request.body.index || <span class="number">0</span>;  <span class="comment">// 文件索引</span></span><br><span class="line">  <span class="keyword">var</span> fileHash = ctx.request.body.hash || <span class="string">''</span>;  <span class="comment">// 文件hash值</span></span><br><span class="line">  <span class="keyword">var</span> result = [];</span><br><span class="line">  <span class="keyword">var</span> isChunk = chunkCount&gt;<span class="number">0</span> &amp;&amp; fileHash ? <span class="literal">true</span> : <span class="literal">false</span>; <span class="comment">// 区分分片上传还是整体上传</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 单文件处理</span></span><br><span class="line">  <span class="keyword">if</span> (!isChunk &amp;&amp; files &amp;&amp; !<span class="built_in">Array</span>.isArray(files)) &#123;</span><br><span class="line">    files = [files];</span><br><span class="line">  &#125;  </span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (isChunk) &#123;</span><br><span class="line">    <span class="keyword">const</span> chunksPath = path.join(uploadDir, fileHash, <span class="string">'/'</span>);</span><br><span class="line">    <span class="keyword">if</span> (!fs.existsSync(chunksPath)) fs.mkdirSync(chunksPath);</span><br><span class="line">    fs.renameSync(files.path, chunksPath+fileIndex+<span class="string">'-'</span>+fileHash);</span><br><span class="line">    ctx.status = <span class="number">200</span>;</span><br><span class="line">    ctx.body = <span class="string">`&#123;</span></span><br><span class="line"><span class="string">      "code": 0,</span></span><br><span class="line"><span class="string">      "msg": "success"</span></span><br><span class="line"><span class="string">    &#125;`</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    files.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span>(item.size&gt;<span class="number">0</span> &amp;&amp; item.uploadpath) &#123;</span><br><span class="line">        result.push(uploadHost+item.uploadpath);</span><br><span class="line">      &#125;      </span><br><span class="line">    &#125;);</span><br><span class="line">    ctx.body = <span class="string">`&#123;</span></span><br><span class="line"><span class="string">      "code": 0,</span></span><br><span class="line"><span class="string">      "msg": "success",</span></span><br><span class="line"><span class="string">      "data": <span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(result)&#125;</span></span></span><br><span class="line"><span class="string">    &#125;`</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 提取后缀名</span></span><br><span class="line"><span class="keyword">const</span> excludeExt = <span class="function">(<span class="params">fileName</span>) =&gt;</span> fileName.slice(fileName.lastIndexOf(<span class="string">'.'</span>), fileName.length);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回已上传切片列表</span></span><br><span class="line"><span class="keyword">const</span> createUploadedList = <span class="keyword">async</span> (fileHash) =&gt; fs.existsSync(path.resolve(uploadDir, fileHash)) ? <span class="keyword">await</span> fs.readdir(path.resolve(uploadDir, fileHash)) : [];</span><br><span class="line"></span><br><span class="line">router.post(<span class="string">'/file/verify'</span>, <span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">  <span class="keyword">var</span> files = ctx.request.files ? ctx.request.files.file : [];</span><br><span class="line">  <span class="keyword">var</span> fileName = ctx.request.body.name || <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">var</span> hash = ctx.request.body.hash || <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> ext = excludeExt(fileName);</span><br><span class="line">  <span class="keyword">var</span> filePath = path.resolve(uploadDir, <span class="string">`<span class="subst">$&#123;hash&#125;</span><span class="subst">$&#123;ext&#125;</span>`</span>);</span><br><span class="line">  <span class="keyword">var</span> param = &#123;</span><br><span class="line">    shouldUpload: fs.existsSync(filePath) ? <span class="literal">false</span> : <span class="literal">true</span>,</span><br><span class="line">    uploadedList: <span class="keyword">await</span> createUploadedList(hash)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// console.log(await fs.readdir(path.resolve(uploadDir, hash)));</span></span><br><span class="line"></span><br><span class="line">  ctx.status = <span class="number">200</span>;</span><br><span class="line">  ctx.body = <span class="string">`&#123;</span></span><br><span class="line"><span class="string">    "code": 0,</span></span><br><span class="line"><span class="string">    "msg": "success",</span></span><br><span class="line"><span class="string">    "data": <span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(param)&#125;</span></span></span><br><span class="line"><span class="string">  &#125;`</span>;  </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">router.post(<span class="string">'/file/merge'</span>, <span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">  <span class="keyword">var</span> fileName = ctx.request.body.name || <span class="string">''</span>; <span class="comment">// 文件名字</span></span><br><span class="line">  <span class="keyword">var</span> fileSize = ctx.request.body.size || <span class="number">0</span>; <span class="comment">// 文件大小</span></span><br><span class="line">  <span class="keyword">var</span> chunkCount = ctx.request.body.chunkCount || <span class="number">0</span>;  <span class="comment">// 文件分片数量</span></span><br><span class="line">  <span class="keyword">var</span> fileHash = ctx.request.body.hash || <span class="string">''</span>;  <span class="comment">// 文件hash值</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> chunksPath = path.join(uploadDir, fileHash, <span class="string">'/'</span>);</span><br><span class="line">  <span class="keyword">var</span> extArr = fileName.split(<span class="string">'.'</span>);</span><br><span class="line">  <span class="keyword">var</span> ext = extArr[extArr.length - <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> writeStream = fs.createWriteStream(<span class="string">`<span class="subst">$&#123;uploadDir&#125;</span>/<span class="subst">$&#123;fileHash+<span class="string">'.'</span>+ext&#125;</span>`</span>);</span><br><span class="line">  <span class="keyword">var</span> cindex = <span class="number">0</span>;</span><br><span class="line">  <span class="comment">// 合并文件</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">mergeFile</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> fname = path.join(chunksPath, <span class="string">`<span class="subst">$&#123;cindex&#125;</span>-<span class="subst">$&#123;fileHash&#125;</span>`</span>);</span><br><span class="line">    <span class="keyword">var</span> readStream = fs.createReadStream(fname);</span><br><span class="line">    </span><br><span class="line">    readStream.pipe(writeStream, &#123; <span class="attr">end</span>: cindex + <span class="number">1</span> == chunkCount ? <span class="literal">true</span> : <span class="literal">false</span> &#125;);</span><br><span class="line">    readStream.on(<span class="string">"end"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      fs.unlink(fname, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (err) &#123;</span><br><span class="line">          <span class="keyword">throw</span> err;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      <span class="keyword">if</span> (cindex + <span class="number">1</span> &lt; chunkCount) &#123;</span><br><span class="line">        cindex += <span class="number">1</span>;</span><br><span class="line">        mergeFile();</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        fs.rmdirSync(chunksPath);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  mergeFile();</span><br><span class="line">  ctx.status = <span class="number">200</span>;</span><br><span class="line">  ctx.body = <span class="string">`&#123;</span></span><br><span class="line"><span class="string">    "code": 0,</span></span><br><span class="line"><span class="string">    "msg": 'success'</span></span><br><span class="line"><span class="string">    "data": <span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(uploadHost + fileHash+<span class="string">'.'</span>+ext)&#125;</span></span></span><br><span class="line"><span class="string">  &#125;`</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="断点续传"><a href="#断点续传" class="headerlink" title="断点续传"></a>断点续传</h2><p>生成 hash</p>
+<p>无论是前端还是服务端，都必须要生成文件和切片的 hash，之前我们使用文件名 + 切片下标作为切片 hash，这样做文件名一旦修改就失去了效果，而事实上只要文件内容不变，hash 就不应该变化，所以正确的做法是根据文件内容生成 hash，所以我们修改一下 hash 的生成规则</p>
+<p>这里用到另一个库 spark-md5，它可以根据文件内容计算出文件的 hash 值，另外考虑到如果上传一个超大文件，读取文件内容计算 hash 是非常耗费时间的，并且会引起 UI 的阻塞，导致页面假死状态，所以我们使用 web-worker 在 worker 线程计算 hash，这样用户仍可以在主界面正常的交互<br>由于实例化 web-worker 时，参数是一个 js 文件路径且不能跨域，所以我们单独创建一个 hash.js 文件放在 public 目录下，另外在 worker 中也是不允许访问 dom 的，但它提供了importScripts 函数用于导入外部脚本，通过它导入 spark-md5</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// /public/hash.js</span></span><br><span class="line">self.importScripts(<span class="string">"/spark-md5.min.js"</span>); <span class="comment">// 导入脚本</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 生成文件 hash</span></span><br><span class="line">self.onmessage = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; fileChunkList &#125; = e.data;</span><br><span class="line">  <span class="keyword">const</span> spark = <span class="keyword">new</span> self.SparkMD5.ArrayBuffer();</span><br><span class="line">  <span class="keyword">let</span> percentage = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">const</span> loadNext = <span class="function"><span class="params">index</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> reader = <span class="keyword">new</span> FileReader();</span><br><span class="line">    reader.readAsArrayBuffer(fileChunkList[index].file);</span><br><span class="line">    reader.onload = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">      count++;</span><br><span class="line">      spark.append(e.target.result);</span><br><span class="line">      <span class="keyword">if</span> (count === fileChunkList.length) &#123;</span><br><span class="line">        self.postMessage(&#123;</span><br><span class="line">          percentage: <span class="number">100</span>,</span><br><span class="line">          hash: spark.end()</span><br><span class="line">        &#125;);</span><br><span class="line">        self.close();</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        percentage += <span class="number">100</span> / fileChunkList.length;</span><br><span class="line">        self.postMessage(&#123;</span><br><span class="line">          percentage</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 递归计算下一个切片</span></span><br><span class="line">        loadNext(count);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;;</span><br><span class="line">  loadNext(<span class="number">0</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>恢复上传</strong></p>
+<p>之前在介绍断点续传的时提到使用第二种服务端存储的方式实现续传<br>由于当文件切片上传后，服务端会建立一个文件夹存储所有上传的切片，所以每次前端上传前可以调用一个接口，服务端将已上传的切片的切片名返回，前端再跳过这些已经上传切片，这样就实现了“续传”的效果<br>而这个接口可以和之前秒传的验证接口合并，前端每次上传前发送一个验证的请求，返回两种结果</p>
+<p>服务端已存在该文件，不需要再次上传<br>服务端不存在该文件或者已上传部分文件切片，通知前端进行上传，并把已上传的文件切片返回给前端</p>
+<p>所以我们改造一下之前文件秒传的服务端验证接口。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$(<span class="string">"#btn-submit"</span>).on(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> file = $(<span class="string">"#f1"</span>)[<span class="number">0</span>].files[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">if</span> (!file) &#123;</span><br><span class="line">    alert(<span class="string">'没有获取文件'</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (file.size &lt; chunkSize) &#123;</span><br><span class="line">    <span class="keyword">let</span> fd = <span class="keyword">new</span> FormData();</span><br><span class="line">    fd.append(<span class="string">'file'</span>, file);</span><br><span class="line">    axios.post(<span class="string">'/file/upload'</span>, fd).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(res.data);</span><br><span class="line">    &#125;).catch(<span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(e);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> chunks = <span class="built_in">Math</span>.ceil(file.size / chunkSize); <span class="comment">// 获取切片的个数     </span></span><br><span class="line">  <span class="keyword">var</span> axiosPromiseArray = [];  <span class="comment">// axiosPromise数组</span></span><br><span class="line">  <span class="keyword">var</span> uploadedList = [];</span><br><span class="line">  <span class="keyword">var</span> willUploadList = [];</span><br><span class="line">  <span class="keyword">var</span> hash = <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 上传切片</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">uploadChunks</span>(<span class="params">list</span>) </span>&#123;</span><br><span class="line">    axios.all(list).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> fd = <span class="keyword">new</span> FormData();</span><br><span class="line">      fd.append(<span class="string">'size'</span>, file.size);</span><br><span class="line">      fd.append(<span class="string">'name'</span>, file.name);</span><br><span class="line">      fd.append(<span class="string">'chunkCount'</span>, chunks);</span><br><span class="line">      fd.append(<span class="string">'hash'</span>, hash);</span><br><span class="line">      axios.post(<span class="string">'/file/merge'</span>, fd).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'上传成功'</span>);</span><br><span class="line">        <span class="built_in">console</span>.log(res.data);</span><br><span class="line">        <span class="built_in">console</span>.log(file);</span><br><span class="line">      &#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(err);</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;).catch(<span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(e);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 分析切片，验证切片</span></span><br><span class="line">  analyzeFile(file).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 验证文件是否存在</span></span><br><span class="line">    hash = res;</span><br><span class="line">    <span class="keyword">let</span> fd = <span class="keyword">new</span> FormData();</span><br><span class="line">    fd.append(<span class="string">'name'</span>, file.name);</span><br><span class="line">    fd.append(<span class="string">'hash'</span>, hash);</span><br><span class="line">    <span class="keyword">return</span> axios.post(<span class="string">'/file/verify'</span>, fd);</span><br><span class="line">  &#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> json = res.data;</span><br><span class="line">    uploadedList = json.data.uploadedList || [];</span><br><span class="line">    <span class="keyword">if</span> (!json.data.shouldUpload) &#123;</span><br><span class="line">      alert(<span class="string">'秒传:上传成功'</span>);</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> CancelToken = axios.CancelToken;</span><br><span class="line">      <span class="keyword">let</span> cancel;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; chunks; i++) &#123;</span><br><span class="line">        <span class="keyword">let</span> start = i * chunkSize;</span><br><span class="line">        <span class="keyword">let</span> end = <span class="built_in">Math</span>.min(file.size, start + chunkSize);</span><br><span class="line">        <span class="keyword">let</span> fd = <span class="keyword">new</span> FormData();</span><br><span class="line">        fd.append(<span class="string">'file'</span>, blobSlice.call(file, start, end));</span><br><span class="line">        fd.append(<span class="string">'name'</span>, file.name);</span><br><span class="line">        fd.append(<span class="string">'chunkCount'</span>, chunks);</span><br><span class="line">        fd.append(<span class="string">'index'</span>, i);</span><br><span class="line">        fd.append(<span class="string">'size'</span>, file.size);</span><br><span class="line">        fd.append(<span class="string">'hash'</span>, hash);</span><br><span class="line">        <span class="keyword">let</span> axiosOptions = &#123;</span><br><span class="line">          <span class="comment">// onUploadProgress: e =&gt; &#123;</span></span><br><span class="line">          <span class="comment">//   console.log(chunks, i, e, file);</span></span><br><span class="line">          <span class="comment">// &#125;,</span></span><br><span class="line">          cancelToken: <span class="keyword">new</span> CancelToken(<span class="function"><span class="keyword">function</span> <span class="title">executor</span>(<span class="params">c</span>) </span>&#123;</span><br><span class="line">            cancel = c;</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">let</span> fileHash = <span class="string">`<span class="subst">$&#123;i&#125;</span>-<span class="subst">$&#123;hash&#125;</span>`</span>;</span><br><span class="line">        <span class="comment">// 过滤已上传的文件列表</span></span><br><span class="line">        <span class="keyword">if</span> (uploadedList.length &gt; <span class="number">0</span> &amp;&amp; uploadedList.indexOf(fileHash) &gt; <span class="number">-1</span>) &#123;</span><br><span class="line">          <span class="keyword">continue</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="comment">// willUploadList.push(&#123;</span></span><br><span class="line">          <span class="comment">//   fd,</span></span><br><span class="line">          <span class="comment">//   option: axiosOptions,</span></span><br><span class="line">          <span class="comment">//   index: i</span></span><br><span class="line">          <span class="comment">// &#125;);   </span></span><br><span class="line">          axiosPromiseArray.push(axios.post(<span class="string">'/file/upload'</span>, fd, axiosOptions));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// </span></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      uploadChunks(axiosPromiseArray);</span><br><span class="line">      <span class="comment">// willUploadList.filter((&#123; fd &#125;) =&gt; &#123;</span></span><br><span class="line">      <span class="comment">//   let hash = `$&#123;fd.index&#125;-$&#123;fd.hash&#125;`;</span></span><br><span class="line">      <span class="comment">//   console.log(hash);</span></span><br><span class="line">      <span class="comment">//   return !uploadedList.includes(hash);</span></span><br><span class="line">      <span class="comment">// &#125;);</span></span><br><span class="line"></span><br><span class="line">      $(<span class="string">"#btn-stop"</span>).on(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        cancel &amp;&amp; cancel(<span class="string">'取消传输'</span>);</span><br><span class="line">        $(<span class="keyword">this</span>).hide();</span><br><span class="line">        $(<span class="string">"#btn-resume"</span>).show();</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(json);</span><br><span class="line">    <span class="comment">// console.log(willUploadList);</span></span><br><span class="line">    <span class="comment">// return;</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="网络请求并发控制"><a href="#网络请求并发控制" class="headerlink" title="网络请求并发控制"></a>网络请求并发控制</h2><p>大文件<code>hash</code>计算后，一次发几百个http请求，计算哈希没卡，结果TCP建立的过程就把浏览器弄死了，而且我记得本身异步请求并发数的控制，本身就是头条的一个面试题</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/2/1700586de2c41042?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="头条"></p>
+<p>思路其实也不难，就是我们把异步请求放在一个队列里，比如并发数是3，就先同时发起3个请求，然后有请求结束了，再发起下一个请求即可， 思路清楚，代码也就呼之欲出了</p>
+<p>我们通过并发数max来管理并发数，发起一个请求max–，结束一个请求max++即可</p>
+<figure class="highlight diff"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="addition">+async sendRequest(forms, max=4) &#123;</span></span><br><span class="line"><span class="addition">+  return new Promise(resolve =&gt; &#123;</span></span><br><span class="line"><span class="addition">+    const len = forms.length;</span></span><br><span class="line"><span class="addition">+    let idx = 0;</span></span><br><span class="line"><span class="addition">+    let counter = 0;</span></span><br><span class="line"><span class="addition">+    const start = async ()=&gt; &#123;</span></span><br><span class="line"><span class="addition">+      // 有请求，有通道</span></span><br><span class="line"><span class="addition">+      while (idx &lt; len &amp;&amp; max &gt; 0) &#123;</span></span><br><span class="line"><span class="addition">+        max--; // 占用通道</span></span><br><span class="line"><span class="addition">+        console.log(idx, "start");</span></span><br><span class="line"><span class="addition">+        const form = forms[idx].form;</span></span><br><span class="line"><span class="addition">+        const index = forms[idx].index;</span></span><br><span class="line"><span class="addition">+        idx++</span></span><br><span class="line"><span class="addition">+        request(&#123;</span></span><br><span class="line"><span class="addition">+          url: '/upload',</span></span><br><span class="line"><span class="addition">+          data: form,</span></span><br><span class="line"><span class="addition">+          onProgress: this.createProgresshandler(this.chunks[index]),</span></span><br><span class="line"><span class="addition">+          requestList: this.requestList</span></span><br><span class="line"><span class="addition">+        &#125;).then(() =&gt; &#123;</span></span><br><span class="line"><span class="addition">+          max++; // 释放通道</span></span><br><span class="line"><span class="addition">+          counter++;</span></span><br><span class="line"><span class="addition">+          if (counter === len) &#123;</span></span><br><span class="line"><span class="addition">+            resolve();</span></span><br><span class="line"><span class="addition">+          &#125; else &#123;</span></span><br><span class="line"><span class="addition">+            start();</span></span><br><span class="line"><span class="addition">+          &#125;</span></span><br><span class="line"><span class="addition">+        &#125;);</span></span><br><span class="line"><span class="addition">+      &#125;</span></span><br><span class="line"><span class="addition">+    &#125;</span></span><br><span class="line"><span class="addition">+    start();</span></span><br><span class="line"><span class="addition">+  &#125;);</span></span><br><span class="line"><span class="addition">+&#125;</span></span><br><span class="line"></span><br><span class="line">async uploadChunks(uploadedList = []) &#123;</span><br><span class="line">  // 这里一起上传，碰见大文件就是灾难</span><br><span class="line">  // 没被hash计算打到，被一次性的tcp链接把浏览器稿挂了</span><br><span class="line">  // 异步并发控制策略，我记得这个也是头条一个面试题</span><br><span class="line">  // 比如并发量控制成4</span><br><span class="line">  const list = this.chunks</span><br><span class="line">    .filter(chunk =&gt; uploadedList.indexOf(chunk.hash) == -1)</span><br><span class="line">    .map((&#123; chunk, hash, index &#125;, i) =&gt; &#123;</span><br><span class="line">      const form = new FormData();</span><br><span class="line">      form.append("chunk", chunk);</span><br><span class="line">      form.append("hash", hash);</span><br><span class="line">      form.append("filename", this.container.file.name);</span><br><span class="line">      form.append("fileHash", this.container.hash);</span><br><span class="line">      return &#123; form, index &#125;;</span><br><span class="line">    &#125;)</span><br><span class="line"><span class="deletion">-     .map((&#123; form, index &#125;) =&gt;</span></span><br><span class="line"><span class="deletion">-       request(&#123;</span></span><br><span class="line"><span class="deletion">-           url: "/upload",</span></span><br><span class="line"><span class="deletion">-         data: form,</span></span><br><span class="line"><span class="deletion">-         onProgress: this.createProgresshandler(this.chunks[index]),</span></span><br><span class="line"><span class="deletion">-         requestList: this.requestList</span></span><br><span class="line"><span class="deletion">-       &#125;)</span></span><br><span class="line"><span class="deletion">-     );</span></span><br><span class="line"><span class="deletion">-   // 直接全量并发</span></span><br><span class="line"><span class="deletion">-   await Promise.all(list);</span></span><br><span class="line">     // 控制并发  </span><br><span class="line"><span class="addition">+   const ret =  await this.sendRequest(list,4)</span></span><br><span class="line"></span><br><span class="line">  if (uploadedList.length + list.length <span class="comment">=== this.chunks.length) &#123;</span></span><br><span class="line">    // 上传和已经存在之和 等于全部的再合并</span><br><span class="line">    await this.mergeRequest();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h2 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h2><p>koa各种文件上传 <strong><a href="https://gitee.com/bestmian/koa-upload" target="_blank" rel="noopener">koa-upload</a></strong> </p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://juejin.im/post/5da14778f265da5bb628e590#heading-0" target="_blank" rel="noopener">写给新手前端的各种文件上传攻略，从小图片到大文件断点续传</a></li>
+<li><a href="https://juejin.im/post/5dff8a26e51d4558105420ed#heading-0" target="_blank" rel="noopener">字节跳动面试官：请你实现一个大文件上传和断点续传</a></li>
+<li><a href="https://juejin.im/post/5e367f6951882520ea398ef6#heading-0" target="_blank" rel="noopener">字节跳动面试官，我也实现了大文件上传和断点续传</a></li>
+<li><a href="https://www.cnblogs.com/tugenhua0707/p/11246860.html" target="_blank" rel="noopener">Node + js实现大文件分片上传基本原理及实践(一)</a></li>
+</ul>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持一下</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat-reward-image.jpg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay-reward-image.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2020/04/08/面试中遇到的问题/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2020/06/15/利用 Redis 解决 NodeJS 中 Session 存储问题/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

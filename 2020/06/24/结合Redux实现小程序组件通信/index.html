@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>结合Redux实现小程序组件通信 | BestMian&#39;s blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="微信小程序,Redux,Promise," />
+  
+
+  <meta name="description" content="前言我想，一提到小程序内部数据共享，大家肯定会想到 globalData。但是 globalData 是依托于全局 app 对象，而全局变量的影响大家是心知肚明的，不一定哪个新手给你搞坏了也是说不定的。所以也就导致了状态变化的不可跟踪。我们都知道 Redux 是一个前端状态管理的容器，对于构建大型应用，对里面进行数据、状态的管理非常方便，而如何去实现一个小程序版本的Redux的难点是我们如何实现一">
+<meta name="keywords" content="微信小程序,Redux,Promise">
+<meta property="og:type" content="article">
+<meta property="og:title" content="结合Redux实现小程序组件通信">
+<meta property="og:url" content="http://www.bestmian.com/2020/06/24/结合Redux实现小程序组件通信/index.html">
+<meta property="og:site_name" content="BestMian&#39;s blog">
+<meta property="og:description" content="前言我想，一提到小程序内部数据共享，大家肯定会想到 globalData。但是 globalData 是依托于全局 app 对象，而全局变量的影响大家是心知肚明的，不一定哪个新手给你搞坏了也是说不定的。所以也就导致了状态变化的不可跟踪。我们都知道 Redux 是一个前端状态管理的容器，对于构建大型应用，对里面进行数据、状态的管理非常方便，而如何去实现一个小程序版本的Redux的难点是我们如何实现一">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-24T06:15:51.940Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="结合Redux实现小程序组件通信">
+<meta name="twitter:description" content="前言我想，一提到小程序内部数据共享，大家肯定会想到 globalData。但是 globalData 是依托于全局 app 对象，而全局变量的影响大家是心知肚明的，不一定哪个新手给你搞坏了也是说不定的。所以也就导致了状态变化的不可跟踪。我们都知道 Redux 是一个前端状态管理的容器，对于构建大型应用，对里面进行数据、状态的管理非常方便，而如何去实现一个小程序版本的Redux的难点是我们如何实现一">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?e725065614a17e5024342c65ce59cd39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">M</span>
+  
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">M</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何实现"><span class="toc-text">如何实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#支持-Promise"><span class="toc-text">支持 Promise</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-结合Redux实现小程序组件通信" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">结合Redux实现小程序组件通信</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2020.06.24</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>陈晓勉</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/微信小程序/">微信小程序</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我想，一提到小程序内部数据共享，大家肯定会想到 <code>globalData</code>。但是 <code>globalData</code> 是依托于全局 <code>app</code> 对象，而全局变量的影响大家是心知肚明的，不一定哪个新手给你搞坏了也是说不定的。所以也就导致了状态变化的不可跟踪。我们都知道 <code>Redux</code> 是一个前端状态管理的容器，对于构建大型应用，对里面进行数据、状态的管理非常方便，而如何去实现一个小程序版本的<code>Redux</code>的难点是我们如何实现一个类似于<code>react-redux</code>的东西将<code>Redux</code>结合到小程序里面来。</p>
+<p>在<code>React</code>类库的项目中，当<code>State</code>发生变化时，通过<code>props</code>接收参数的组件也会同时发生变化，最终触发<code>render</code>函数并完成视图更新。在小程序项目中，基于小程序的内部实现机制，通过<code>setData</code>改变<code>data</code>对象中的属性，同样能达到更新视图的目的。</p>
+<p>如果读过<code>Redux</code>源码或读过相关文章就会发现，<code>Redux</code>实现<code>State</code>状态管理及小程序自带实现视图更新的功能，可以简单概况如下：</p>
+<ul>
+<li>订阅————监听状态，保存对应的回调。</li>
+<li>发布————状态变化，执行回调。</li>
+<li>同步视图————同步数据到视图。</li>
+</ul>
+<h2 id="如何实现"><a href="#如何实现" class="headerlink" title="如何实现"></a>如何实现</h2><p>项目目录：</p>
+<ul>
+<li>miniprogram<ul>
+<li>reducers           <ul>
+<li>index.js         (reducers 集合)</li>
+<li>userInfo.js      (用户信息)</li>
+<li>redux.min.js     (redux 库)</li>
+</ul>
+</li>
+<li>pages/                    (…)</li>
+<li>utils/              <ul>
+<li>connect.js       (将state状态机制融合到小程序里)</li>
+<li>shallowEqual.js  (Redux库中的工具函数)</li>
+<li>toPromise.js     (封装wx自带的接口，使其支持Promise)<br>app.js                            (小程序入口)<br>app.json             (小程序配置)<br>app.wxss                         (全局样式)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Step1</strong></p>
+<p>实现小程序组件通信的思路是这样的，首先，通过 <code>Redux</code> 实现发布订阅模式，从官方网站获取 <code>redux.min.js</code> 文件，放到项目对应的目录下。然后创建对应的 <code>Reducers</code> 文件 <code>userInfo.js</code>。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> INITAL_STATE = &#123;</span><br><span class="line">  data: <span class="literal">null</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> User = <span class="function">(<span class="params">state = INITAL_STATE, action</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span>(action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"MODIFY_USER"</span>: </span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        state,</span><br><span class="line">        ...action.data</span><br><span class="line">      &#125;;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> state;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> User;</span><br></pre></td></tr></table></figure>
+<p><strong>Step2</strong></p>
+<p>创建 <code>reducers/index.js</code> 文件，应用 <code>Redux</code> 的 <code>combineReducers()</code> 辅助函数，用来整合所有 <code>Reducers</code>。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore, combineReducers &#125; <span class="keyword">from</span> <span class="string">'./redux.min.js'</span>;</span><br><span class="line"><span class="keyword">import</span> userInfo <span class="keyword">from</span> <span class="string">'./userInfo'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> createStore(combineReducers(&#123;</span><br><span class="line">  userInfo</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+<p><strong>Step3</strong></p>
+<p>通过 <code>Object.defineProperty</code> (Vue的设计思路) 方式更新视图，同时以“原型继承”的方式对小程序的生命周期进行包装。当<code>State</code>发生变化时，如果状态值不一样，就同步执行<code>setData</code>函数以更新视图。</p>
+<p>对小程序的生命周期进行包装，是实现小程序通信的核心步骤，<code>connect.js</code>的主要功能是在继承配置项后，针对不同的生命周期加入对应的订阅、发布和销毁机制。当小程序展示页面时，会判断是否存在销毁记录，如果没有就重新监听<code>State</code>。当小程序关闭或隐藏时，销毁之前的监听事件。</p>
+<p><code>connect.js</code> 代码</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> shallowEqual <span class="keyword">from</span> <span class="string">'./shallowEqual'</span>;</span><br><span class="line"><span class="keyword">let</span> __Store = getApp().Store;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (mapStateToData = <span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> config = &#123;</span><br><span class="line">    __Store,</span><br><span class="line">    __dispatch: __Store.__dispatch,</span><br><span class="line">    __destory: <span class="literal">null</span>,</span><br><span class="line">    __observer() &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">super</span>.__observer) &#123;</span><br><span class="line">        <span class="keyword">super</span>.__observer();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">const</span> state = __Store.getState();</span><br><span class="line">      <span class="keyword">const</span> newData = mapStateToData(state);</span><br><span class="line">      <span class="keyword">const</span> oldData = mapStateToData(<span class="keyword">this</span>.data || &#123;&#125;);</span><br><span class="line">      <span class="keyword">if</span> (shallowEqual(oldData, newData)) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">this</span>.setData(newData);</span><br><span class="line">    &#125;,</span><br><span class="line">    onLoad() &#123;</span><br><span class="line">      <span class="keyword">super</span>.onLoad();</span><br><span class="line">      <span class="keyword">this</span>.__destory = <span class="keyword">this</span>.__Store.subscribe(<span class="keyword">this</span>.__observer);</span><br><span class="line">      <span class="keyword">this</span>.__observer();</span><br><span class="line">    &#125;,</span><br><span class="line">    onUnload() &#123;</span><br><span class="line">      <span class="keyword">super</span>.onUnload();</span><br><span class="line">      <span class="keyword">this</span>.__destory &amp;&amp; <span class="keyword">this</span>.__destory() &amp; <span class="keyword">delete</span> <span class="keyword">this</span>.__destory;</span><br><span class="line">    &#125;,</span><br><span class="line">    onShow() &#123;</span><br><span class="line">      <span class="keyword">super</span>.onShow();</span><br><span class="line">      <span class="keyword">if</span> (!<span class="keyword">this</span>.__destory) &#123;</span><br><span class="line">        <span class="keyword">this</span>.__destory = <span class="keyword">this</span>.__Store.subscribe(<span class="keyword">this</span>.__observer);</span><br><span class="line">        <span class="keyword">this</span>.__observer();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">let</span> state = getApp().Store.getState();</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.route != <span class="string">'pages/index/index'</span> &amp;&amp; (</span><br><span class="line">        !state.userInfo ||</span><br><span class="line">        !state.userInfo.data ||</span><br><span class="line">        !state.userInfo.data.name)) &#123;</span><br><span class="line">          wx.reLaunch(&#123;</span><br><span class="line">            url: <span class="string">'/pages/index/index'</span>,</span><br><span class="line">          &#125;);</span><br><span class="line">          wx.showToast(&#123;</span><br><span class="line">            title: <span class="string">'请您重新登录'</span>,</span><br><span class="line">            icon: <span class="string">'none'</span>,</span><br><span class="line">            mask: <span class="literal">true</span>,</span><br><span class="line">            duration: <span class="number">2000</span></span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    onHide() &#123;</span><br><span class="line">      <span class="keyword">super</span>.onHide();</span><br><span class="line">      <span class="keyword">this</span>.__destory &amp;&amp; <span class="keyword">this</span>.__destory() &amp; <span class="keyword">delete</span> <span class="keyword">this</span>.__destory;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">options = &#123;&#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">Object</span>.setPrototypeOf(config, &#123;</span><br><span class="line">      __observer: <span class="literal">null</span>,</span><br><span class="line">      onLoad() &#123;  &#125;,</span><br><span class="line">      onUnload() &#123;  &#125;,</span><br><span class="line">      onShow() &#123;  &#125;,</span><br><span class="line">      onHide() &#123;  &#125;,</span><br><span class="line">      ...options</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> config;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>shallowEqual.js</code> 代码<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> hasOwn = <span class="built_in">Object</span>.prototype.hasOwnProperty;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">is</span>(<span class="params">x, y</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (x === y) &#123;</span><br><span class="line">    <span class="keyword">return</span> x !== <span class="number">0</span> || y !== <span class="number">0</span> || <span class="number">1</span> / x === <span class="number">1</span> / y;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> x !== x &amp;&amp; y !== y;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">shallowEqual</span>(<span class="params">objA, objB</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (is(objA, objB)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> objA !== <span class="string">'object'</span> || objA === <span class="literal">null</span> || </span><br><span class="line">      <span class="keyword">typeof</span> objB !== <span class="string">'object'</span> || objB === <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> keysA = <span class="built_in">Object</span>.keys(objA);</span><br><span class="line">  <span class="keyword">const</span> keysB = <span class="built_in">Object</span>.keys(objB);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (keysA.length !== keysB.length) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; keysA.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!hasOwn.call(objB, keysA[i]) || </span><br><span class="line">        !is(objA[keysA[i]], objB[keysA[i]])) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Step4</strong></p>
+<p>在小程序入口文件<code>app.js</code>文件，需要先把整合好的 <code>Store</code> 作为 <code>App</code>启动的参数。</p>
+<p><code>app.js</code> 代码</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Store <span class="keyword">from</span> <span class="string">'./reducers/index'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//app.js</span></span><br><span class="line">App(&#123;</span><br><span class="line">  Store,</span><br><span class="line">  onLaunch: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="comment">// 获取用户信息</span></span><br><span class="line">  getUserInfo() &#123;</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>Step5</strong></p>
+<p>在需要用到状态机制的文件中引入<code>connect.js</code>文件，对其生命周期进行包装。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> connect <span class="keyword">from</span> <span class="string">'../../utils/connect'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapStateToProps = <span class="function">(<span class="params">state</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    userInfo: state.userInfo</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Page(connect(mapStateToProps)(&#123;</span><br><span class="line">	data: &#123;&#125;,</span><br><span class="line">	onLoad: &#123;&#125;</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+<p>此时的 <code>this</code> 对象中，已经内置了<code>__Store</code>、<code>__dispatch</code>、<code>__destory</code> 和 <code>__observe</code> 属性。</p>
+<ul>
+<li>__Store: 状态管理中心。</li>
+<li>__dispatch: 用来触发 <code>Reducer</code> 函数。</li>
+<li>__destory: 销毁者，取消监听事件。</li>
+<li>__observe: 观察者，在 <code>State</code> 状态变化时执行对应的回调函数。</li>
+</ul>
+<p>其用法也比较简单。如果页面通过 <code>connect.js</code> 进行包装，只需用 <code>this.__dispatch</code> 即可触发对应的 <code>Reducer</code> 函数。如果页面或组件没有通过 <code>connect.js</code> 进行包装，可以调用小程序实例对象的扩展属性 <code>getApp().Store.dispatch</code> 来触发。</p>
+<h2 id="支持-Promise"><a href="#支持-Promise" class="headerlink" title="支持 Promise"></a>支持 Promise</h2><p>微信小程序框架提供的 JavaScript API 基本上都是异步的，如 <code>wx.login()</code>、<code>wx.getUserInfo()</code>、<code>wx.getLocation()</code>等。这些接口提供的回调处理方式比较传统：在参数中传入 <code>success/fail/complete</code> 回调函数。为了在项目中更方便的编写代码，避免“回调地狱”问题，<code>toPromise.js</code> 代码主要利用ES5的特性 <code>Object.defindProperty</code>，以及小程序对原生Promise的支持，重新定义了小程序的部分接口。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> wxKeys = [<span class="string">'request'</span>, <span class="string">'login'</span>, <span class="string">'uploadFile'</span>, <span class="string">'chooseImage'</span>, <span class="string">'checkSession'</span>, <span class="string">'getSetting'</span>, <span class="string">'openSetting'</span>, <span class="string">'showModal'</span>, <span class="string">'getUserInfo'</span>, <span class="string">'scanCode'</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.prototype.finally = <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> P = <span class="keyword">this</span>.constructor;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.then(</span><br><span class="line">    value =&gt; P.resolve(callback()).then(<span class="function"><span class="params">()</span> =&gt;</span> value),</span><br><span class="line">    reason =&gt; P.resolve(callback()).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">throw</span> reason;</span><br><span class="line">    &#125;)</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">wxKeys.forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> wxFnKey = wx[key];</span><br><span class="line">  <span class="keyword">if</span> (wxFnKey &amp;&amp; <span class="keyword">typeof</span> wxFnKey === <span class="string">'function'</span>) &#123;</span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(wx, key, &#123;</span><br><span class="line">      get() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function">(<span class="params">option = &#123;&#125;</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">            option.success = <span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">              resolve(res);</span><br><span class="line">            &#125;;</span><br><span class="line">            option.fail = <span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">              reject(res);</span><br><span class="line">            &#125;;</span><br><span class="line">            wxFnKey(option);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://item.jd.com/12471619.html" target="_blank" rel="noopener">koa与node.js开发实战</a></li>
+</ul>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持一下</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat-reward-image.jpg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay-reward-image.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2020/06/15/利用 Redis 解决 NodeJS 中 Session 存储问题/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>如何制定前端规范？ | BestMian&#39;s blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="规范,eslint,husky," />
+  
+
+  <meta name="description" content="什么是规范?规范，名词意义上：即明文规定或约定俗成的标准，如：道德规范、技术规范等。 动词意义上：是指按照既定标准、规范的要求进行操作，使某一行为或活动达到或超越规定的标准，如：规范管理、规范操作。 为什么需要规范? 降低新成员融入团队的成本, 同时也一定程度避免挖坑。 提高开发效率、团队协作效率, 降低沟通成本。 实现高度统一的代码风格，方便review, 另外一方面可以提高项目的可维护性。 规">
+<meta name="keywords" content="规范,eslint,husky">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何制定前端规范？">
+<meta property="og:url" content="http://www.bestmian.com/2020/07/07/如何制定前端规范？/index.html">
+<meta property="og:site_name" content="BestMian&#39;s blog">
+<meta property="og:description" content="什么是规范?规范，名词意义上：即明文规定或约定俗成的标准，如：道德规范、技术规范等。 动词意义上：是指按照既定标准、规范的要求进行操作，使某一行为或活动达到或超越规定的标准，如：规范管理、规范操作。 为什么需要规范? 降低新成员融入团队的成本, 同时也一定程度避免挖坑。 提高开发效率、团队协作效率, 降低沟通成本。 实现高度统一的代码风格，方便review, 另外一方面可以提高项目的可维护性。 规">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-07-16T09:50:38.266Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何制定前端规范？">
+<meta name="twitter:description" content="什么是规范?规范，名词意义上：即明文规定或约定俗成的标准，如：道德规范、技术规范等。 动词意义上：是指按照既定标准、规范的要求进行操作，使某一行为或活动达到或超越规定的标准，如：规范管理、规范操作。 为什么需要规范? 降低新成员融入团队的成本, 同时也一定程度避免挖坑。 提高开发效率、团队协作效率, 降低沟通成本。 实现高度统一的代码风格，方便review, 另外一方面可以提高项目的可维护性。 规">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?e725065614a17e5024342c65ce59cd39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">M</span>
+  
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">M</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是规范"><span class="toc-text">什么是规范?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么需要规范"><span class="toc-text">为什么需要规范?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#版本规范"><span class="toc-text">版本规范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Git-分支模型"><span class="toc-text">Git 分支模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提交信息规范"><span class="toc-text">提交信息规范</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#项目组织规范"><span class="toc-text">项目组织规范</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编码规范"><span class="toc-text">编码规范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML"><span class="toc-text">HTML</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS"><span class="toc-text">CSS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Javascript"><span class="toc-text">Javascript</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue风格指南"><span class="toc-text">Vue风格指南</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#优先级-A：必要的"><span class="toc-text">优先级 A：必要的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优先级-B：强烈推荐"><span class="toc-text">优先级 B：强烈推荐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一些细节"><span class="toc-text">一些细节</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-如何制定前端规范？" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">如何制定前端规范？</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2020.07.07</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>陈晓勉</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="什么是规范"><a href="#什么是规范" class="headerlink" title="什么是规范?"></a>什么是规范?</h2><p>规范，名词意义上：即明文规定或约定俗成的标准，如：道德规范、技术规范等。 动词意义上：是指按照既定标准、规范的要求进行操作，使某一行为或活动达到或超越规定的标准，如：规范管理、规范操作。</p>
+<h2 id="为什么需要规范"><a href="#为什么需要规范" class="headerlink" title="为什么需要规范?"></a>为什么需要规范?</h2><ul>
+<li>降低新成员融入团队的成本, 同时也一定程度避免挖坑。</li>
+<li>提高开发效率、团队协作效率, 降低沟通成本。</li>
+<li>实现高度统一的代码风格，方便review, 另外一方面可以提高项目的可维护性。</li>
+<li>规范是实现自动化的基础。</li>
+<li>规范是一个团队知识沉淀的直接输出。</li>
+</ul>
+<h2 id="版本规范"><a href="#版本规范" class="headerlink" title="版本规范"></a>版本规范</h2><p>项目的版本号应该根据某些规则进行迭代, 这里推荐使用语义化版本规范, 通过这个规范，用户可以了解版本变更的影响范围。 规则如下:</p>
+<ul>
+<li>主版本号：当你做了不兼容的 API 修改。</li>
+<li>次版本号：当你做了向下兼容的功能性新增。</li>
+<li>修订号：当你做了向下兼容的问题修正。</li>
+</ul>
+<h3 id="Git-分支模型"><a href="#Git-分支模型" class="headerlink" title="Git 分支模型"></a>Git 分支模型</h3><p><strong>master分支</strong><br>master分支表示一个稳定的发布版本。</p>
+<ul>
+<li>场景: 前端应用会跟随版本迭代, 在dev分支测试稳定后, 会合并到master分支, 并使用tag标记应用版本和对应的版本。</li>
+<li>tag规范: v{APP_version}, 例如v0.1.0。</li>
+<li>人员：由项目负责人进行审核合并, 普通开发者没有权限。</li>
+</ul>
+<p><strong>dev分支</strong><br>开发者主要工作的分支, 最新的特性或bug修复都会提交到这个分支. 开发者如果在该分支进行了提交，在push到远程之前应该先pull一下， 并尽量使用 <code>rebase</code> 模式，保证分支的简洁。</p>
+<ul>
+<li>命名规范: dev。</li>
+<li>tag规范: 在dev分支中也可能会经历发布过程, 例如bug修复版本. 这里同样使用tag来标记这些发布. 例如v0.1.1。</li>
+<li>提交规范：如果实在开发分支上进行开发，在推送到远程之前，应该使用 <a href="https://www.jianshu.com/p/6960811ac89c" target="_blank" rel="noopener">git rebase</a> 形式更新本地分支。</li>
+</ul>
+<p><strong>feature分支</strong><br>涉及多人协作或者大功能的开发, 应该从dev分支checkout出独立的feature分支, 避免干扰dev分支。</p>
+<ul>
+<li>场景: 涉及多人协作: 团队多个成员在同一个项目下负责开发不同的功能, 这时候每个成员在自己的feature分支独立开发。大功能开发: 大功能开发跨越周期比较长, 需要多次迭代才会稳定. 这时候应该在独立的分支上开发. 方便跟踪历史记录, 也免于干扰dev分支的迭代和发布。</li>
+<li>命名规范: <code>feature/name</code>: name是功能名称。<code>feature/version</code>: 这也是团队常见的模式, 当无法使用一个功能名称来描述时, 可以使用版本号作为“功能”。</li>
+<li>合并时机: 当feature分支迭代稳定, 并通过测试后, 合并到dev分支. 合并到dev后, feature分支的生命周期就结束了。后续bug修复和功能优化直接在dev开发。当多个feature分支需要合并对外发布临时版本时. 合并到preview分支 . ⚠️这种情况不应该合并到dev分支, 因为feature分支可能还不稳定或未完成。 比如为了联调某些功能。</li>
+<li>合并方式: 不要使用 <code>fast-forward</code>. 这样可以在分支图上查看到分支历史。</li>
+</ul>
+<p><strong>preview分支</strong><br>临时的预览分支, preview分支用于临时合并feature分支, 这其中可能会修复某些bug或者冲突. 可以选择性地将这些提交cherrypick回feature分支. 当预览结束后就可以销毁preview分支。</p>
+<p><strong>release分支</strong><br>release分支有两种使用策略，第一种遵循gitFlow流程, 第二种是目前后端团队使用的策略，为了配合后端工作。</p>
+<p><strong>git flow 风格的release分支</strong><br>当前前端应用的稳定版本绑定. release分支不一定存在, 一般情况下, 只会在前端版本稳定后, 将其合并到master, 并创建tag标记. 而只有需要为指定的正式版本修复bug时才会创建release分支。</p>
+<ul>
+<li>场景: 需要为某个正式版本修复bug(hotFix)时, 从master的对应tag中checkout release分支。</li>
+<li>命名规范: release/version 外部人员只会关注版本。</li>
+<li>如何修复: 如果对应bug可以在dev分支直接被修复, 可以先提交到dev分支(或者已经修复了), 然后再cherrypick到release分支。如果bug在新版本无法复现. 比如新版本升级了依赖. 那么在release分支直接修复即可。</li>
+</ul>
+<p><strong>自定义风格release分支</strong><br>当要发布一个对应的版本时（或者一开始开发时）从dev分支checkout出一个开发分支，后续需要对外发布时，将dev分支合并到release分支, 并打上版本tag。</p>
+<ul>
+<li>何时创建: 开启新版本开发任务时(推荐)，向外发布第一个版本时。</li>
+<li>何时合并: 后面dev有版本发布都要合并到release分支，直到开启另一条release分支。</li>
+<li>好处: 对发布内容进行筛选。专门用于发布, 开发者容易过滤变更的内容。</li>
+</ul>
+<h3 id="提交信息规范"><a href="#提交信息规范" class="headerlink" title="提交信息规范"></a>提交信息规范</h3><p>一个好的提交信息, 会帮助你提高项目的整体质量。</p>
+<ul>
+<li>why: 格式统一的提交信息可以帮助自动化生成changelog。版本库不只是存放代码的仓库, 也记录项目的开发记录. 这些记录应该可以帮助后来者快速地学习和回顾代码. 也应该方便其他协作者review你的代码。</li>
+<li>原则: 半年后, 你能看懂你的commit做了什么东西。</li>
+<li>方式: 使用git commit(打开编辑器)而不是git commit -m。</li>
+<li>必要信息: 1、提交改变了什么, 让其他reviewer更容易审核代码和忽略无关的改变。2、简短说明使用什么方式, 策略, 修复了问题。3、说明变动功能的细节。 一个提交不应该做超过2个功能的变动。</li>
+</ul>
+<p>使用 <a href="https://github.com/conventional-changelog/commitlint" target="_blank" rel="noopener">commitlint</a> 工具，常用有以下几种类型：</p>
+<ul>
+<li>✨feature或feat: 引入新功能</li>
+<li>🐛fix: 修复了bug</li>
+<li>📝docs: 文档</li>
+<li>🎨style: 优化项目结构或者代码格式</li>
+<li>♻️refactor: 代码重构. 代码重构不涉及新功能和bug修复. 不应该影响原有功能, 包括对外暴露的接口</li>
+<li>✅test: 增加测试</li>
+<li>⏫chore: 构建过程, 辅助工具升级. 如升级依赖, 升级构建工具</li>
+<li>⚡️perf: 性能优化</li>
+<li>⏪ revert: revert之前的commit<ul>
+<li>git revert 命令用于撤销之前的一个提交, 并在为这个撤销操作生成一个提交</li>
+</ul>
+</li>
+<li>🎉 build或release: 构建或发布版本</li>
+<li>🔒 safe: 修复安全问题</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git commit -m &apos;feat: add list&apos;</span><br></pre></td></tr></table></figure>
+<h2 id="项目组织规范"><a href="#项目组织规范" class="headerlink" title="项目组织规范"></a>项目组织规范</h2><p>一个典型的项目组织规范如下:</p>
+<ul>
+<li><strong>README.md</strong>: 项目说明, 这个是最重要。你必须在这里提供关于项目的关键信息或者相关信息的入口. 一般包含下列信息:<ul>
+<li>简要描述、项目主要特性</li>
+<li>运行环境/依赖、安装和构建、测试指南</li>
+<li>简单示例代码</li>
+<li>文档或文档入口, 其他版本或相关资源入口</li>
+<li>联系方式、讨论群</li>
+<li>许可、贡献/开发指南</li>
+</ul>
+</li>
+<li><strong>CHANGELOG.md</strong>: 放置每个版本的变动内容, 通常要描述每个版本变更的内容。方便使用者确定应该使用哪个版本. 关于CHANGELOG的规范可以参考 <a href="https://keepachangelog.com/en/1.0.0/" target="_blank" rel="noopener">keep a changelog</a></li>
+<li><strong>package.json</strong>: 前端项目必须. 描述当前的版本、可用的命令、包名、依赖、环境约束、项目配置等信息.</li>
+<li><strong>.gitignore</strong>: 忽略不必要的文件，避免将自动生成的文件提交到版本库</li>
+<li><strong>.gitattributes</strong>: git配置，有一些跨平台差异的行为可能需要在这里配置一下，如换行规则</li>
+<li><strong>docs/</strong>: 项目的细化文档, 可选.</li>
+<li><strong>examples/</strong>: 项目的示例代码，可选.</li>
+<li><strong>build</strong>: 项目工具类脚本放置在这里，非必须。如果使用统一构建工具，则没有这个目录</li>
+<li><strong>dist/</strong>: 项目构建结果输出目录</li>
+<li><strong>src/</strong>: 源代码目录</li>
+<li><strong>tests</strong>: 全局的测试目录，通常放应用的集成测试或E2E测试等用例</li>
+<li><p><strong>.env*</strong>: 项目中我们通常会使用环境变量来影响应用在不同运行环境下的行为. 可以通过<a href="https://github.com/motdotla/dotenv" target="_blank" rel="noopener">dotEnv</a>来从文件中读取环境变量. 通常有三个文件:</p>
+<ul>
+<li><code>.env</code> 通用的环境变量</li>
+<li><code>.env.development</code> 开发环境的环境变量</li>
+<li><p><code>.env.production</code> 生成环境的环境变量</p>
+<p>基本上这些文件的变动的频率很少，团队成员应该不要随意变动，以免影响其他成员。所以通常会使用.env.<em>.local文件来覆盖上述的配置, 另外会设置版本库来忽略</em>.local文件.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>对于开源项目通常还包括这些目录:</p>
+<ul>
+<li><strong>LICENSE</strong>: 说明项目许可</li>
+<li><strong>.github</strong>: 开源贡献规范和指南</li>
+</ul>
+<h2 id="编码规范"><a href="#编码规范" class="headerlink" title="编码规范"></a>编码规范</h2><blockquote>
+<p>每一个程序员心目中对“好代码”都有自己的主见，统一的编码规范可以像秦始皇统一战国一样，避免不必要的论战和争议。</p>
+</blockquote>
+<p>其实与其自己建立前端编码规范，不如选择社区沉淀下来的规范，推荐下面的资源：</p>
+<ul>
+<li><a href="https://guide.aotu.io/docs/index.html" target="_blank" rel="noopener">凹凸实验室代码规范</a></li>
+<li><a href="https://coderlmn.github.io/code-standards/#_general_guidelines" target="_blank" rel="noopener">isobar 前端代码规范及最佳实践</a></li>
+</ul>
+<h3 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h3><p><strong>HTML代码大小写</strong></p>
+<p>HTML标签名、类名、标签属性和大部分属性值统一用小写</p>
+<p>推荐:<br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"demo"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>不推荐：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"DEMO"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	</span><br><span class="line"><span class="tag">&lt;<span class="name">DIV</span> <span class="attr">CLASS</span>=<span class="string">"DEMO"</span>&gt;</span><span class="tag">&lt;/<span class="name">DIV</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>段落元素与标题元素只能嵌套内联元素</strong></p>
+<p>推荐：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>不推荐：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>更多参考 <a href="https://guide.aotu.io/docs/html/code.html" target="_blank" rel="noopener">HTML规范</a></p>
+</blockquote>
+<h3 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h3><p><strong>代码格式化</strong></p>
+<p>样式书写一般有两种：一种是紧凑格式 (Compact)</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.jdc</span>&#123; <span class="attribute">display</span>: block;<span class="attribute">width</span>: <span class="number">50px</span>;&#125;</span><br></pre></td></tr></table></figure>
+<p>一种是展开格式（Expanded）</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.jdc</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>团队约定: 统一使用展开格式书写样式</p>
+</blockquote>
+<p><strong>代码大小写</strong></p>
+<p>样式选择器，属性名，属性值关键字全部使用小写字母书写，属性字符串允许使用大小写。</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 推荐 */</span></span><br><span class="line"><span class="selector-class">.jdc</span>&#123;</span><br><span class="line">	<span class="attribute">display</span>:block;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="comment">/* 不推荐 */</span></span><br><span class="line"><span class="selector-class">.JDC</span>&#123;</span><br><span class="line">	<span class="attribute">DISPLAY</span>:BLOCK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>选择器</strong></p>
+<ul>
+<li>尽量少用通用选择器 *</li>
+<li>不使用 ID 选择器</li>
+<li>不使用无具体语义定义的标签选择器</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 推荐 */</span></span><br><span class="line"><span class="selector-class">.jdc</span> &#123;&#125;</span><br><span class="line"><span class="selector-class">.jdc</span> <span class="selector-tag">li</span> &#123;&#125;</span><br><span class="line"><span class="selector-class">.jdc</span> <span class="selector-tag">li</span> <span class="selector-tag">p</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 不推荐 */</span></span><br><span class="line">*&#123;&#125;</span><br><span class="line"><span class="selector-id">#jdc</span> &#123;&#125;</span><br><span class="line"><span class="selector-class">.jdc</span> <span class="selector-tag">div</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>更多参考 <a href="https://guide.aotu.io/docs/css/code.html" target="_blank" rel="noopener">CSS规范</a></p>
+</blockquote>
+<p>另外可以学习一下 <a href="https://css-tricks.com/bem-101/" target="_blank" rel="noopener">BEM命名规范</a></p>
+<p>BEM 的语法：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">.block &#123;&#125; //块（block）</span><br><span class="line">.block__element &#123;&#125; //元素（element）</span><br><span class="line">.block--modifier &#123;&#125; //修饰符（modifier）</span><br></pre></td></tr></table></figure>
+<h3 id="Javascript"><a href="#Javascript" class="headerlink" title="Javascript"></a>Javascript</h3><p>统一编码规范不仅可以大幅提高代码可读性，甚至会提高代码质量。当我们设计了一套关于编码规范的规则集时，需要工具去辅助检测，这就是 <code>ESLint</code>。</p>
+<p>规则集需要统一集中配置，<code>ESLint</code> 会默认读取配置文件 <code>.eslintrc</code> 来解析，而规则集在 <code>rules</code> 中进行配置：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"rules": &#123;</span><br><span class="line">	"semi": ["error", "always"],</span><br><span class="line">	"quotes": ["error", "double"]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而我们需要做的是设定我们的代码规范，即 <code>rules</code> 项，关于它的文档及最佳实践参考业界标杆<a href="https://github.com/airbnb/javascript" target="_blank" rel="noopener">Airbnb JavaScript Style Guide</a> </p>
+<p><strong>第一层约束：项目引入ESLint</strong></p>
+<p>当不符合代码规范的第一时间，我们就要感知到它，及时反馈，快速纠正，比直到最后积攒了一大堆错误要高效很多。</p>
+<p>1.安装依赖</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install eslint eslint-config-airbnb-base eslint-plugin-import eslint-plugin-vue --save-dev</span><br></pre></td></tr></table></figure>
+<p>或在 <code>package.json</code> 中配置以下依赖，执行 <code>npm install</code> 安装</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">"eslint"</span>: <span class="string">"^7.3.1"</span>,</span><br><span class="line"><span class="string">"eslint-config-airbnb-base"</span>: <span class="string">"^14.2.0"</span>,</span><br><span class="line"><span class="comment">// "eslint-config-prettier": "^6.11.0",</span></span><br><span class="line"><span class="comment">// "eslint-friendly-formatter": "^4.0.1",</span></span><br><span class="line"><span class="comment">// "eslint-loader": "^4.0.2",</span></span><br><span class="line"><span class="string">"eslint-plugin-import"</span>: <span class="string">"^2.22.0"</span>,</span><br><span class="line"><span class="comment">// "eslint-plugin-prettier": "^3.1.4",</span></span><br><span class="line"><span class="string">"eslint-plugin-vue"</span>: <span class="string">"^6.2.2"</span>,</span><br></pre></td></tr></table></figure>
+<p>2.添加eslint配置文件</p>
+<p>在项目根路径添加两个文件 <code>.eslintrc.js</code> 和 <code>.eslintignore</code></p>
+<p><code>.eslintrc.js</code> eslint规则配置文件<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 规则运行的环境</span></span><br><span class="line">  <span class="string">"env"</span>: &#123;</span><br><span class="line">    <span class="string">"browser"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"es2020"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"node"</span>: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 使用的规则集，根据不同项目(react/vue等)使用不同的规则</span></span><br><span class="line">  <span class="string">"extends"</span>: [</span><br><span class="line">    <span class="comment">// "eslint:recommended",</span></span><br><span class="line">    <span class="string">"plugin:vue/essential"</span>,</span><br><span class="line">    <span class="string">"airbnb-base"</span>,</span><br><span class="line">    <span class="comment">// "plugin:prettier/recommended"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="comment">// 指定编译器</span></span><br><span class="line">  <span class="string">"parserOptions"</span>: &#123;</span><br><span class="line">    <span class="string">"ecmaVersion"</span>: <span class="number">11</span>,</span><br><span class="line">    <span class="string">"sourceType"</span>: <span class="string">"module"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"plugins"</span>: [</span><br><span class="line">    <span class="string">"vue"</span>,</span><br><span class="line">    <span class="comment">// "prettier"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="comment">/** </span></span><br><span class="line"><span class="comment">   * 自定义规则</span></span><br><span class="line"><span class="comment">   * “off” 或 0 - 关闭规则</span></span><br><span class="line"><span class="comment">   * “warn” 或 1 - 开启规则，使用警告级别的错误：warn (不会导致程序退出)</span></span><br><span class="line"><span class="comment">   * “error” 或 2 - 开启规则，使用错误级别的错误：error (当被触发的时候，程序会退出)</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="string">"rules"</span>: &#123;</span><br><span class="line">    <span class="comment">// 多个特性的元素应该分多行撰写，每个特性一行</span></span><br><span class="line">    <span class="string">"vue/max-attributes-per-line"</span>: [</span><br><span class="line">      <span class="number">2</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"singleline"</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="string">"multiline"</span>: &#123;</span><br><span class="line">          <span class="string">"max"</span>: <span class="number">1</span>,</span><br><span class="line">          <span class="string">"allowFirstLine"</span>: <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="string">"vue/no-parsing-error"</span>: [</span><br><span class="line">      <span class="number">2</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"x-invalid-end-tag"</span>: <span class="literal">false</span></span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="string">"import/order"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">"no-unused-vars"</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">"no-console"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">"max-len"</span>: [</span><br><span class="line">      <span class="number">2</span>,</span><br><span class="line">      <span class="number">300</span>,</span><br><span class="line">      <span class="number">4</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"ignoreUrls"</span>: <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="string">"import/prefer-default-export"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="comment">// 末尾分号</span></span><br><span class="line">    <span class="string">"semi"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="comment">// 尾随逗号</span></span><br><span class="line">    <span class="string">"comma-dangle"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="comment">// 换行符(平台不同，windows CRLF, unix LF)</span></span><br><span class="line">    <span class="string">"linebreak-style"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="comment">// require()函数仅在模块的顶层调用它，禁用</span></span><br><span class="line">    <span class="string">"global-require"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">"import/no-dynamic-require"</span>: <span class="number">0</span></span><br><span class="line">    <span class="comment">// "prettier/prettier": [</span></span><br><span class="line">    <span class="comment">//   "error",</span></span><br><span class="line">    <span class="comment">//   &#123;</span></span><br><span class="line">    <span class="comment">//     "singleQuote": true,</span></span><br><span class="line">    <span class="comment">//     "trailingComma": "none",</span></span><br><span class="line">    <span class="comment">//     "bracketSpacing": true,</span></span><br><span class="line">    <span class="comment">//     "jsxBracketSameLine": true</span></span><br><span class="line">    <span class="comment">//   &#125;</span></span><br><span class="line">    <span class="comment">// ]</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"settings"</span>: &#123;</span><br><span class="line">    <span class="string">"import/resolver"</span>: &#123;</span><br><span class="line">      <span class="string">"node"</span>: &#123;</span><br><span class="line">        <span class="string">"paths"</span>: [<span class="string">"src"</span>],</span><br><span class="line">        <span class="string">"extensions"</span>: [<span class="string">".js"</span>, <span class="string">".jsx"</span>, <span class="string">".vue"</span>]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>更多的规则可以参考官方文档按需引入：<a href="https://cn.eslint.org/docs/rules/" target="_blank" rel="noopener">eslint 中文文档</a></p>
+<p><code>.eslintignore</code> 对特定目录（文件）忽略eslint检测的配置文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.eslintrc.js</span><br><span class="line">.vscode/settings.json</span><br><span class="line">/build/</span><br><span class="line">/config/</span><br><span class="line">/dist/</span><br></pre></td></tr></table></figure>
+<p>3.IDE 智能提示</p>
+<p>这里以 VS Code 作为示例，它只需要安装一个插件：<code>eslint</code>，便可以做到智能提示。</p>
+<p>4.webpack 配置</p>
+<p><code>webpack.base.conf.js</code> 可以通过配置 <code>eslint-loader</code> 让你有不符合 <code>eslint</code> 的时候在命令行或者界面里提示你有什么错误。</p>
+<p>安装依赖</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install eslint-friendly-formatter eslint-loader --save-dev</span><br></pre></td></tr></table></figure>
+<p><code>package.json</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">"eslint"</span>: <span class="string">"^7.3.1"</span>,</span><br><span class="line"><span class="string">"eslint-config-airbnb-base"</span>: <span class="string">"^14.2.0"</span>,</span><br><span class="line"><span class="comment">// "eslint-config-prettier": "^6.11.0",</span></span><br><span class="line"><span class="string">"eslint-friendly-formatter"</span>: <span class="string">"^4.0.1"</span>,</span><br><span class="line"><span class="string">"eslint-loader"</span>: <span class="string">"^4.0.2"</span>,</span><br><span class="line"><span class="string">"eslint-plugin-import"</span>: <span class="string">"^2.22.0"</span>,</span><br><span class="line"><span class="comment">// "eslint-plugin-prettier": "^3.1.4",</span></span><br><span class="line"><span class="string">"eslint-plugin-vue"</span>: <span class="string">"^6.2.2"</span>,</span><br></pre></td></tr></table></figure>
+<p><code>build\webpack.base.conf.js：</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> createLintingRule = <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">  test: <span class="regexp">/\.(js|vue)$/</span>,</span><br><span class="line">  loader: <span class="string">'eslint-loader'</span>,</span><br><span class="line">  enforce: <span class="string">'pre'</span>,</span><br><span class="line">  include: [resolve(<span class="string">'src'</span>), resolve(<span class="string">'test'</span>)],</span><br><span class="line">  options: &#123;</span><br><span class="line">    formatter: <span class="built_in">require</span>(<span class="string">'eslint-friendly-formatter'</span>),</span><br><span class="line">    emitWarning: !config.dev.showEslintErrorsInOverlay</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: &#123;</span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">  &#125;,</span><br><span class="line">  resolve: &#123;</span><br><span class="line">  &#125;,</span><br><span class="line">  externals: &#123;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      ...(config.dev.useEslint ? [createLintingRule()] : [])</span><br><span class="line">    ],</span><br><span class="line">    loaders: [</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>config\index.js：</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  dev: &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Use Eslint Loader?</span></span><br><span class="line">    <span class="comment">// If true, your code will be linted during bundling and</span></span><br><span class="line">    <span class="comment">// linting errors and warnings will be shown in the console.</span></span><br><span class="line">    useEslint: <span class="literal">true</span>,</span><br><span class="line">    <span class="comment">// If true, eslint errors and warnings will also be shown in the error overlay</span></span><br><span class="line">    <span class="comment">// in the browser.</span></span><br><span class="line">    showEslintErrorsInOverlay: <span class="literal">false</span>,</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  build: &#123;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>TIP：<code>showEslintErrorsInOverlay</code> 这个变量可以控制错误提示是否需要在浏览器界面中提示。</p>
+<p><strong>第二层约束：Git Hooks</strong></p>
+<p>为了保证每次提交的 <code>git</code> 代码是正确的，为此我们可以使用 <code>eslint</code> 配合 <code>git hook</code>， 在进行 <code>git commit</code> 的时候验证 <code>eslint</code> 规范。如果 <code>eslint</code> 验证不通过，则不能提交。</p>
+<p>我们需要安装一个 <code>git</code> 的 hook 工具 —— <code>husky</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install husky --save-dev</span><br></pre></td></tr></table></figure>
+<p>安装好之后在 <code>package.json</code>，<code>scripts</code> 下面加入 <code>esliint</code> 的命令验证 <code>eslint</code> 的规则</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"scripts": &#123;</span><br><span class="line">	"lint": "node_modules/.bin/eslint --ext .js,.vue src",</span><br><span class="line">	"lint:fix": "node_modules/.bin/eslint --ext .js,.vue src --fix"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来在 <code>package.json</code> 下面加入 <code>husky</code> 的配置项</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"husky": &#123;</span><br><span class="line">	"hooks": &#123;</span><br><span class="line">		"pre-commit": "echo 'husky' &amp;&amp; npm run lint"</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>意思是在进行 <code>git commit</code> 的时候 先去执行 <code>pre-commit</code> 里面的命令： 我们在这里输出 <code>husky</code> 并且执行 <code>npm run lint</code>  (我们之前加上的验证eslint的命令)。</p>
+<p>如果 <code>eslint</code> 验证通过了，则会进行 <code>commit</code> 操作，否则会报 <code>eslint</code> 的错误提示。</p>
+<p><strong>最后：一定要使用 npm 安装 eslint 和 husky</strong></p>
+<h2 id="Vue风格指南"><a href="#Vue风格指南" class="headerlink" title="Vue风格指南"></a><a href="https://vue.docschina.org/v2/style-guide/" target="_blank" rel="noopener">Vue风格指南</a></h2><blockquote>
+<p>这里是官方的 Vue 特有代码的风格指南。如果在工程中使用 Vue，为了回避错误、小纠结和反模式，该指南是份不错的参考。不过我们也不确信风格指南的所有内容对于所有的团队或工程都是理想的。所以根据过去的经验、周围的技术栈、个人价值观做出有意义的偏差是可取的。</p>
+</blockquote>
+<h3 id="优先级-A：必要的"><a href="#优先级-A：必要的" class="headerlink" title="优先级 A：必要的"></a>优先级 A：必要的</h3><p><strong>组件名为多个单词</strong></p>
+<p>组件名应该始终是多个单词的，根组件 <code>App</code> 除外。</p>
+<p>这样做可以避免跟现有的以及未来的 <code>HTML</code> 元素相冲突，因为所有的 <code>HTML</code> 元素名称都是单个单词的。</p>
+<p>不推荐：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Vue.component(<span class="string">'todo'</span>, &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">'Todo'</span>,</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>推荐：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Vue.component(<span class="string">'todo-item'</span>, &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">'TodoItem'</span>,</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>组件的 <code>data</code> 必须是一个函数</strong></p>
+<p>当在组件中使用 data 属性的时候 (除了 new Vue 外的任何地方)，它的值必须是返回一个对象的函数。</p>
+<p>不推荐：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Vue.component(<span class="string">'some-comp'</span>, &#123;</span><br><span class="line">  data: &#123;</span><br><span class="line">    foo: <span class="string">'bar'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  data: &#123;</span><br><span class="line">    foo: <span class="string">'bar'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>推荐:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Vue.component(<span class="string">'some-comp'</span>, &#123;</span><br><span class="line">  data: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      foo: <span class="string">'bar'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// In a .vue file</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  data () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      foo: <span class="string">'bar'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在一个 Vue 的根实例上</span></span><br><span class="line"><span class="comment">// 直接使用对象是可以的，</span></span><br><span class="line"><span class="comment">// 因为只存在一个这样的实例。</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  data: &#123;</span><br><span class="line">    foo: <span class="string">'bar'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>Prop 定义应该尽量详细</strong></p>
+<p>不推荐：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 这样做只有开发原型系统时可以接受</span></span><br><span class="line">props: [<span class="string">'status'</span>]</span><br></pre></td></tr></table></figure>
+<p>推荐：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">props: &#123;</span><br><span class="line">  status: <span class="built_in">String</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 更好的做法！</span></span><br><span class="line">props: &#123;</span><br><span class="line">  status: &#123;</span><br><span class="line">    type: <span class="built_in">String</span>,</span><br><span class="line">    required: <span class="literal">true</span>,</span><br><span class="line">    validator: <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> [</span><br><span class="line">        <span class="string">'syncing'</span>,</span><br><span class="line">        <span class="string">'synced'</span>,</span><br><span class="line">        <span class="string">'version-conflict'</span>,</span><br><span class="line">        <span class="string">'error'</span></span><br><span class="line">      ].indexOf(value) !== <span class="number">-1</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>永远不要把 <code>v-if</code> 和 <code>v-for</code> 同时用在同一个元素上</strong></p>
+<blockquote>
+<p>一般我们在两种常见的情况下会倾向于这样做：</p>
+<ul>
+<li>为了过滤一个列表中的项目 (比如 v-for=”user in users” v-if=”user.isActive”)。在这种情形下，请将 users 替换为一个计算属性 (比如 activeUsers)，让其返回过滤后的列表。</li>
+<li>为了避免渲染本应该被隐藏的列表 (比如 v-for=”user in users” v-if=”shouldShowUsers”)。这种情形下，请将 v-if 移动至容器元素上 (比如 ul, ol)。</li>
+</ul>
+</blockquote>
+<p><a href="https://vue.docschina.org/v2/style-guide/#%E9%81%BF%E5%85%8D-v-if-%E5%92%8C-v-for-%E7%94%A8%E5%9C%A8%E4%B8%80%E8%B5%B7-%E5%BF%85%E8%A6%81" target="_blank" rel="noopener">详解</a></p>
+<p>不推荐:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">  &lt;li</span><br><span class="line">    v-<span class="keyword">for</span>=<span class="string">"user in users"</span></span><br><span class="line">    v-<span class="keyword">if</span>=<span class="string">"user.isActive"</span></span><br><span class="line">    :key=<span class="string">"user.id"</span></span><br><span class="line">  &gt;</span><br><span class="line">    &#123;&#123; user.name &#125;&#125;</span><br><span class="line">  &lt;li&gt;</span><br><span class="line">&lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;ul&gt;</span></span><br><span class="line"><span class="regexp">  &lt;li</span></span><br><span class="line"><span class="regexp">    v-for="user in users"</span></span><br><span class="line"><span class="regexp">    v-if="shouldShowUsers"</span></span><br><span class="line"><span class="regexp">    :key="user.id"</span></span><br><span class="line"><span class="regexp">  &gt;</span></span><br><span class="line"><span class="regexp">    &#123;&#123; user.name &#125;&#125;</span></span><br><span class="line"><span class="regexp">  &lt;li&gt;</span></span><br><span class="line"><span class="regexp">&lt;/u</span>l&gt;</span><br></pre></td></tr></table></figure>
+<p>推荐：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">  &lt;li</span><br><span class="line">    v-<span class="keyword">for</span>=<span class="string">"user in activeUsers"</span></span><br><span class="line">    :key=<span class="string">"user.id"</span></span><br><span class="line">  &gt;</span><br><span class="line">    &#123;&#123; user.name &#125;&#125;</span><br><span class="line">  &lt;li&gt;</span><br><span class="line">&lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;ul v-if="shouldShowUsers"&gt;</span></span><br><span class="line"><span class="regexp">  &lt;li</span></span><br><span class="line"><span class="regexp">    v-for="user in users"</span></span><br><span class="line"><span class="regexp">    :key="user.id"</span></span><br><span class="line"><span class="regexp">  &gt;</span></span><br><span class="line"><span class="regexp">    &#123;&#123; user.name &#125;&#125;</span></span><br><span class="line"><span class="regexp">  &lt;li&gt;</span></span><br><span class="line"><span class="regexp">&lt;/u</span>l&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="优先级-B：强烈推荐"><a href="#优先级-B：强烈推荐" class="headerlink" title="优先级 B：强烈推荐"></a>优先级 B：强烈推荐</h3><p><strong>单文件组件文件的大小写</strong></p>
+<p>单文件组件的文件名应该要么始终是单词大写开头 (PascalCase)，要么始终是横线连接 (kebab-case)。</p>
+<p>单词大写开头对于代码编辑器的自动补全最为友好，因为这使得我们在 JS(X) 和模板中引用组件的方式尽可能的一致。然而，混用文件命名方式有的时候会导致大小写不敏感的文件系统的问题，这也是横线连接命名同样完全可取的原因。</p>
+<p>不推荐：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">components/</span><br><span class="line">|- mycomponent.vue</span><br><span class="line"></span><br><span class="line">components/</span><br><span class="line">|- myComponent.vue</span><br></pre></td></tr></table></figure>
+<p>推荐：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">components/</span><br><span class="line">|- MyComponent.vue</span><br><span class="line"></span><br><span class="line">components/</span><br><span class="line">|- my-component.vue</span><br></pre></td></tr></table></figure>
+<p><strong>基础组件名</strong></p>
+<p>应用特定样式和约定的基础组件 (也就是展示类的、无逻辑的或无状态的组件) 应该全部以一个特定的前缀开头，比如 Base、App 或 V。</p>
+<p>不推荐：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">components/</span><br><span class="line">|- MyButton.vue</span><br><span class="line">|- VueTable.vue</span><br><span class="line">|- Icon.vue</span><br></pre></td></tr></table></figure>
+<p>推荐：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">components/</span><br><span class="line">|- BaseButton.vue</span><br><span class="line">|- BaseTable.vue</span><br><span class="line">|- BaseIcon.vue</span><br><span class="line"></span><br><span class="line">components/</span><br><span class="line">|- AppButton.vue</span><br><span class="line">|- AppTable.vue</span><br><span class="line">|- AppIcon.vue</span><br><span class="line"></span><br><span class="line">components/</span><br><span class="line">|- VButton.vue</span><br><span class="line">|- VTable.vue</span><br><span class="line">|- VIcon.vue</span><br></pre></td></tr></table></figure>
+<p><strong>多个特性的元素</strong></p>
+<p>多个特性的元素应该分多行撰写，每个特性一行。</p>
+<p>在 JavaScript 中，用多行分隔对象的多个属性是很常见的最佳实践，因为这样更易读。模板和 JSX 值得我们做相同的考虑。</p>
+<p>不推荐：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"https://vuejs.org/images/logo.png"</span> <span class="attr">alt</span>=<span class="string">"Vue Logo"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">MyComponent</span> <span class="attr">foo</span>=<span class="string">"a"</span> <span class="attr">bar</span>=<span class="string">"b"</span> <span class="attr">baz</span>=<span class="string">"c"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>推荐：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span></span></span><br><span class="line"><span class="tag">  <span class="attr">src</span>=<span class="string">"https://vuejs.org/images/logo.png"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">alt</span>=<span class="string">"Vue Logo"</span></span></span><br><span class="line"><span class="tag">&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">MyComponent</span></span></span><br><span class="line"><span class="tag">  <span class="attr">foo</span>=<span class="string">"a"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">bar</span>=<span class="string">"b"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">baz</span>=<span class="string">"c"</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="一些细节"><a href="#一些细节" class="headerlink" title="一些细节"></a>一些细节</h3><p><strong>区分Vuex与props的使用边界</strong></p>
+<ul>
+<li>业务相关组件 - 用Vuex</li>
+<li>通用组件 - 用props</li>
+</ul>
+<blockquote>
+<p>如何分不清什么是业务组件，什么是通用组件？无脑用<code>Vuex</code>，如果你发现你用<code>Vuex</code>根本无法写代码的时候，你就知道什么情况需要使用<code>props</code>了</p>
+</blockquote>
+<p><strong>watch 与 计算属性 傻傻分不清楚？？</strong> </p>
+<p>相同点：</p>
+<ul>
+<li>都可以观察数据</li>
+<li>数据发送变化时，函数会执行</li>
+</ul>
+<p>不同点:</p>
+<ul>
+<li>watch只能观察一个，computed 可以观察无限个</li>
+<li>computed只有被 watcher 观察后，函数才会执行（只有被读取时会执行，内部使用getter实现）</li>
+<li>watch 的参数更丰富</li>
+</ul>
+<p>计算属性setter的玩法：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">  fullName: &#123;</span><br><span class="line">    <span class="comment">// getter</span></span><br><span class="line">    get: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.firstName + <span class="string">' '</span> + <span class="keyword">this</span>.lastName</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// setter</span></span><br><span class="line">    set: <span class="function"><span class="keyword">function</span> (<span class="params">newValue</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> names = newValue.split(<span class="string">' '</span>)</span><br><span class="line">      <span class="keyword">this</span>.firstName = names[<span class="number">0</span>]</span><br><span class="line">      <span class="keyword">this</span>.lastName = names[names.length - <span class="number">1</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>watch 的参数：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  data: &#123;</span><br><span class="line">    a: <span class="number">1</span>,</span><br><span class="line">    b: <span class="number">2</span>,</span><br><span class="line">    c: <span class="number">3</span>,</span><br><span class="line">    d: <span class="number">4</span>,</span><br><span class="line">    e: &#123;</span><br><span class="line">      f: &#123;</span><br><span class="line">        g: <span class="number">5</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  watch: &#123;</span><br><span class="line">    a: <span class="function"><span class="keyword">function</span> (<span class="params">val, oldVal</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'new: %s, old: %s'</span>, val, oldVal)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 方法名</span></span><br><span class="line">    b: <span class="string">'someMethod'</span>,</span><br><span class="line">    <span class="comment">// 深度 watcher</span></span><br><span class="line">    c: &#123;</span><br><span class="line">      handler: <span class="function"><span class="keyword">function</span> (<span class="params">val, oldVal</span>) </span>&#123; <span class="comment">/* ... */</span> &#125;,</span><br><span class="line">      deep: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 该回调将会在侦听开始之后被立即调用</span></span><br><span class="line">    d: &#123;</span><br><span class="line">      handler: <span class="function"><span class="keyword">function</span> (<span class="params">val, oldVal</span>) </span>&#123; <span class="comment">/* ... */</span> &#125;,</span><br><span class="line">      immediate: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    e: [</span><br><span class="line">      <span class="function"><span class="keyword">function</span> <span class="title">handle1</span> (<span class="params">val, oldVal</span>) </span>&#123; <span class="comment">/* ... */</span> &#125;,</span><br><span class="line">      <span class="function"><span class="keyword">function</span> <span class="title">handle2</span> (<span class="params">val, oldVal</span>) </span>&#123; <span class="comment">/* ... */</span> &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="comment">// watch vm.e.f's value: &#123;g: 5&#125;</span></span><br><span class="line">    <span class="string">'e.f'</span>: <span class="function"><span class="keyword">function</span> (<span class="params">val, oldVal</span>) </span>&#123; <span class="comment">/* ... */</span> &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">vm.a = <span class="number">2</span> <span class="comment">// =&gt; new: 2, old: 1</span></span><br></pre></td></tr></table></figure>
+<p><strong>如何在每一个路由后面添加query</strong></p>
+<p>非常hack，也是目前唯一优雅的解决方案</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> transitionTo = router.history.transitionTo</span><br><span class="line"></span><br><span class="line">router.history.transitionTo = <span class="function"><span class="keyword">function</span> (<span class="params">location, onComplete, onAbort</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> query = &#123;<span class="attr">a</span>: <span class="string">'xx'</span>&#125;</span><br><span class="line">  location = <span class="keyword">typeof</span> location === <span class="string">'object'</span></span><br><span class="line">    ? &#123;...location, <span class="attr">query</span>: &#123;...location.query, ...query&#125;&#125;</span><br><span class="line">    : &#123;<span class="attr">path</span>: location, query&#125;</span><br><span class="line"></span><br><span class="line">  transitionTo.call(router.history, location, onComplete, onAbort)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>什么是好的设计？</strong></p>
+<ul>
+<li>展示层组件尽量轻，它只有一个作用，拿到数据渲染。</li>
+<li>不要把组件，当做page来写</li>
+<li>展现组件太复杂时，建议提取功能性组件。</li>
+</ul>
+<p>总之，不要让业务展现组件太过复杂。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://juejin.im/post/5d3a7134f265da1b5d57f1ed" target="_blank" rel="noopener">if 我是前端团队 Leader，怎么制定前端协作规范?</a></li>
+<li><a href="https://www.cnblogs.com/zzd0916/p/10254893.html" target="_blank" rel="noopener">eslint 配合 git （husky）</a></li>
+<li><a href="https://github.com/GDJiaMi/frontend-standards/blob/master/development.md#git-%E5%88%86%E6%94%AF%E6%A8%A1%E5%9E%8B" target="_blank" rel="noopener">git-分支模型</a></li>
+<li><a href="https://www.cnblogs.com/cielsys/p/10346071.html" target="_blank" rel="noopener">现有vue-cli项目引入ESLint</a></li>
+<li><a href="https://ppt.baomitu.com/d/8a94cafc" target="_blank" rel="noopener">南瓜屋 - 技术解决方案与Vue最佳实践</a></li>
+</ul>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持一下</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat-reward-image.jpg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay-reward-image.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2020/06/28/Linux学习笔记/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
